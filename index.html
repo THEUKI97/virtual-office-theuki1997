@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TheUKI1997 - Virtual Office</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0e1a;
+            color: #e2e8f0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
+            animation: bgRotate 30s linear infinite;
+        }
+
+        @keyframes bgRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(99, 102, 241, 0.4);
+            border-radius: 50%;
+            animation: float 15s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
+        }
+
+        /* Header */
+        .header {
+            position: relative;
+            z-index: 10;
+            padding: 30px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+            background: rgba(10, 14, 26, 0.8);
+            backdrop-filter: blur(20px);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: 800;
+            color: white;
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.4);
+        }
+
+        .logo-text h1 {
+            font-size: 26px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6366f1, #a78bfa, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo-text p {
+            font-size: 12px;
+            color: #94a3b8;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .status-bar {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 20px;
+            font-size: 13px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* Main Content */
+        .main-content {
+            position: relative;
+            z-index: 10;
+            padding: 40px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* Dashboard Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            border-radius: 16px;
+            padding: 24px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-color: rgba(99, 102, 241, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(99, 102, 241, 0.1);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #f8fafc;
+        }
+
+        .stat-change {
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .stat-change.positive { color: #22c55e; }
+        .stat-change.neutral { color: #94a3b8; }
+
+        /* Org Chart */
+        .org-chart {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: linear-gradient(180deg, #6366f1, #8b5cf6);
+            border-radius: 2px;
+        }
+
+        /* CEO Level */
+        .ceo-level {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .dept-card {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 16px;
+            padding: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .dept-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6, #ec4899);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .dept-card:hover::before {
+            opacity: 1;
+        }
+
+        .dept-card:hover {
+            border-color: rgba(99, 102, 241, 0.5);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.15);
+        }
+
+        .dept-card.active {
+            border-color: rgba(99, 102, 241, 0.6);
+            box-shadow: 0 0 40px rgba(99, 102, 241, 0.2);
+        }
+
+        .dept-card.ceo {
+            width: 320px;
+            text-align: center;
+            border-color: rgba(236, 72, 153, 0.3);
+        }
+
+        .dept-card.ceo:hover {
+            border-color: rgba(236, 72, 153, 0.6);
+            box-shadow: 0 20px 60px rgba(236, 72, 153, 0.15);
+        }
+
+        .dept-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin: 0 auto 16px;
+        }
+
+        .ceo .dept-icon {
+            background: linear-gradient(135deg, #ec4899, #f43f5e);
+            box-shadow: 0 8px 30px rgba(236, 72, 153, 0.3);
+        }
+
+        .dept-name {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #f8fafc;
+        }
+
+        .dept-desc {
+            font-size: 13px;
+            color: #94a3b8;
+            line-height: 1.5;
+        }
+
+        .agent-count {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 12px;
+            padding: 6px 14px;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 20px;
+            font-size: 12px;
+            color: #a78bfa;
+        }
+
+        /* Department Grid */
+        .dept-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .dept-card.standard {
+            padding: 20px;
+        }
+
+        .dept-card.standard .dept-icon {
+            width: 44px;
+            height: 44px;
+            font-size: 20px;
+            margin: 0 0 12px 0;
+        }
+
+        .dept-card.standard .dept-name {
+            font-size: 15px;
+        }
+
+        .dept-card.standard .dept-desc {
+            font-size: 12px;
+        }
+
+        /* Department Colors */
+        .dept-security .dept-icon { background: linear-gradient(135deg, #ef4444, #f97316); box-shadow: 0 8px 30px rgba(239, 68, 68, 0.3); }
+        .dept-marketing .dept-icon { background: linear-gradient(135deg, #f59e0b, #fbbf24); box-shadow: 0 8px 30px rgba(245, 158, 11, 0.3); }
+        .dept-it .dept-icon { background: linear-gradient(135deg, #3b82f6, #06b6d4); box-shadow: 0 8px 30px rgba(59, 130, 246, 0.3); }
+        .dept-instagram .dept-icon { background: linear-gradient(135deg, #ec4899, #f43f5e); box-shadow: 0 8px 30px rgba(236, 72, 153, 0.3); }
+        .dept-linkedin .dept-icon { background: linear-gradient(135deg, #0ea5e9, #2563eb); box-shadow: 0 8px 30px rgba(14, 165, 233, 0.3); }
+        .dept-smm .dept-icon { background: linear-gradient(135deg, #8b5cf6, #a78bfa); box-shadow: 0 8px 30px rgba(139, 92, 246, 0.3); }
+        .dept-ai .dept-icon { background: linear-gradient(135deg, #10b981, #34d399); box-shadow: 0 8px 30px rgba(16, 185, 129, 0.3); }
+        .dept-upwork .dept-icon { background: linear-gradient(135deg, #14b8a6, #2dd4bf); box-shadow: 0 8px 30px rgba(20, 184, 166, 0.3); }
+        .dept-freelance .dept-icon { background: linear-gradient(135deg, #f97316, #fb923c); box-shadow: 0 8px 30px rgba(249, 115, 22, 0.3); }
+        .dept-cfo .dept-icon { background: linear-gradient(135deg, #84cc16, #a3e635); box-shadow: 0 8px 30px rgba(132, 204, 22, 0.3); }
+        .dept-client .dept-icon { background: linear-gradient(135deg, #6366f1, #818cf8); box-shadow: 0 8px 30px rgba(99, 102, 241, 0.3); }
+        .dept-legal .dept-icon { background: linear-gradient(135deg, #64748b, #94a3b8); box-shadow: 0 8px 30px rgba(100, 116, 139, 0.3); }
+
+        /* Collaboration Map */
+        .collab-section {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .collab-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .collab-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 18px;
+            background: rgba(99, 102, 241, 0.05);
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            border-radius: 12px;
+            font-size: 13px;
+        }
+
+        .collab-arrow {
+            color: #6366f1;
+            font-size: 16px;
+        }
+
+        .collab-source {
+            font-weight: 600;
+            color: #a78bfa;
+        }
+
+        .collab-target {
+            color: #94a3b8;
+        }
+
+        /* Detail Panel */
+        .detail-panel {
+            position: fixed;
+            top: 0;
+            right: -500px;
+            width: 500px;
+            height: 100vh;
+            background: rgba(15, 23, 42, 0.98);
+            border-left: 1px solid rgba(99, 102, 241, 0.2);
+            z-index: 100;
+            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+            padding: 30px;
+            backdrop-filter: blur(20px);
+        }
+
+        .detail-panel.open {
+            right: 0;
+        }
+
+        .detail-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            color: #e2e8f0;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .detail-close:hover {
+            background: rgba(99, 102, 241, 0.2);
+        }
+
+        .detail-header {
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.15);
+        }
+
+        .detail-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 16px;
+        }
+
+        .detail-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .detail-subtitle {
+            font-size: 14px;
+            color: #94a3b8;
+        }
+
+        .detail-section {
+            margin-bottom: 24px;
+        }
+
+        .detail-section h3 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #a78bfa;
+            margin-bottom: 12px;
+        }
+
+        .agent-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .agent-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: rgba(99, 102, 241, 0.05);
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            border-radius: 10px;
+        }
+
+        .agent-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .agent-info h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .agent-info p {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        .task-list {
+            list-style: none;
+        }
+
+        .task-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.08);
+            font-size: 13px;
+            line-height: 1.6;
+            color: #cbd5e1;
+        }
+
+        .task-list li:last-child {
+            border-bottom: none;
+        }
+
+        .collab-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .collab-tag {
+            padding: 6px 14px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 20px;
+            font-size: 12px;
+            color: #a78bfa;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 99;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Workflow Diagram */
+        .workflow-section {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .workflow-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .workflow-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .workflow-node {
+            padding: 10px 18px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .workflow-arrow {
+            color: #6366f1;
+            font-size: 18px;
+        }
+
+        .workflow-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 10px;
+        }
+
+        /* Footer */
+        .footer {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 30px;
+            border-top: 1px solid rgba(99, 102, 241, 0.1);
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .dept-grid { grid-template-columns: repeat(2, 1fr); }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .dept-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .collab-grid { grid-template-columns: 1fr; }
+            .detail-panel { width: 100%; right: -100%; }
+            .header { flex-direction: column; gap: 20px; }
+            .main-content { padding: 20px; }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.5);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(99, 102, 241, 0.3);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(99, 102, 241, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Animation -->
+    <div class="bg-animation"></div>
+    <div class="particles" id="particles"></div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Detail Panel -->
+    <div class="detail-panel" id="detailPanel">
+        <button class="detail-close" onclick="closeDetail()">&times;</button>
+        <div id="detailContent"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon">UK</div>
+            <div class="logo-text">
+                <h1>TheUKI1997</h1>
+                <p>Virtual Office</p>
+            </div>
+        </div>
+        <div class="status-bar">
+            <div class="status-item">
+                <div class="status-dot"></div>
+                <span>Tizim Faol</span>
+            </div>
+            <div class="status-item">
+                <span>13 Bo'lim</span>
+            </div>
+            <div class="status-item">
+                <span>52 AI Agent</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Faol Bo'limlar</div>
+                <div class="stat-value">13</div>
+                <div class="stat-change positive">100% faol</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">AI Agentlar</div>
+                <div class="stat-value">52</div>
+                <div class="stat-change positive">+12 yangi</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Hamkorlik Aloqalari</div>
+                <div class="stat-value">24</div>
+                <div class="stat-change positive">Faol aloqa</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Tizim Xavfsizligi</div>
+                <div class="stat-value">99.9%</div>
+                <div class="stat-change positive">Qoniqarli</div>
+            </div>
+        </div>
+
+        <!-- CEO Level -->
+        <div class="org-chart">
+            <h2 class="section-title">Rahbariyat</h2>
+            <div class="ceo-level">
+                <div class="dept-card ceo" onclick="openDetail('ceo')">
+                    <div class="dept-icon">&#9733;</div>
+                    <div class="dept-name">CEO - Bosh Direktor</div>
+                    <div class="dept-desc">Topshiriqlarni bo'limlarga yo'naltirish, avtomatlashtirish, muammolarni hal qilish va to'g'ridan-to'g'ri aloqa</div>
+                    <div class="agent-count">&#9679; 3 AI Agent</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Departments Grid -->
+        <div class="org-chart">
+            <h2 class="section-title">Bo'limlar va AI Agentlar</h2>
+            <div class="dept-grid">
+                <div class="dept-card standard dept-security" onclick="openDetail('security')">
+                    <div class="dept-icon">&#128274;</div>
+                    <div class="dept-name">1. Cyber Security</div>
+                    <div class="dept-desc">Virtual ofis, mijozlar va dashboardlarni kiberxavfsizlikni ta'minlash</div>
+                    <div class="agent-count">&#9679; 5 Agent</div>
+                </div>
+
+                <div class="dept-card standard dept-marketing" onclick="openDetail('marketing')">
+                    <div class="dept-icon">&#128200;</div>
+                    <div class="dept-name">2. Marketing</div>
+                    <div class="dept-desc">Mahsulot/xizmat taklifi, sifatini raqobatchilardan 2 barobar oshirish</div>
+                    <div class="agent-count">&#9679; 4 Agent</div>
+                </div>
+
+                <div class="dept-card standard dept-it" onclick="openDetail('it')">
+                    <div class="dept-icon">&#128187;</div>
+                    <div class="dept-name">3. IT Support</div>
+                    <div class="dept-desc">Barcha bo'limlardagi IT kamchiliklarni bartaraf etish</div>
+                    <div class="agent-count">&#9679; 4 Agent</div>
+                </div>
+
+                <div class="dept-card standard dept-instagram" onclick="openDetail('instagram')">
+                    <div class="dept-icon">&#128247;</div>
+                    <div class="dept-name">4. Instagram & Facebook</div>
+                    <div class="dept-desc">Targetolog - akkauntni yuritish, obunachilar va tomoshalarni oshirish</div>
+                    <div class="agent-count">&#9679; 3 Agent</div>
+                </div>
+
+                <div class="dept-card standard dept-linkedin" onclick="openDetail('linkedin')">
+                    <div class="dept-icon">&#128188;</div>
+                    <div class="dept-name">5. LinkedIn Targetolog</div>
+                    <div class="dept-desc">LinkedIn profilini yuritish, obunachilar va ko'rishlarni oshirish</div>
+                    <div class="agent-count">&#9679; 3 Agent</div>
+                </div>
+
+                <div class="dept-card standard dept-smm" onclick="openDetail('smm')">
+                    <div class="dept-icon">&#128241;</div>
+                    <div class="dept-name">6. SMM</div>
+                    <div class="dept-desc">Video kontent strategiyasi - qachon, qanday video qo'yishni hisoblash</div>
+                    <div class="agent-count">&#9679; 4 Agent</div>
+                </div>
+
+                <div class="dept-card standard dept-ai" onclick="openDetail('ai')">
+                    <div class="dept-icon">&#9889;</div>
+                    <div class="dept-name">7. AI Studiya</div>
+                    <div class="dept-desc">AI yordamida qiziqarli, ommabop videolar yaratish</div>
+                    <div class="agent-count">&#9679; 6 Agent</div>
+                </div>
+
+                <div class="dept-card standard dept-upwork" onclick="openDetail('upwork')">
+                    <div class="dept-icon">&#128203;</div>
+                    <div class="dept-name">8. Upwork & Freelance</div>
+                    <div class="dept-desc">Freelance platformlarida ish izlash va e'lonlar joylash</div>
+                    <div class="agent-count">&#9679; 3 Agent</div>
+                </div>
+
+                <div class="dept-card standard dept-freelance" onclick="openDetail('freelance')">
+                    <div class="dept-icon">&#128295;</div>
+                    <div class="dept-name">9. Freelance Ishlar</div>
+                    <div class="dept-desc">Freelance ishlarni bajarish va to'lovlarni CFO ga yo'naltirish</div>
+                    <div class="agent-count">&#9679; 4 Agent</div>
+                </div>
+
+                <div class="dept-card standard dept-cfo" onclick="openDetail('cfo')">
+                    <div class="dept-icon">&#128176;</div>
+                    <div class="dept-name">10. CFO - Moliya</div>
+                    <div class="dept-desc">Narxlar 35% arzon, to'lovlarni muvaffaqiyatli yechib olish</div>
+                    <div class="agent-count">&#9679; 4 Agent</div>
+                </div>
+
+                <div class="dept-card standard dept-client" onclick="openDetail('client')">
+                    <div class="dept-icon">&#128101;</div>
+                    <div class="dept-name">11. Mijozlar Bilan Ishlash</div>
+                    <div class="dept-desc">Mijozlar bilan suhbat, muammolarni hal qilish, shartnomalar</div>
+                    <div class="agent-count">&#9679; 3 Agent</div>
+                </div>
+
+                <div class="dept-card standard dept-legal" onclick="openDetail('legal')">
+                    <div class="dept-icon">&#9878;</div>
+                    <div class="dept-name">12. Jurisdiction - Huquqiy</div>
+                    <div class="dept-desc">Huquqiy qonuniylik, burchlarni tushuntirish, qonun buzilishiga yo'l qo'ymaslik</div>
+                    <div class="agent-count">&#9679; 3 Agent</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Collaboration Map -->
+        <div class="collab-section">
+            <h2 class="section-title">Bo'limlar O'rtasidagi Hamkorlik</h2>
+            <div class="collab-grid">
+                <div class="collab-item">
+                    <span class="collab-source">Marketing</span>
+                    <span class="collab-arrow">&#8594;</span>
+                    <span class="collab-target">Instagram Targetolog + SMM</span>
+                </div>
+                <div class="collab-item">
+                    <span class="collab-source">Instagram & Facebook</span>
+                    <span class="collab-arrow">&#8594;</span>
+                    <span class="collab-target">AI Studiya (video kontent)</span>
+                </div>
+                <div class="collab-item">
+                    <span class="collab-source">LinkedIn</span>
+                    <span class="collab-arrow">&#8594;</span>
+                    <span class="collab-target">AI Studiya (video kontent)</span>
+                </div>
+                <div class="collab-item">
+                    <span class="collab-source">SMM</span>
+                    <span class="collab-arrow">&#8594;</span>
+                    <span class="collab-target">Barcha Targetolog + AI Studiya</span>
+                </div>
+                <div class="collab-item">
+                    <span class="collab-source">AI Studiya</span>
+                    <span class="collab-arrow">&#8594;</span>
+                    <span class="collab-target">Marketing, Instagram, LinkedIn, Upwork</span>
+                </div>
+                <div class="collab-item">
+                    <span class="collab-source">Upwork & Freelance</span>
+                    <span class="collab-arrow">&#8594;</span>
+                    <span class="collab-target">Freelance Ishlar Bo'limi</span>
+                </div>
+                <div class="collab-item">
+                    <span class="collab-source">Freelance Ishlar</span>
+                    <span class="collab-arrow">&#8594;</span>
+                    <span class="collab-target">CFO (to'lov yo'naltirish)</span>
+                </div>
+                <div class="collab-item">
+                    <span class="collab-source">Mijozlar Bilan Ishlash</span>
+                    <span class="collab-arrow">&#8594;</span>
+                    <span class="collab-target">Jurisdiction (shartnoma yordami)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Workflow -->
+        <div class="workflow-section">
+            <h2 class="section-title">Asosiy Ish Jarayoni</h2>
+            <div class="workflow-container">
+                <div class="workflow-row">
+                    <div class="workflow-node" style="background: rgba(236,72,153,0.15); border-color: rgba(236,72,153,0.3);">CEO Topshiriq</div>
+                    <span class="workflow-arrow">&#8594;</span>
+                    <div class="workflow-node">Marketing</div>
+                    <span class="workflow-arrow">&#8594;</span>
+                    <div class="workflow-node">AI Studiya</div>
+                    <span class="workflow-arrow">&#8594;</span>
+                    <div class="workflow-node">SMM + Targetolog</div>
+                </div>
+                <div class="workflow-row">
+                    <div class="workflow-node" style="background: rgba(236,72,153,0.15); border-color: rgba(236,72,153,0.3);">CEO Topshiriq</div>
+                    <span class="workflow-arrow">&#8594;</span>
+                    <div class="workflow-node">Upwork</div>
+                    <span class="workflow-arrow">&#8594;</span>
+                    <div class="workflow-node">Freelance Ishlar</div>
+                    <span class="workflow-arrow">&#8594;</span>
+                    <div class="workflow-node">CFO</div>
+                </div>
+                <div class="workflow-row">
+                    <div class="workflow-node">Mijozlar</div>
+                    <span class="workflow-arrow">&#8594;</span>
+                    <div class="workflow-node">Mijozlar Bilan Ishlash</div>
+                    <span class="workflow-arrow">&#8594;</span>
+                    <div class="workflow-node">Jurisdiction</div>
+                    <span class="workflow-arrow">&#8594;</span>
+                    <div class="workflow-node" style="background: rgba(236,72,153,0.15); border-color: rgba(236,72,153,0.3);">CEO Xabar</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>TheUKI1997 Virtual Office &copy; 2026 | Barcha huquqlar himoyalangan | 13 Ta Bo'lim | 52 AI Agent</p>
+    </footer>
+
+    <script>
+        // Create particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Department data
+        const deptData = {
+            ceo: {
+                icon: '&#9733;',
+                color: 'linear-gradient(135deg, #ec4899, #f43f5e)',
+                title: 'CEO - Bosh Direktor',
+                subtitle: 'Virtual ofis rahbariyati va boshqaruv',
+                agents: [
+                    { name: 'CEO-1 Strateg', role: 'Strategik rejalashtirish va topshiriqlarni taqsimlash' },
+                    { name: 'CEO-2 Avtomat', role: 'Avtomatlashtirish va jarayonlarni optimallashtirish' },
+                    { name: 'CEO-3 Aloqa', role: 'Muammolarni aniqlash va asosiy foydalanuvchi bilan aloqa' }
+                ],
+                tasks: [
+                    'Barcha bo\'limlarga topshiriqlarni yo\'naltirish',
+                    'Tizim avtomatlashtirishini nazorat qilish',
+                    'Bo\'limlar o\'rtasidagi hamkorlikni muvofiqlashtirish',
+                    'Muammolarni aniqlash va tezkor yechim topish',
+                    'Asosiy foydalanuvchi bilan to\'g\'ridan-to\'g\'ri aloqa',
+                    'Kiberxavfsizlik va huquqiy masalalarni nazorat qilish'
+                ],
+                collabs: ['Barcha 12 ta bo\'lim']
+            },
+            security: {
+                icon: '&#128274;',
+                color: 'linear-gradient(135deg, #ef4444, #f97316)',
+                title: 'Cyber Security',
+                subtitle: 'Virtual ofis va mijozlarni kiberxavfsizligi',
+                agents: [
+                    { name: 'SEC-1 Firewall', role: 'Tashqi xavfsizlik devori va hujumlarni bloklash' },
+                    { name: 'SEC-2 Monitor', role: 'Real vaqtda xavfsizlik monitoringi' },
+                    { name: 'SEC-3 Scan', role: 'Zaifliklarni skanerlash va bartaraf etish' },
+                    { name: 'SEC-4 Data', role: 'Ma\'lumotlar shifrlash va himoya' },
+                    { name: 'SEC-5 Alert', role: 'Xavfsizlik ogohlantirishlari va javob' }
+                ],
+                tasks: [
+                    'Virtual ofis tizimlarini kiberxavfsizligini ta\'minlash',
+                    'Mijoz ma\'lumotlarini himoya qilish',
+                    'Dashboard va ish joylarini xavfsizligini nazorat qilish',
+                    'Zaifliklarni doimiy skanerlash',
+                    'Kiberhujumlarni oldini olish va javob berish',
+                    'Xavfsizlik protokollarini yangilab turish'
+                ],
+                collabs: ['IT Support', 'CEO']
+            },
+            marketing: {
+                icon: '&#128200;',
+                color: 'linear-gradient(135deg, #f59e0b, #fbbf24)',
+                title: 'Marketing',
+                subtitle: 'Mahsulot va xizmatlarni rivojlantirish',
+                agents: [
+                    { name: 'MKT-1 Analyst', role: 'Bozor tahlili va raqobatchilarni o\'rganish' },
+                    { name: 'MKT-2 Strategy', role: 'Marketing strategiyasini ishlab chiqish' },
+                    { name: 'MKT-3 Content', role: 'Kontent strategiyasi va brending' },
+                    { name: 'MKT-4 Growth', role: 'O\'sish va kengaytirish strategiyasi' }
+                ],
+                tasks: [
+                    'Mahsulot va xizmat taklifini takomillashtirish',
+                    'Sifatini raqobatchilardan 2 barobar oshirish',
+                    'Instagram targetolog bilan hamkorlikda ishlash',
+                    'SMM bo\'limi bilan strategiya ishlab chiqish',
+                    'Mijozlar oqimini kuchaytirish',
+                    'Bozor o\'rni va raqobatbardoshlikni tahlil qilish'
+                ],
+                collabs: ['Instagram & Facebook', 'SMM', 'AI Studiya']
+            },
+            it: {
+                icon: '&#128187;',
+                color: 'linear-gradient(135deg, #3b82f6, #06b6d4)',
+                title: 'IT Support',
+                subtitle: 'Texnik qo\'llab-quvvatlash va infratuzilma',
+                agents: [
+                    { name: 'IT-1 System', role: 'Tizimlarni sozlash va yangilash' },
+                    { name: 'IT-2 Network', role: 'Tarmoq infratuzilmasi va ulanish' },
+                    { name: 'IT-3 Fix', role: 'Texnik nosozliklarni bartaraf etish' },
+                    { name: 'IT-4 Backup', role: 'Zaxira nusxalash va tiklash' }
+                ],
+                tasks: [
+                    'Barcha bo\'limlardagi IT kamchiliklarni bartaraf etish',
+                    'Tizim yangilanishlari va sozlamalarini boshqarish',
+                    'Tarmoq va serverlarni monitoring qilish',
+                    'Ma\'lumotlar zaxira nusxalarini yaratish',
+                    'Texnik nosozliklarga tezkor javob berish',
+                    'Yangi texnologiyalarni joriy etish'
+                ],
+                collabs: ['Cyber Security', 'Barcha Bo\'limlar']
+            },
+            instagram: {
+                icon: '&#128247;',
+                color: 'linear-gradient(135deg, #ec4899, #f43f5e)',
+                title: 'Instagram & Facebook Targetolog',
+                subtitle: 'Ijtimoiy tarmoq akkauntlarini rivojlantirish',
+                agents: [
+                    { name: 'IG-1 Target', role: 'Reklama targeting va optimallashtirish' },
+                    { name: 'IG-2 Content', role: 'Kontent rejalashtirish va chop etish' },
+                    { name: 'IG-3 Growth', role: 'Obunachilar va ko\'rishlarni oshirish' }
+                ],
+                tasks: [
+                    'Instagram va Facebook akkauntlarini yuritish',
+                    'Obunachilar sonini oshirish',
+                    'Video tomosha sonini ko\'paytirish',
+                    'AI Studiya bilan hamkorlikda kontent yaratish',
+                    'Target reklamalarni optimallashtirish',
+                    'SMM bo\'limi bilan strategiya muvofiqlashtirish'
+                ],
+                collabs: ['AI Studiya', 'SMM', 'Marketing']
+            },
+            linkedin: {
+                icon: '&#128188;',
+                color: 'linear-gradient(135deg, #0ea5e9, #2563eb)',
+                title: 'LinkedIn Targetolog',
+                subtitle: 'LinkedIn profilini rivojlantirish',
+                agents: [
+                    { name: 'LI-1 Profile', role: 'Profil optimallashtirish va rivojlantirish' },
+                    { name: 'LI-2 Network', role: 'Tarmoqni kengaytirish va aloqalar' },
+                    { name: 'LI-3 Content', role: 'LinkedIn kontent strategiyasi' }
+                ],
+                tasks: [
+                    'LinkedIn profilini yuritish va rivojlantirish',
+                    'Obunachilar va ko\'rishlarni oshirish',
+                    'AI Studiya bilan hamkorlikda kontent yaratish',
+                    'Biznes aloqalarni kengaytirish',
+                    'Professional tarmoqni mustahkamlash',
+                    'Instagram targetolog bo\'limi bilan tajriba almashish'
+                ],
+                collabs: ['AI Studiya', 'Marketing', 'SMM']
+            },
+            smm: {
+                icon: '&#128241;',
+                color: 'linear-gradient(135deg, #8b5cf6, #a78bfa)',
+                title: 'SMM',
+                subtitle: 'Ijtimoiy media marketing strategiyasi',
+                agents: [
+                    { name: 'SMM-1 Planner', role: 'Kontent rejalashtirish va taqvim' },
+                    { name: 'SMM-2 Analyst', role: 'Engagement va ko\'rishlar tahlili' },
+                    { name: 'SMM-3 Trend', role: 'Trendlarni kuzatish va qo\'llash' },
+                    { name: 'SMM-4 Optimize', role: 'Vaqt va format optimallashtirish' }
+                ],
+                tasks: [
+                    'Qanday videolarni qachon qo\'yishni hisoblash',
+                    'Ko\'rish va like sonini ko\'paytirish strategiyasi',
+                    'Barcha targetolog bo\'limlari bilan hamkorlik',
+                    'AI Studiya bilan kontent rejalashtirish',
+                    'Eng yaxshi vaqtlarni aniqlash',
+                    'Platforma algoritmlarini tahlil qilish'
+                ],
+                collabs: ['Instagram & Facebook', 'LinkedIn', 'AI Studiya', 'Marketing']
+            },
+            ai: {
+                icon: '&#9889;',
+                color: 'linear-gradient(135deg, #10b981, #34d399)',
+                title: 'AI Studiya',
+                subtitle: 'AI yordamida video kontent yaratish',
+                agents: [
+                    { name: 'AI-1 Script', role: 'Video ssenariylarini yozish' },
+                    { name: 'AI-2 Visual', role: 'Vizual effektlar va dizayn' },
+                    { name: 'AI-3 Edit', role: 'Video montaj va qayta ishlash' },
+                    { name: 'AI-4 Voice', role: 'Ovoz va audio effektlar' },
+                    { name: 'AI-5 Trend', role: 'Trendli kontent g\'oyalari' },
+                    { name: 'AI-6 Quality', role: 'Sifat nazorati va optimallashtirish' }
+                ],
+                tasks: [
+                    'Marketing bo\'limining g\'oyalari bo\'yicha video yaratish',
+                    'Instagram va Facebook uchun qiziqarli videolar',
+                    'LinkedIn uchun professional kontent',
+                    'Upwork va freelance uchun taqdimot videolari',
+                    'Ommabop va ko\'p ko\'riladigan kontent yaratish',
+                    'Barcha bo\'limlarga tayyor videolarni taqdim etish'
+                ],
+                collabs: ['Marketing', 'Instagram & Facebook', 'LinkedIn', 'Upwork', 'SMM']
+            },
+            upwork: {
+                icon: '&#128203;',
+                color: 'linear-gradient(135deg, #14b8a6, #2dd4bf)',
+                title: 'Upwork & Freelance Dashboardlar',
+                subtitle: 'Freelance platformlarida ish qidirish',
+                agents: [
+                    { name: 'UP-1 Search', role: 'Platformlarda ish qidirish' },
+                    { name: 'UP-2 Post', role: 'E\'lonlar joylash va profil boshqaruvi' },
+                    { name: 'UP-3 Connect', role: 'Mijozlar bilan aloqa o\'rnatish' }
+                ],
+                tasks: [
+                    'Upwork va boshqa freelance dashboardlarida ish izlash',
+                    'Ish e\'lonlarini joylash',
+                    'Profilni optimallashtirish',
+                    'Freelance ishlar bo\'limiga ish yo\'naltirish',
+                    'Yangi platformlarni qo\'shish va integratsiya',
+                    'AI Studiya bilan profil videolarini yaratish'
+                ],
+                collabs: ['Freelance Ishlar', 'AI Studiya', 'CFO']
+            },
+            freelance: {
+                icon: '&#128295;',
+                color: 'linear-gradient(135deg, #f97316, #fb923c)',
+                title: 'Freelance Ishlar',
+                subtitle: 'Freelance loyihalarni bajarish',
+                agents: [
+                    { name: 'FL-1 Project', role: 'Loyihalarni boshqarish' },
+                    { name: 'FL-2 Deliver', role: 'Natijalarni yetkazib berish' },
+                    { name: 'FL-3 Quality', role: 'Sifat nazorati' },
+                    { name: 'FL-4 Pay', role: 'To\'lov jarayonini boshqarish' }
+                ],
+                tasks: [
+                    'Upwork bo\'limidan kelgan ishlarni bajarish',
+                    'Loyiha sifatini nazorat qilish',
+                    'Mijozlarga natijalarni yetkazib berish',
+                    'To\'lovlarni CFO bo\'limiga yo\'naltirish',
+                    'Loyiha vaqtida bajarilishini ta\'minlash',
+                    'Mijoz mamnuniyatini oshirish'
+                ],
+                collabs: ['Upwork & Freelance', 'CFO', 'Mijozlar Bilan Ishlash']
+            },
+            cfo: {
+                icon: '&#128176;',
+                color: 'linear-gradient(135deg, #84cc16, #a3e635)',
+                title: 'CFO - Moliya va Buxgalteriya',
+                subtitle: 'Moliyaviy boshqaruv va narx strategiyasi',
+                agents: [
+                    { name: 'CFO-1 Price', role: 'Narxlar strategiyasi va raqobat tahlili' },
+                    { name: 'CFO-2 Finance', role: 'Moliyaviy rejalashtirish' },
+                    { name: 'CFO-3 Account', role: 'Buxgalteriya va hisobot' },
+                    { name: 'CFO-4 Pay', role: 'To\'lovlarni qabul qilish va yechish' }
+                ],
+                tasks: [
+                    'Xizmat narxlarini raqobatchilardan 35% arzon saqlash',
+                    'Raqobatbardoshlikni oshirish maqsadida narx siyosati',
+                    'Freelance bo\'limidan kelgan to\'lovlarni qabul qilish',
+                    'Moliyaviy hisobotlarni tayyorlash',
+                    'Budjet va xarajatlarni nazorat qilish',
+                    'To\'lovlarni muvaffaqiyatli yechib olish'
+                ],
+                collabs: ['Freelance Ishlar', 'CEO', 'Mijozlar Bilan Ishlash']
+            },
+            client: {
+                icon: '&#128101;',
+                color: 'linear-gradient(135deg, #6366f1, #818cf8)',
+                title: 'Mijozlar Bilan Ishlash',
+                subtitle: 'Mijozlar aloqalari va shartnomalar',
+                agents: [
+                    { name: 'CL-1 Support', role: 'Mijozlarni qo\'llab-quvvatlash' },
+                    { name: 'CL-2 Talk', role: 'Mijozlar bilan suhbat va muzokaralar' },
+                    { name: 'CL-3 Contract', role: 'Shartnomalar tuzish va boshqarish' }
+                ],
+                tasks: [
+                    'Muvaffaqiyatli ishlardan kelgan mijozlar bilan suhbat',
+                    'Mijoz muammolarini hal qilish',
+                    'Shartnomalar tuzish',
+                    'Jurisdiction bo\'limidan huquqiy yordam olish',
+                    'Mijoz mamnuniyatini monitoring qilish',
+                    'Uzoq muddatli mijoz aloqalarini mustahkamlash'
+                ],
+                collabs: ['Jurisdiction', 'CFO', 'Freelance Ishlar', 'Marketing']
+            },
+            legal: {
+                icon: '&#9878;',
+                color: 'linear-gradient(135deg, #64748b, #94a3b8)',
+                title: 'Jurisdiction - Huquqiy Bo\'lim',
+                subtitle: 'Huquqiy qonuniylik va maslahat',
+                agents: [
+                    { name: 'LEG-1 Law', role: 'Qonunlar va qoidalar monitoringi' },
+                    { name: 'LEG-2 Contract', role: 'Shartnomalarni tekshirish' },
+                    { name: 'LEG-3 Compliance', role: 'Qonuniy muvofiqlik nazorati' }
+                ],
+                tasks: [
+                    'Barcha bo\'limlarning huquqiy qonuniyligini ta\'minlash',
+                    'Burchlarni tushuntirish va maslahat berish',
+                    'Qonun buzilishiga yo\'l qo\'ymaslik',
+                    'Shartnomalarni tekshirish va tasdiqlash',
+                    'Mijozlar bilan ishlash bo\'limiga huquqiy yordam',
+                    'Yangi qonunchilik o\'zgarishlarini kuzatish'
+                ],
+                collabs: ['Mijozlar Bilan Ishlash', 'CEO', 'Barcha Bo\'limlar']
+            }
+        };
+
+        function openDetail(deptId) {
+            const data = deptData[deptId];
+            if (!data) return;
+
+            const content = `
+                <div class="detail-header">
+                    <div class="detail-icon" style="background: ${data.color}; box-shadow: 0 8px 30px ${data.color.replace(')', ', 0.3)').replace('linear-gradient', 'rgba')};">${data.icon}</div>
+                    <div class="detail-title">${data.title}</div>
+                    <div class="detail-subtitle">${data.subtitle}</div>
+                </div>
+                
+                <div class="detail-section">
+                    <h3>AI Agentlar (${data.agents.length})</h3>
+                    <div class="agent-list">
+                        ${data.agents.map((agent, i) => `
+                            <div class="agent-item">
+                                <div class="agent-avatar" style="background: ${data.color};">${i + 1}</div>
+                                <div class="agent-info">
+                                    <h4>${agent.name}</h4>
+                                    <p>${agent.role}</p>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <h3>Asosiy Vazifalar</h3>
+                    <ul class="task-list">
+                        ${data.tasks.map(task => `<li>${task}</li>`).join('')}
+                    </ul>
+                </div>
+
+                <div class="detail-section">
+                    <h3>Hamkorlik</h3>
+                    <div class="collab-list">
+                        ${data.collabs.map(collab => `<span class="collab-tag">${collab}</span>`).join('')}
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('detailContent').innerHTML = content;
+            document.getElementById('detailPanel').classList.add('open');
+            document.getElementById('overlay').classList.add('active');
+        }
+
+        function closeDetail() {
+            document.getElementById('detailPanel').classList.remove('open');
+            document.getElementById('overlay').classList.remove('active');
+        }
+
+        document.getElementById('overlay').addEventListener('click', closeDetail);
+
+        // Add click handlers to all dept cards
+        document.querySelectorAll('.dept-card').forEach(card => {
+            card.addEventListener('click', function() {
+                document.querySelectorAll('.dept-card').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
