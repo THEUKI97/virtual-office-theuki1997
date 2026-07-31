@@ -137,7 +137,7 @@
             display: block;
         }
 
-        /* Live Office Floor Plan (Virtual Office Room Visualization) */
+        /* Live Office Floor Plan */
         .office-banner {
             background: rgba(15, 23, 42, 0.7);
             border: 1px solid rgba(99, 102, 241, 0.2);
@@ -319,23 +319,6 @@
             border-color: rgba(236, 72, 153, 0.3);
         }
 
-        .dispatch-btn {
-            background: rgba(99, 102, 241, 0.15);
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            color: #a78bfa;
-            padding: 6px 12px;
-            border-radius: 10px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .dispatch-btn:hover {
-            background: #6366f1;
-            color: #fff;
-        }
-
         /* Task Dispatcher Modal & Console */
         .task-console-card {
             background: rgba(15, 23, 42, 0.85);
@@ -421,7 +404,7 @@
             padding: 16px;
             font-family: monospace;
             font-size: 0.82rem;
-            max-height: 220px;
+            max-height: 250px;
             overflow-y: auto;
             color: #4ade80;
             margin-top: 18px;
@@ -443,22 +426,6 @@
             border-radius: 24px;
             padding: 32px;
             backdrop-filter: blur(16px);
-        }
-
-        .api-vault-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-        }
-
-        .api-vault-header h2 {
-            font-size: 1.4rem;
-            font-weight: 800;
-            color: #fbbf24;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
         .api-grid {
@@ -483,10 +450,6 @@
             font-weight: 700;
             font-size: 1rem;
             color: #f8fafc;
-        }
-
-        .api-box-title i {
-            font-size: 20px;
         }
 
         .guidance-box {
@@ -625,7 +588,7 @@
                                 <div class="avatar-frame">👨‍💼<span class="avatar-typing-dot"></span></div>
                                 <div class="agent-details">
                                     <h4>CEO-1 Strateg</h4>
-                                    <p><i class="fa-solid fa-bolt"></i> Reja va Topsiriqlar</p>
+                                    <p><i class="fa-solid fa-bolt"></i> Reja va Topshiriqlar</p>
                                 </div>
                             </div>
                             <span class="desk-status-badge">🟢 Ishlamoqda</span>
@@ -851,8 +814,8 @@
 
                 <!-- Live Terminal Activity Log -->
                 <div class="log-terminal" id="activityTerminalLog">
-                    <div class="log-entry"><span class="time">[23:11:00]</span> <span class="agent">SYSTEM:</span> Virtual Office AI Dispatcher tayyor holatda.</div>
-                    <div class="log-entry"><span class="time">[23:11:05]</span> <span class="agent">CEO-1:</span> 52 ta AI agent stollarida topshiriqlarni kutmoqda.</div>
+                    <div class="log-entry"><span class="time">[23:36:00]</span> <span class="agent">SYSTEM:</span> Virtual Office AI Dispatcher tayyor holatda.</div>
+                    <div class="log-entry"><span class="time">[23:36:05]</span> <span class="agent">CEO-1:</span> 52 ta AI agent stollarida topshiriqlarni kutmoqda.</div>
                 </div>
             </div>
         </section>
@@ -864,8 +827,8 @@
                     <h3><i class="fa-solid fa-comments"></i> 💬 Mijozlar Bilan Muloqot va Avto-Javob Boti</h3>
                     <div style="font-size: 0.85rem; color: #4ade80;"><i class="fa-solid fa-circle-check"></i> CRM Bot Ulangan</div>
                 </div>
-                <p style="color: #cbd5e1; font-size: 0.9rem; margin-bottom: 20px; line-line-height: 1.6;">
-                    Ushbu bo'lim ijtimoiy tarmoqlaringiz (Instagram Direct, Telegram, LinkedIn Messages) orqali kelgan barcha mijozlar murojaatiga AI agentlar orqali avtomatik 24/7 rejimda javob beradi va mijozlar bazasini shakllantiradi.
+                <p style="color: #cbd5e1; font-size: 0.9rem; margin-bottom: 20px; line-height: 1.6;">
+                    Ushbu bo'lim ijtimoiy tarmoqlaringiz (Telegram, Instagram Direct, LinkedIn Messages) orqali kelgan barcha mijozlar murojaatiga AI agentlar orqali avtomatik 24/7 rejimda javob beradi va mijozlar bazasini shakllantiradi.
                 </p>
 
                 <div class="floorplan-grid" style="margin-bottom: 0;">
@@ -873,8 +836,8 @@
                         <h4>📱 Telegram Client Bot</h4>
                         <p style="color: #94a3b8; font-size: 0.82rem; margin-top: 4px;">Mijozlar bilan suhbat va shartnoma tuzish</p>
                         <div style="margin-top: 14px; background: rgba(0,136,204,0.15); border: 1px solid #0088cc; padding: 12px; border-radius: 12px; font-size: 0.85rem; color: #38bdf8;">
-                            <b>Bot:</b> @theuki_bot <br>
-                            <b>Status:</b> Faol avto-javob berilmoqda
+                            <b>Bot Token:</b> 8743521535:AAHdsuYXNIloP_YUOLYOvihZZ6uA1byQVR0 <br>
+                            <b>Status:</b> Faol avto-javob berilmoqda 🟢
                         </div>
                     </div>
 
@@ -882,8 +845,8 @@
                         <h4>📸 Instagram Direct CRM</h4>
                         <p style="color: #94a3b8; font-size: 0.82rem; margin-top: 4px;">Direct va Izohlarga AI javobi</p>
                         <div style="margin-top: 14px; background: rgba(236,72,153,0.15); border: 1px solid #ec4899; padding: 12px; border-radius: 12px; font-size: 0.85rem; color: #f472b6;">
-                            <b>Meta Graph API:</b> Ulangan <br>
-                            <b>Avto-DM:</b> Faol
+                            <b>Meta Integration:</b> Tayyor <br>
+                            <b>Avto-DM:</b> Faol 🟢
                         </div>
                     </div>
                 </div>
@@ -897,8 +860,8 @@
         <div class="modal-body">
             <button class="modal-close" onclick="closeApiVaultModal()">✕</button>
             
-            <div class="api-vault-header">
-                <h2><i class="fa-solid fa-key"></i> 🔐 API Kalitlari va Tokenlar Boshqaruvi</h2>
+            <div class="api-vault-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 style="font-size: 1.4rem; color: #fbbf24;"><i class="fa-solid fa-key"></i> 🔐 API Kalitlari va Tokenlar Boshqaruvi</h2>
                 <button class="save-vault-btn" onclick="saveApiVault()"><i class="fa-solid fa-floppy-disk"></i> Saqlash</button>
             </div>
 
@@ -908,15 +871,30 @@
 
             <div class="api-grid">
 
-                <!-- INSTAGRAM & META API -->
+                <!-- TELEGRAM BOT TOKEN -->
                 <div class="api-box">
-                    <div class="api-box-title" style="color: #ec4899;">
-                        <i class="fa-brands fa-instagram"></i> 1. Instagram & Meta Graph API Token
+                    <div class="api-box-title" style="color: #38bdf8;">
+                        <i class="fa-brands fa-telegram"></i> 1. Telegram Bot Token (@BotFather) — FAOL
                     </div>
                     <div class="guidance-box">
                         <b>💡 Qanday olinadi?</b><br>
-                        1. <a href="https://developers.facebook.com/" target="_blank">developers.facebook.com</a> saytiga kiring va Ilova yarating.<br>
-                        2. <i>Instagram Graph API</i> va <i>Pages Access Token</i> bo'limidan Doimiy Token oling.
+                        1. Telegramda <a href="https://t.me/BotFather" target="_blank">@BotFather</a> boti bilan suhbat bosing.<br>
+                        2. <i>/newbot</i> buyrug'ini berib bot tokenini oling.
+                    </div>
+                    <div class="task-input-group">
+                        <label>Telegram Bot Token</label>
+                        <input type="text" id="apiTelegramToken" value="8743521535:AAHdsuYXNIloP_YUOLYOvihZZ6uA1byQVR0">
+                    </div>
+                </div>
+
+                <!-- INSTAGRAM & META API -->
+                <div class="api-box">
+                    <div class="api-box-title" style="color: #ec4899;">
+                        <i class="fa-brands fa-instagram"></i> 2. Instagram & Meta Graph API Token
+                    </div>
+                    <div class="guidance-box">
+                        <b>💡 SMS kelmasa nima qilinadi?</b><br>
+                        Meta-da registratsiyadan o'tganda `+998942862920` (Mobiuz) raqamingizni kiritsangiz SMS 2 soniyada keladi!
                     </div>
                     <div class="task-input-group">
                         <label>Meta User / Page Access Token</label>
@@ -927,12 +905,12 @@
                 <!-- LINKEDIN API -->
                 <div class="api-box">
                     <div class="api-box-title" style="color: #0ea5e9;">
-                        <i class="fa-brands fa-linkedin"></i> 2. LinkedIn Developer OAuth Token
+                        <i class="fa-brands fa-linkedin"></i> 3. LinkedIn Developer OAuth Token
                     </div>
                     <div class="guidance-box">
                         <b>💡 Qanday olinadi?</b><br>
                         1. <a href="https://www.linkedin.com/developers/" target="_blank">linkedin.com/developers</a> saytiga o'ting.<br>
-                        2. <i>Create App</i> bosing va OAuth 2.0 Access Token (w_member_social) ga ruxsat oling.
+                        2. <i>Create App</i> bosing va OAuth Access Token ko'chirib oling.
                     </div>
                     <div class="task-input-group">
                         <label>LinkedIn Access Token</label>
@@ -943,32 +921,16 @@
                 <!-- UPWORK API -->
                 <div class="api-box">
                     <div class="api-box-title" style="color: #14b8a6;">
-                        <i class="fa-solid fa-briefcase"></i> 3. Upwork API Client Key & Secret
+                        <i class="fa-solid fa-briefcase"></i> 4. Upwork API Client Key
                     </div>
                     <div class="guidance-box">
                         <b>💡 Qanday olinadi?</b><br>
                         1. <a href="https://www.upwork.com/services/api/keys" target="_blank">upwork.com/services/api/keys</a> ga o'ting.<br>
-                        2. API Key yarating va Client Secret kodini ko'chirib oling.
+                        2. API Key yarating.
                     </div>
                     <div class="task-input-group">
                         <label>Upwork Client Key</label>
                         <input type="password" id="apiUpworkKey" placeholder="upwork_key_xxxx...">
-                    </div>
-                </div>
-
-                <!-- TELEGRAM BOT TOKEN -->
-                <div class="api-box">
-                    <div class="api-box-title" style="color: #38bdf8;">
-                        <i class="fa-brands fa-telegram"></i> 4. Telegram Bot Token (@BotFather)
-                    </div>
-                    <div class="guidance-box">
-                        <b>💡 Qanday olinadi?</b><br>
-                        1. Telegramda <a href="https://t.me/BotFather" target="_blank">@BotFather</a> boti bilan suhbat bosing.<br>
-                        2. <i>/newbot</i> buyrug'ini berib bot tokenini oling.
-                    </div>
-                    <div class="task-input-group">
-                        <label>Telegram Bot Token</label>
-                        <input type="password" id="apiTelegramToken" value="8743521535:AAHdsuYXNIloP_YUOLYOvihZZ6uA1byQVR0">
                     </div>
                 </div>
 
