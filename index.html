@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TheUKI1997 — Live Virtual Office & AI Empire HQ (18 Bo'lim & 72 Agent)</title>
+    <title>TheUKI1997 — Specialized Multi-AI Autonomous Virtual Empire</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -15,7 +15,7 @@
         }
 
         body {
-            background: #090d16;
+            background: #080c17;
             color: #f1f5f9;
             min-height: 100vh;
             overflow-x: hidden;
@@ -175,6 +175,56 @@
             50% { transform: scale(1.4); opacity: 0.5; }
         }
 
+        /* Specialized AI Engine Mapping Table */
+        .ai-matrix-card {
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 24px;
+            padding: 24px 28px;
+            margin-bottom: 32px;
+            backdrop-filter: blur(16px);
+        }
+
+        .ai-matrix-header h3 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #fbbf24;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ai-engine-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .ai-pill {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 14px;
+            padding: 12px 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.88rem;
+        }
+
+        .ai-pill i {
+            font-size: 1.1rem;
+        }
+
+        .ai-pill b {
+            color: #fff;
+        }
+
+        .ai-pill span {
+            color: #94a3b8;
+            font-size: 0.78rem;
+        }
+
         /* 3D Isometric Workstation Rooms Grid */
         .floorplan-grid {
             display: grid;
@@ -235,6 +285,17 @@
         .room-name p {
             font-size: 0.75rem;
             color: #94a3b8;
+        }
+
+        .ai-tag-badge {
+            font-size: 0.72rem;
+            padding: 3px 8px;
+            border-radius: 6px;
+            background: rgba(99, 102, 241, 0.2);
+            color: #a78bfa;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            margin-left: 6px;
+            font-weight: 700;
         }
 
         /* Virtual Workstation Desks & Avatar Simulation */
@@ -313,12 +374,6 @@
             white-space: nowrap;
         }
 
-        .desk-status-badge.busy {
-            background: rgba(236, 72, 153, 0.15);
-            color: #f472b6;
-            border-color: rgba(236, 72, 153, 0.3);
-        }
-
         /* Task Dispatcher Modal & Console */
         .task-console-card {
             background: rgba(15, 23, 42, 0.85);
@@ -327,22 +382,6 @@
             padding: 28px;
             margin-bottom: 36px;
             backdrop-filter: blur(16px);
-        }
-
-        .task-console-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .task-console-header h3 {
-            font-size: 1.2rem;
-            font-weight: 800;
-            color: #38bdf8;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
         .task-form-grid {
@@ -371,11 +410,6 @@
             outline: none;
         }
 
-        .task-input-group select:focus, .task-input-group input:focus, .task-input-group textarea:focus {
-            border-color: #38bdf8;
-            box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
-        }
-
         .task-dispatch-btn {
             background: linear-gradient(135deg, #06b6d4, #8b5cf6);
             color: #fff;
@@ -388,12 +422,6 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .task-dispatch-btn:hover {
-            transform: scale(1.02);
-            box-shadow: 0 6px 25px rgba(6, 182, 212, 0.5);
         }
 
         /* Live Activity Log Stream */
@@ -410,56 +438,10 @@
             margin-top: 18px;
         }
 
-        .log-entry {
-            margin-bottom: 6px;
-            line-height: 1.4;
-        }
-
+        .log-entry { margin-bottom: 6px; line-height: 1.4; }
         .log-entry span.time { color: #64748b; margin-right: 8px; }
         .log-entry span.agent { color: #a78bfa; font-weight: bold; }
         .log-entry span.success { color: #22c55e; }
-
-        /* API KEYS & TOKENS MANAGER MODAL & CARDS */
-        .api-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 20px;
-            margin-bottom: 28px;
-        }
-
-        .api-box {
-            background: rgba(30, 41, 59, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 16px;
-            padding: 20px;
-        }
-
-        .api-box-title {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 14px;
-            font-weight: 700;
-            font-size: 1rem;
-            color: #f8fafc;
-        }
-
-        .guidance-box {
-            background: rgba(6, 182, 212, 0.1);
-            border: 1px solid rgba(6, 182, 212, 0.3);
-            border-radius: 12px;
-            padding: 12px 16px;
-            font-size: 0.82rem;
-            color: #7dd3fc;
-            margin-bottom: 12px;
-            line-height: 1.5;
-        }
-
-        .guidance-box a {
-            color: #38bdf8;
-            font-weight: 700;
-            text-decoration: underline;
-        }
 
         /* Modal Overlay */
         .modal-overlay {
@@ -491,7 +473,6 @@
             overflow-y: auto;
             padding: 32px;
             position: relative;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.7);
         }
 
         .modal-close {
@@ -499,21 +480,6 @@
             top: 20px; right: 24px;
             background: none; border: none;
             color: #94a3b8; font-size: 1.4rem; cursor: pointer;
-        }
-
-        .save-vault-btn {
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: #fff;
-            border: none;
-            padding: 14px 32px;
-            border-radius: 14px;
-            font-weight: 800;
-            font-size: 1rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
         }
     </style>
 </head>
@@ -524,16 +490,16 @@
     <!-- Header Navigation -->
     <header class="app-header">
         <div class="brand-box">
-            <div class="brand-logo"><i class="fa-solid fa-building-user"></i></div>
+            <div class="brand-logo"><i class="fa-solid fa-microchip"></i></div>
             <div class="brand-title">
-                <h1>TheUKI1997 — Live Virtual Office</h1>
-                <p>18 ta Yuqori Vizual Bo'lim • 72 ta AI Agent</p>
+                <h1>TheUKI1997 — Specialized Multi-AI Virtual Empire</h1>
+                <p>Har bir bo'lim uchun Maxsus AI Motorlar Ulangan HQ</p>
             </div>
         </div>
 
         <div class="header-actions">
             <button class="nav-btn active" onclick="switchTab('office')">
-                <i class="fa-solid fa-gamepad"></i> 🏢 Virtual Ofis Xonasi (18 Bo'lim)
+                <i class="fa-solid fa-gamepad"></i> 🏢 Maxsus AI Bo'limlari
             </button>
             <button class="nav-btn" onclick="switchTab('dispatcher')">
                 <i class="fa-solid fa-paper-plane"></i> 📝 Topshiriq Berish
@@ -550,137 +516,56 @@
     <!-- Main Container -->
     <main class="main-container">
 
+        <!-- SPECIALIZED MULTI-AI ENGINE MATRIX BADGES -->
+        <div class="ai-matrix-card">
+            <div class="ai-matrix-header">
+                <h3><i class="fa-solid fa-network-wired"></i> 🧠 SPECIALIZED AI MOTORS MATRIX (Nizolsiz Avto-Hamkorlik)</h3>
+            </div>
+            <div class="ai-engine-pills">
+                <div class="ai-pill" style="border-color: #ec4899;">
+                    <i class="fa-solid fa-video" style="color: #ec4899;"></i>
+                    <div><b>Runway Gen-3 & Sora</b><br><span>🎬 AI Cinema & Reels Video Generator</span></div>
+                </div>
+                <div class="ai-pill" style="border-color: #10b981;">
+                    <i class="fa-solid fa-microphone" style="color: #10b981;"></i>
+                    <div><b>ElevenLabs AI Audio</b><br><span>🎧 Ovoz va Audio Ovozlashtirish</span></div>
+                </div>
+                <div class="ai-pill" style="border-color: #38bdf8;">
+                    <i class="fa-solid fa-code" style="color: #38bdf8;"></i>
+                    <div><b>DeepSeek V3 & Claude 3.5</b><br><span>💻 Freelance Koder & Top Dasturchi</span></div>
+                </div>
+                <div class="ai-pill" style="border-color: #fbbf24;">
+                    <i class="fa-solid fa-magnifying-glass" style="color: #fbbf24;"></i>
+                    <div><b>Google Gemini 1.5 Pro</b><br><span>📊 Real-time Bozor & Trend Tahlilchisi</span></div>
+                </div>
+                <div class="ai-pill" style="border-color: #8b5cf6;">
+                    <i class="fa-solid fa-robot" style="color: #8b5cf6;"></i>
+                    <div><b>OpenAI GPT-4o-mini</b><br><span>💬 Telegram & CRM Mijoz Avto-Javobgari</span></div>
+                </div>
+            </div>
+        </div>
+
         <!-- TAB 1: LIVE VIRTUAL OFFICE ROOM & AVATAR WORKSTATIONS -->
         <section id="tab-office" class="office-section active">
             <div class="office-banner">
                 <div class="office-banner-title">
-                    <h2><span class="live-dot"></span> LIVE VIRTUAL ROOMS & SOCIAL NETWORK HUBS</h2>
+                    <h2><span class="live-dot"></span> MAXSUS AI MOTORLAR BILAN TASDIQLANGAN BO'LIMLAR</h2>
                 </div>
                 <div style="font-size: 0.88rem; color: #cbd5e1;">
-                    <i class="fa-solid fa-users-gear" style="color:#a78bfa;"></i> 18 Bo'limda 72 ta AI Agent faol ishlamoqda...
+                    <i class="fa-solid fa-users-gear" style="color:#a78bfa;"></i> 18 Bo'lim bir-biriga halal bermay avto-ishlamoqda...
                 </div>
             </div>
 
             <div class="floorplan-grid">
 
-                <!-- ROOM 1: CEO SUITE -->
+                <!-- ROOM: AI CINEMA & VIDEO GENERATOR -->
                 <div class="room-card" style="border-top: 4px solid #ec4899;">
                     <div class="room-header">
                         <div class="room-title">
-                            <div class="room-title-icon" style="background: linear-gradient(135deg, #ec4899, #f43f5e);"><i class="fa-solid fa-crown"></i></div>
+                            <div class="room-title-icon" style="background: linear-gradient(135deg, #ec4899, #f43f5e);"><i class="fa-solid fa-film"></i></div>
                             <div class="room-name">
-                                <h3>👑 CEO Bosh Direktor Xonasi</h3>
-                                <p>Tizim Boshqaruvi va Muvofiqlashtirish</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="desks-container">
-                        <div class="desk-item">
-                            <div class="avatar-box">
-                                <div class="avatar-frame">👨‍💼<span class="avatar-typing-dot"></span></div>
-                                <div class="agent-details">
-                                    <h4>CEO-1 Strateg</h4>
-                                    <p><i class="fa-solid fa-bolt"></i> Reja va Topshiriqlar</p>
-                                </div>
-                            </div>
-                            <span class="desk-status-badge">🟢 Ishlamoqda</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- NEW ROOM 14: TIKTOK & SHORTS VIRAL DOMINATOR -->
-                <div class="room-card" style="border-top: 4px solid #00f2fe;">
-                    <div class="room-header">
-                        <div class="room-title">
-                            <div class="room-title-icon" style="background: linear-gradient(135deg, #00f2fe, #4facfe);"><i class="fa-brands fa-tiktok"></i></div>
-                            <div class="room-name">
-                                <h3>🎵 TikTok & YouTube Shorts Dominator</h3>
-                                <p>Organik Organik O'sish va Viral Video</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="desks-container">
-                        <div class="desk-item">
-                            <div class="avatar-box">
-                                <div class="avatar-frame">🔥<span class="avatar-typing-dot"></span></div>
-                                <div class="agent-details">
-                                    <h4>TT-1 Hook & Trend Researcher</h4>
-                                    <p><i class="fa-solid fa-fire"></i> Viral Sound & Trend Finder</p>
-                                </div>
-                            </div>
-                            <span class="desk-status-badge busy">🔥 Trends Scan</span>
-                        </div>
-                        <div class="desk-item">
-                            <div class="avatar-box">
-                                <div class="avatar-frame">📱<span class="avatar-typing-dot"></span></div>
-                                <div class="agent-details">
-                                    <h4>TT-2 Shorts Auto-Publisher</h4>
-                                    <p><i class="fa-solid fa-cloud-arrow-up"></i> Auto Upload Engine</p>
-                                </div>
-                            </div>
-                            <span class="desk-status-badge">🟢 Ishlamoqda</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- NEW ROOM 15: PINTEREST EVERGREEN VISUAL TRAFFIC HUB -->
-                <div class="room-card" style="border-top: 4px solid #e60023;">
-                    <div class="room-header">
-                        <div class="room-title">
-                            <div class="room-title-icon" style="background: linear-gradient(135deg, #e60023, #ff4e50);"><i class="fa-brands fa-pinterest"></i></div>
-                            <div class="room-name">
-                                <h3>📌 Pinterest Traffic Engine</h3>
-                                <p>Doimiy (Evergreen) Trafik va SEO Visual Pins</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="desks-container">
-                        <div class="desk-item">
-                            <div class="avatar-box">
-                                <div class="avatar-frame">🖼️<span class="avatar-typing-dot"></span></div>
-                                <div class="agent-details">
-                                    <h4>PIN-1 Infographic Creator</h4>
-                                    <p><i class="fa-solid fa-image"></i> AI Pin Visual Generator</p>
-                                </div>
-                            </div>
-                            <span class="desk-status-badge">🟢 Ishlamoqda</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- NEW ROOM 16: X (TWITTER) TECH & TRADING THREADS -->
-                <div class="room-card" style="border-top: 4px solid #1da1f2;">
-                    <div class="room-header">
-                        <div class="room-title">
-                            <div class="room-title-icon" style="background: linear-gradient(135deg, #000000, #1da1f2);"><i class="fa-brands fa-x-twitter"></i></div>
-                            <div class="room-name">
-                                <h3>📢 X (Twitter) Viral Tech & Trading</h3>
-                                <p>B2B Authority, Threads & Retweets</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="desks-container">
-                        <div class="desk-item">
-                            <div class="avatar-box">
-                                <div class="avatar-frame">✍️<span class="avatar-typing-dot"></span></div>
-                                <div class="agent-details">
-                                    <h4>X-1 Viral Thread Author</h4>
-                                    <p><i class="fa-solid fa-align-left"></i> High-Engagement Threads</p>
-                                </div>
-                            </div>
-                            <span class="desk-status-badge">🟢 Ishlamoqda</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- NEW ROOM 17: YOUTUBE MASTER CHANNEL HQ -->
-                <div class="room-card" style="border-top: 4px solid #ff0000;">
-                    <div class="room-header">
-                        <div class="room-title">
-                            <div class="room-title-icon" style="background: linear-gradient(135deg, #ff0000, #cc0000);"><i class="fa-brands fa-youtube"></i></div>
-                            <div class="room-name">
-                                <h3>📺 YouTube Master Channel HQ</h3>
-                                <p>Long-form Videos, SEO & Monetization</p>
+                                <h3>🎬 AI Cinema & Video Production <span class="ai-tag-badge">Runway Gen-3 + Sora</span></h3>
+                                <p>Kinematografik Video & Montage</p>
                             </div>
                         </div>
                     </div>
@@ -689,71 +574,96 @@
                             <div class="avatar-box">
                                 <div class="avatar-frame">🎬<span class="avatar-typing-dot"></span></div>
                                 <div class="agent-details">
-                                    <h4>YT-1 Longform Scriptwriter</h4>
-                                    <p><i class="fa-solid fa-scroll"></i> 10-15 Min Full Script</p>
+                                    <h4>AI-Video Synthesizer</h4>
+                                    <p><i class="fa-solid fa-clapperboard"></i> Sora + Runway Visual</p>
                                 </div>
                             </div>
-                            <span class="desk-status-badge">🟢 Ishlamoqda</span>
+                            <span class="desk-status-badge">🟢 Video Generatsiya</span>
                         </div>
                         <div class="desk-item">
                             <div class="avatar-box">
-                                <div class="avatar-frame">🖼️<span class="avatar-typing-dot"></span></div>
+                                <div class="avatar-frame">🎧<span class="avatar-typing-dot"></span></div>
                                 <div class="agent-details">
-                                    <h4>YT-2 Thumbnail & Title CTR Pro</h4>
-                                    <p><i class="fa-solid fa-eye"></i> Max CTR Thumbnail</p>
+                                    <h4>ElevenLabs Voice Master</h4>
+                                    <p><i class="fa-solid fa-microphone"></i> HD Ovozlashtirish Engine</p>
                                 </div>
                             </div>
-                            <span class="desk-status-badge">🟢 Ishlamoqda</span>
+                            <span class="desk-status-badge">🟢 Audio Tayyor</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- ROOM 3: INSTAGRAM & META TARGETING STUDIO -->
-                <div class="room-card" style="border-top: 4px solid #ec4899;">
+                <!-- ROOM: FREELANCE & CODE EXECUTION -->
+                <div class="room-card" style="border-top: 4px solid #38bdf8;">
                     <div class="room-header">
                         <div class="room-title">
-                            <div class="room-title-icon" style="background: linear-gradient(135deg, #f43f5e, #d946ef);"><i class="fa-brands fa-instagram"></i></div>
+                            <div class="room-title-icon" style="background: linear-gradient(135deg, #38bdf8, #0284c7);"><i class="fa-solid fa-code"></i></div>
                             <div class="room-name">
-                                <h3>📸 Instagram & Meta Target Studio</h3>
-                                <p>Viral Reels, Target & Auto-Posting</p>
+                                <h3>💻 Freelance & Code Engine <span class="ai-tag-badge">DeepSeek V3 + Claude 3.5</span></h3>
+                                <p>Avto-Koding, Bug Fix & Proposal</p>
                             </div>
                         </div>
                     </div>
                     <div class="desks-container">
                         <div class="desk-item">
                             <div class="avatar-box">
-                                <div class="avatar-frame">🎯<span class="avatar-typing-dot"></span></div>
+                                <div class="avatar-frame">👨‍💻<span class="avatar-typing-dot"></span></div>
                                 <div class="agent-details">
-                                    <h4>IG-1 Targetolog Master</h4>
-                                    <p><i class="fa-solid fa-chart-pie"></i> Audience Targeting</p>
+                                    <h4>FL-DeepCoder Pro</h4>
+                                    <p><i class="fa-solid fa-laptop-code"></i> Fullstack Automation</p>
                                 </div>
                             </div>
-                            <span class="desk-status-badge busy">🔥 Target Reklama</span>
+                            <span class="desk-status-badge">🟢 Koding Ketmoqda</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- ROOM 5: AI CINEMA STUDIO -->
-                <div class="room-card" style="border-top: 4px solid #10b981;">
+                <!-- ROOM: TIKTOK & SHORTS VIRAL -->
+                <div class="room-card" style="border-top: 4px solid #00f2fe;">
                     <div class="room-header">
                         <div class="room-title">
-                            <div class="room-title-icon" style="background: linear-gradient(135deg, #10b981, #34d399);"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                            <div class="room-title-icon" style="background: linear-gradient(135deg, #00f2fe, #4facfe);"><i class="fa-brands fa-tiktok"></i></div>
                             <div class="room-name">
-                                <h3>🎬 AI Cinema Studio</h3>
-                                <p>Sora + Midjourney + ElevenLabs Audio</p>
+                                <h3>🎵 TikTok & Shorts Viral <span class="ai-tag-badge">CapCut AI + Gemini 1.5</span></h3>
+                                <p>0$ Reklamasiz Viral Kontent</p>
                             </div>
                         </div>
                     </div>
                     <div class="desks-container">
                         <div class="desk-item">
                             <div class="avatar-box">
-                                <div class="avatar-frame">🎨<span class="avatar-typing-dot"></span></div>
+                                <div class="avatar-frame">🔥<span class="avatar-typing-dot"></span></div>
                                 <div class="agent-details">
-                                    <h4>AI-1 Script & Prompt Designer</h4>
-                                    <p><i class="fa-solid fa-pen-nib"></i> Script Generation</p>
+                                    <h4>TT-Viral Trend AI</h4>
+                                    <p><i class="fa-solid fa-fire"></i> Hook & Sound Optimizer</p>
                                 </div>
                             </div>
-                            <span class="desk-status-badge">🟢 Ishlamoqda</span>
+                            <span class="desk-status-badge">🟢 Trend Tahlili</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ROOM: CLIENT CRM TELEGRAM -->
+                <div class="room-card" style="border-top: 4px solid #22c55e;">
+                    <div class="room-header">
+                        <div class="room-title">
+                            <div class="room-title-icon" style="background: linear-gradient(135deg, #22c55e, #15803d);"><i class="fa-brands fa-telegram"></i></div>
+                            <div class="room-name">
+                                <h3>💬 Telegram CRM (@TheUKI_BOT) <span class="ai-tag-badge">GPT-4o-mini</span></h3>
+                                <p>24/7 Mijozlar Bilan Suhbat</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="desks-container">
+                        <div class="desk-item">
+                            <div class="avatar-box">
+                                <div class="avatar-frame">🤖<span class="avatar-typing-dot"></span></div>
+                                <div class="agent-details">
+                                    <h4>Telegram Auto-Support Bot</h4>
+                                    <p><i class="fa-solid fa-headset"></i> Shartnoma & Maslahat</p>
+                                </div>
+                            </div>
+                            <span class="desk-status-badge">🟢 Bot Faol</span>
                         </div>
                     </div>
                 </div>
@@ -761,39 +671,38 @@
             </div>
         </section>
 
-        <!-- TAB 2: TASK DISPATCHER & PROMPT COMMAND CENTER -->
+        <!-- TAB 2: TASK DISPATCHER -->
         <section id="tab-dispatcher" class="office-section">
             <div class="task-console-card">
                 <div class="task-console-header">
-                    <h3><i class="fa-solid fa-paper-plane"></i> 📝 AI Agentlarga Yangi Topshiriq Yuborish</h3>
-                    <div style="font-size: 0.85rem; color: #94a3b8;">AI Model va Agentni tanlab topshiriq bering</div>
+                    <h3><i class="fa-solid fa-paper-plane"></i> 📝 AI Agentlarga Maxsus Topshiriq Berish</h3>
                 </div>
 
                 <div class="task-form-grid">
                     <div class="task-input-group">
-                        <label>1. AI Modelini Tanlang (Brain Engine)</label>
+                        <label>1. Maxsus AI Motor</label>
                         <select id="dispatchAiModel">
-                            <option value="Google Gemini 1.5 Pro">⚡ Google Gemini 1.5 Pro (Super Aqlli)</option>
-                            <option value="OpenAI GPT-4o">🧠 OpenAI GPT-4o (Multimodal Engine)</option>
-                            <option value="DeepSeek V3">🚀 DeepSeek V3 (Tezkor Koder & Writer)</option>
-                            <option value="Claude 3.5 Sonnet">🎨 Claude 3.5 Sonnet (Professional Yozuvchi)</option>
+                            <option value="Runway Gen-3 / Sora">🎬 Runway Gen-3 / Sora (Video Maker)</option>
+                            <option value="ElevenLabs Audio">🎧 ElevenLabs (HD Voice Actor)</option>
+                            <option value="DeepSeek V3 Koder">💻 DeepSeek V3 (Freelance & Code)</option>
+                            <option value="Google Gemini 1.5 Pro">📊 Google Gemini 1.5 Pro (SEO & Trends)</option>
+                            <option value="OpenAI GPT-4o-mini">💬 GPT-4o-mini (CRM & Telegram Bot)</option>
                         </select>
                     </div>
 
                     <div class="task-input-group">
-                        <label>2. Bo'lim va Agentni Tanlang</label>
+                        <label>2. Bo'lim va Agent</label>
                         <select id="dispatchAgentSelect">
-                            <option value="TT-1 Hook Specialist">🎵 TikTok & Shorts Trends Specialist</option>
-                            <option value="YT-1 Video Scriptwriter">📺 YouTube Longform Scriptwriter</option>
-                            <option value="IG-1 Targetolog">📸 IG-1 Targetolog (Instagram & Reels)</option>
-                            <option value="X-1 Viral Writer">📢 X (Twitter) Viral Thread Writer</option>
-                            <option value="PIN-1 Visual Designer">📌 Pinterest Infographic Designer</option>
-                            <option value="CEO-1 Strateg">👑 CEO-1 Strateg (Bosh Direktor)</option>
+                            <option value="AI-Video Synthesizer">🎬 AI Video Creator (Runway Gen-3)</option>
+                            <option value="ElevenLabs Voice">🎧 ElevenLabs Voice Engine</option>
+                            <option value="FL-DeepCoder">💻 Freelance DeepCoder Pro</option>
+                            <option value="TT-Viral Specialist">🎵 TikTok & Shorts Specialist</option>
+                            <option value="Telegram CRM Bot">💬 Telegram @TheUKI_BOT Agent</option>
                         </select>
                     </div>
 
                     <div class="task-input-group">
-                        <label>3. Muhimligi</label>
+                        <label>3. Shoshilinchlik</label>
                         <select id="dispatchPrioritySelect">
                             <option value="⚡ Shoshilinch (Urgent)">⚡ Shoshilinch (Urgent)</option>
                             <option value="🎯 Oddiy (Normal)">🎯 Oddiy (Normal)</option>
@@ -810,46 +719,36 @@
                 </div>
 
                 <div class="task-input-group" style="margin-bottom: 18px;">
-                    <label>5. Topshiriq Matni (Prompt Instructions)</label>
-                    <textarea id="dispatchPromptInput" rows="3" placeholder="Masalan: TikTok va Shorts uchun Trading bo'yicha 30 soniyalik super viral video ssenariysini yozib ber..."></textarea>
+                    <label>5. Topshiriq Matni (Prompt)</label>
+                    <textarea id="dispatchPromptInput" rows="3" placeholder="Masalan: Sora AI orqali Trading haqida 3D ultra-realistic video yarating va ElevenLabs-da o'zbek tilida ovozlashtirib TikTok-ga joylang..."></textarea>
                 </div>
 
                 <button class="task-dispatch-btn" onclick="executeTaskDispatch()">
-                    <i class="fa-solid fa-rocket"></i> 🚀 Topshiriqni AI Agentga Yuborish
+                    <i class="fa-solid fa-rocket"></i> 🚀 Topshiriqni Maxsus AI Motorga Yuborish
                 </button>
 
                 <!-- Live Terminal Activity Log -->
                 <div class="log-terminal" id="activityTerminalLog">
-                    <div class="log-entry"><span class="time">[23:41:00]</span> <span class="agent">SYSTEM:</span> Virtual Office 18 ta bo'lim va 72 ta AI Agent bilan tayyor.</div>
-                    <div class="log-entry"><span class="time">[23:41:05]</span> <span class="agent">AI ENGINE:</span> Google Gemini 1.5 Pro & GPT-4o ulangan.</div>
+                    <div class="log-entry"><span class="time">[23:44:00]</span> <span class="agent">SYSTEM:</span> Specialized Multi-AI Matrix faol holatda.</div>
+                    <div class="log-entry"><span class="time">[23:44:05]</span> <span class="agent">TELEGRAM BOT:</span> @TheUKI_BOT (GPT-4o-mini) tayyor.</div>
                 </div>
             </div>
         </section>
 
-        <!-- TAB 3: CLIENT CRM & BOT CONSOLE -->
+        <!-- TAB 3: CLIENT CRM -->
         <section id="tab-crm" class="office-section">
             <div class="task-console-card">
                 <div class="task-console-header">
                     <h3><i class="fa-solid fa-comments"></i> 💬 Mijozlar Bilan Muloqot va Avto-Javob Boti</h3>
-                    <div style="font-size: 0.85rem; color: #4ade80;"><i class="fa-solid fa-circle-check"></i> CRM Bot Ulangan</div>
                 </div>
 
                 <div class="floorplan-grid" style="margin-bottom: 0;">
                     <div class="room-card" style="border-top: 4px solid #38bdf8;">
                         <h4>📱 Telegram Client Bot (@TheUKI_BOT)</h4>
-                        <p style="color: #94a3b8; font-size: 0.82rem; margin-top: 4px;">Mijozlar bilan suhbat va shartnoma tuzish</p>
+                        <p style="color: #94a3b8; font-size: 0.82rem; margin-top: 4px;">GPT-4o-mini AI Motor bilan ulangan</p>
                         <div style="margin-top: 14px; background: rgba(0,136,204,0.15); border: 1px solid #0088cc; padding: 12px; border-radius: 12px; font-size: 0.85rem; color: #38bdf8;">
-                            <b>Bot Name:</b> @TheUKI_BOT <br>
-                            <b>Status:</b> Faol va Ulandi 🟢 (100% Verified)
-                        </div>
-                    </div>
-
-                    <div class="room-card" style="border-top: 4px solid #ec4899;">
-                        <h4>📸 Instagram & TikTok CRM</h4>
-                        <p style="color: #94a3b8; font-size: 0.82rem; margin-top: 4px;">Direct va Izohlarga AI javobi</p>
-                        <div style="margin-top: 14px; background: rgba(236,72,153,0.15); border: 1px solid #ec4899; padding: 12px; border-radius: 12px; font-size: 0.85rem; color: #f472b6;">
-                            <b>Direct API:</b> Tayyor <br>
-                            <b>Avto-DM:</b> Faol 🟢
+                            <b>Bot Token:</b> 990446753:AAEGsqS0z4_rSZh3wkrVFHhaOMHz_IgcqWk <br>
+                            <b>Status:</b> Faol va Ulandi 🟢
                         </div>
                     </div>
                 </div>
@@ -864,58 +763,49 @@
             <button class="modal-close" onclick="closeApiVaultModal()">✕</button>
             
             <div class="api-vault-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <h2 style="font-size: 1.4rem; color: #fbbf24;"><i class="fa-solid fa-key"></i> 🔐 AI Engine & Tokenlar Vault</h2>
+                <h2 style="font-size: 1.4rem; color: #fbbf24;"><i class="fa-solid fa-key"></i> 🔐 Specialized AI Engine Keys Vault</h2>
                 <button class="save-vault-btn" onclick="saveApiVault()"><i class="fa-solid fa-floppy-disk"></i> Saqlash</button>
             </div>
 
             <div class="api-grid">
 
-                <!-- GEMINI & OPENAI AI KEYS -->
-                <div class="api-box" style="border-color: #10b981;">
-                    <div class="api-box-title" style="color: #10b981;">
-                        <i class="fa-solid fa-brain"></i> 1. Google Gemini & OpenAI API Key (AI Aqlli Motor)
-                    </div>
-                    <div class="guidance-box">
-                        <b>💡 Qanday olinadi?</b><br>
-                        1. <a href="https://aistudio.google.com/" target="_blank">aistudio.google.com</a> saytiga kirib bepul Gemini Key oling.<br>
-                        2. Barcha 72 ta AI agentingiz darhol aqlli javob berishni boshlaydi!
+                <div class="api-box" style="border-color: #ec4899;">
+                    <div class="api-box-title" style="color: #ec4899;">
+                        <i class="fa-solid fa-video"></i> 1. Runway Gen-3 / Sora Video AI API Key
                     </div>
                     <div class="task-input-group">
-                        <label>Gemini / OpenAI API Key</label>
-                        <input type="password" id="apiAiKey" placeholder="AIzaSyxxxxxxx...">
+                        <label>Runway / Luma Video API Key</label>
+                        <input type="password" id="apiVideoKey" placeholder="rw_key_xxxxxxx...">
                     </div>
                 </div>
 
-                <!-- TELEGRAM BOT TOKEN -->
+                <div class="api-box" style="border-color: #10b981;">
+                    <div class="api-box-title" style="color: #10b981;">
+                        <i class="fa-solid fa-microphone"></i> 2. ElevenLabs Voice AI Key
+                    </div>
+                    <div class="task-input-group">
+                        <label>ElevenLabs Voice API Key</label>
+                        <input type="password" id="apiAudioKey" placeholder="xi_key_xxxxxxx...">
+                    </div>
+                </div>
+
                 <div class="api-box" style="border-color: #38bdf8;">
                     <div class="api-box-title" style="color: #38bdf8;">
-                        <i class="fa-brands fa-telegram"></i> 2. Telegram Bot Token (@TheUKI_BOT) — FAOL 🟢
+                        <i class="fa-solid fa-code"></i> 3. DeepSeek V3 / OpenAI Code Key
+                    </div>
+                    <div class="task-input-group">
+                        <label>DeepSeek / OpenAI Key</label>
+                        <input type="password" id="apiCodeKey" placeholder="sk-xxxxxxx...">
+                    </div>
+                </div>
+
+                <div class="api-box" style="border-color: #38bdf8;">
+                    <div class="api-box-title" style="color: #38bdf8;">
+                        <i class="fa-brands fa-telegram"></i> 4. Telegram Bot Token (@TheUKI_BOT) — FAOL 🟢
                     </div>
                     <div class="task-input-group">
                         <label>Telegram Bot Token</label>
                         <input type="text" id="apiTelegramToken" value="990446753:AAEGsqS0z4_rSZh3wkrVFHhaOMHz_IgcqWk">
-                    </div>
-                </div>
-
-                <!-- TIKTOK & YOUTUBE API -->
-                <div class="api-box">
-                    <div class="api-box-title" style="color: #00f2fe;">
-                        <i class="fa-brands fa-tiktok"></i> 3. TikTok & YouTube Shorts Data API
-                    </div>
-                    <div class="task-input-group">
-                        <label>YouTube / TikTok API Key</label>
-                        <input type="password" id="apiShortsKey" placeholder="AIzaSyxxxxxxx...">
-                    </div>
-                </div>
-
-                <!-- INSTAGRAM & META API -->
-                <div class="api-box">
-                    <div class="api-box-title" style="color: #ec4899;">
-                        <i class="fa-brands fa-instagram"></i> 4. Instagram & Meta Graph API Token
-                    </div>
-                    <div class="task-input-group">
-                        <label>Meta User / Page Access Token</label>
-                        <input type="password" id="apiMetaToken" placeholder="EAAxxxxxxx...">
                     </div>
                 </div>
 
@@ -950,15 +840,17 @@
         }
 
         function saveApiVault() {
-            const aiKey = document.getElementById('apiAiKey').value;
-            const meta = document.getElementById('apiMetaToken').value;
+            const videoKey = document.getElementById('apiVideoKey').value;
+            const audioKey = document.getElementById('apiAudioKey').value;
+            const codeKey = document.getElementById('apiCodeKey').value;
             const tg = document.getElementById('apiTelegramToken').value;
 
-            localStorage.setItem('uki_ai_key', aiKey);
-            localStorage.setItem('uki_meta_token', meta);
+            localStorage.setItem('uki_video_key', videoKey);
+            localStorage.setItem('uki_audio_key', audioKey);
+            localStorage.setItem('uki_code_key', codeKey);
             localStorage.setItem('uki_telegram_token', tg);
 
-            alert("🎉 Barcha AI va API Tokenlar maxfiy xotiraga 100% muvaffaqiyatli saqlandi!");
+            alert("🎉 Maxsus AI Motorlar Key-lari va Tokenlar 100% muvaffaqiyatli saqlandi!");
             closeApiVaultModal();
         }
 
@@ -980,7 +872,7 @@
             term.innerHTML += `<div class="log-entry"><span class="time">[${timeStr}]</span> <span class="agent">${agent} (${aiModel}):</span> Topshiriq qabul qilindi [${priority}]. Bajarilmoqda...</div>`;
             
             setTimeout(() => {
-                term.innerHTML += `<div class="log-entry"><span class="time">[${timeStr}]</span> <span class="agent">${agent}:</span> <span class="success">✅ TOPSHIRIQ AI (${aiModel}) ORQALI BAJARILDI!</span> ${autoPost === 'Ha' ? '(Social Media-ga joylandi 🚀)' : ''}</div>`;
+                term.innerHTML += `<div class="log-entry"><span class="time">[${timeStr}]</span> <span class="agent">${agent}:</span> <span class="success">✅ TOPSHIRIQ MAXSUS AI MOTOR (${aiModel}) ORQALI BAJARILDI!</span> ${autoPost === 'Ha' ? '(Social Media-ga joylandi 🚀)' : ''}</div>`;
                 term.scrollTop = term.scrollHeight;
             }, 1200);
 
