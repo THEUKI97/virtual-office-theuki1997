@@ -3,7 +3,7 @@ import sys
 import json
 import urllib.request
 import time
-from http.server import HTTPServer, SimpleHTTPRequestHandler
+from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from dotenv import load_dotenv
 from empire_ai_engine import empire_ai
 from real_media_synthesizer import generate_custom_audio_track, generate_custom_3d_video_clip
@@ -18,8 +18,8 @@ os.makedirs(RESULTS_DIR, exist_ok=True)
 
 class EmpireTerminalHandler(SimpleHTTPRequestHandler):
     """
-    Real Interactive Backend HTTP API & Static File Server for Virtual Empire Terminal.
-    NOLDAN YANGI REAL GENERATSIYA: Har safar yangi 3D video (.mp4) va musiqa (.wav/.mp3) sintez qiladi!
+    Multi-Threaded HTTP API & Static File Server for Virtual Empire Terminal.
+    Uses ThreadingHTTPServer so browser requests never freeze or time out.
     """
     def do_POST(self):
         if self.path == '/api/command':
@@ -103,6 +103,6 @@ if __name__ == "__main__":
     if sys.platform == "win32":
         sys.stdout.reconfigure(encoding='utf-8')
     os.chdir(PROJECT_DIR)
-    server = HTTPServer(('127.0.0.1', PORT), EmpireTerminalHandler)
-    print(f"Empire Terminal Server Running at http://127.0.0.1:{PORT} 🟢")
+    server = ThreadingHTTPServer(('0.0.0.0', PORT), EmpireTerminalHandler)
+    print(f"Empire Multi-Threaded Terminal Server Running at http://127.0.0.1:{PORT} 🟢")
     server.serve_forever()
