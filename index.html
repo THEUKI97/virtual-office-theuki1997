@@ -115,13 +115,13 @@
         <div class="brand-box">
             <div class="brand-logo"><i class="fa-solid fa-terminal"></i></div>
             <div class="brand-title">
-                <h1>TheUKI1997 — Empire Interactive Command Terminal</h1>
-                <p>CEO Media Generator Terminal (Audio .mp3 / Video .mp4 in /natijalar folder)</p>
+                <h1>TheUKI1997 — Empire Real Media Synthesizer Terminal</h1>
+                <p>Noldan Yangi Video (.mp4) va Audio (.wav/.mp3) Generatorki (Saved in /natijalar)</p>
             </div>
         </div>
         <div>
             <span style="background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); padding: 6px 16px; border-radius: 20px; font-weight: bold; font-size: 0.85rem;">
-                🟢 Backend API Live
+                🟢 Real AI Generator Live
             </span>
         </div>
     </header>
@@ -136,25 +136,25 @@
                     <div class="dot dot-yellow"></div>
                     <div class="dot dot-green"></div>
                 </div>
-                <div class="terminal-title">👑 CEO INTERACTIVE COMMAND & MEDIA TERMINAL (v2026.8)</div>
-                <div style="font-size: 0.78rem; color: #64748b;">Natijalar Folder Output Active (.mp4 / .mp3)</div>
+                <div class="terminal-title">👑 CEO REAL AI MEDIA GENERATOR TERMINAL (v2026.8)</div>
+                <div style="font-size: 0.78rem; color: #64748b;">Noldan Yangi 3D Video & Audio Active</div>
             </div>
 
             <div class="terminal-body" id="terminal-output-body">
                 <div class="term-block" style="border-color: #3b82f6;">
-                    <div class="term-line"><span class="term-label">👑 TIZIM TAYYOR:</span> <span class="term-val-green">CEO va AI Media Engine Aloqada! 🟢</span></div>
-                    <div class="term-line"><span class="term-label">💡 QO'LLANMA:</span> <span class="term-val">Topshiriq bersangiz (masalan <b>Video yaratish</b> yoki <b>Musiqa yaratish</b>), tayyorlangan media fayllar loyihaning <b>'natijalar'</b> papkasiga saqlanadi hamda `.mp4` / `.mp3` shaklida to'g'ridan-to'g'ri shu terminalda ko'rinadi!</span></div>
+                    <div class="term-line"><span class="term-label">👑 TIZIM TAYYOR:</span> <span class="term-val-green">CEO va Real Media Generator Aloqada! 🟢</span></div>
+                    <div class="term-line"><span class="term-label">💡 QO'LLANMA:</span> <span class="term-val">Topshiriq bersangiz (masalan <b>Video yaratish</b> yoki <b>Musiqa yaratish</b>), tizim har safar NOLDAN YANGI fayl generatsiya qiladi va <b>'natijalar'</b> papkasiga saqlab, shu yerda pleyerda ijro etadi!</span></div>
                 </div>
             </div>
 
             <div class="terminal-input-bar">
                 <span class="term-prompt">umidjon@theuki-empire:~$</span>
-                <input type="text" class="term-input" id="terminal-user-input" placeholder="Matningizni yozing (Masalan: qaysi bo'limlarda muammo bor?)" onkeypress="handleKeyPress(event)">
+                <input type="text" class="term-input" id="terminal-user-input" placeholder="Matningizni yozing (Masalan: Yangi 3D kosmos videosi yarat...)" onkeypress="handleKeyPress(event)">
                 
                 <!-- TYPE SELECTOR DROPDOWN RIGHT NEXT TO YUBORISH BUTTON -->
                 <select class="term-type-select" id="terminal-type-select">
-                    <option value="savol" selected>❓ SAVOL (Agentlarga Savol Berish)</option>
-                    <option value="topshiriq">📝 TOPSHIRIQ (Media & Ish Bajarish)</option>
+                    <option value="topshiriq" selected>📝 TOPSHIRIQ (Noldan Yangi Media Generatsiya)</option>
+                    <option value="savol">❓ SAVOL (Agentlarga Savol Berish)</option>
                     <option value="etiroz">⚠️ E'TIROZ (E'tiroz Bildirish)</option>
                 </select>
 
@@ -226,7 +226,7 @@
             userBlock.style.borderColor = badgeColor;
             userBlock.innerHTML = `
                 <div class="term-line"><span class="term-label">👤 UMIDJON AKA [${typeBadgeStr}]:</span> <span class="term-val" style="color:${badgeColor}; font-weight:bold;">${text}</span></div>
-                <div class="term-line"><span class="term-label">⏳ MAQOM:</span> <span class="term-val" style="color:#93c5fd;">Tizim tahlil qilmoqda...</span></div>
+                <div class="term-line"><span class="term-label">⏳ MAQOM:</span> <span class="term-val" style="color:#93c5fd;">Noldan yangi media fayl generatsiya qilinmoqda...</span></div>
                 <div class="progress-bar-container"><div class="progress-bar-fill" id="prog-bar-active"></div></div>
             `;
             body.appendChild(userBlock);
@@ -234,7 +234,7 @@
             inputEl.value = '';
 
             const bar = userBlock.querySelector('#prog-bar-active');
-            setTimeout(() => { if (bar) bar.style.width = '65%'; }, 200);
+            setTimeout(() => { if (bar) bar.style.width = '50%'; }, 300);
 
             try {
                 const response = await fetch('/api/command', {
@@ -254,7 +254,7 @@
 
                     let problemHTML = resData.problem_status 
                         ? `<span class="term-val-red">🔴 E'TIROZ TUZATILDI</span>` 
-                        : `<span class="term-val-green">🟢 MUAMMO YO'Q (100% Muvaffaqiyatli)</span>`;
+                        : `<span class="term-val-green">🟢 MUAMMO YO'Q (Noldan Muvaffaqiyatli Generatsiya Qilindi)</span>`;
 
                     let agentsList = resData.assigned_agents.map(a => `<span style="background:rgba(99,102,241,0.2); padding:2px 6px; border-radius:4px; margin-right:4px;">${a}</span>`).join(' ');
 
@@ -262,8 +262,8 @@
                     if (resData.media_type === 'video' && resData.media_url) {
                         mediaHTML = `
                             <div class="media-player-box">
-                                <div style="color:#38bdf8; font-weight:bold;"><i class="fa-solid fa-video"></i> 🎬 TAYYORLANGAN VIDEO FAYL (.mp4): ${resData.media_filename}</div>
-                                <video controls style="width:100%; max-height:280px; border-radius:8px; background:#000;">
+                                <div style="color:#38bdf8; font-weight:bold;"><i class="fa-solid fa-video"></i> 🎬 YANGI GENERATSIYA QILINGAN 3D VIDEO (.mp4): ${resData.media_filename}</div>
+                                <video controls autoplay style="width:100%; max-height:320px; border-radius:8px; background:#000;">
                                     <source src="${resData.media_url}" type="video/mp4">
                                 </video>
                                 <a href="${resData.media_url}" download class="term-val-green" style="font-size:0.85rem;"><i class="fa-solid fa-download"></i> 'natijalar' papkasidan yuklab olish (${resData.media_filename})</a>
@@ -272,9 +272,9 @@
                     } else if (resData.media_type === 'audio' && resData.media_url) {
                         mediaHTML = `
                             <div class="media-player-box">
-                                <div style="color:#fbbf24; font-weight:bold;"><i class="fa-solid fa-music"></i> 🎵 TAYYORLANGAN MUSIQA FAYLI (.mp3): ${resData.media_filename}</div>
-                                <audio controls style="width:100%; border-radius:8px;">
-                                    <source src="${resData.media_url}" type="audio/mpeg">
+                                <div style="color:#fbbf24; font-weight:bold;"><i class="fa-solid fa-music"></i> 🎵 YANGI GENERATSIYA QILINGAN MELODIYA (.wav/.mp3): ${resData.media_filename}</div>
+                                <audio controls autoplay style="width:100%; border-radius:8px;">
+                                    <source src="${resData.media_url}" type="audio/wav">
                                 </audio>
                                 <a href="${resData.media_url}" download class="term-val-green" style="font-size:0.85rem;"><i class="fa-solid fa-download"></i> 'natijalar' papkasidan yuklab olish (${resData.media_filename})</a>
                             </div>

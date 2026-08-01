@@ -2,10 +2,11 @@ import os
 import sys
 import json
 import urllib.request
-import random
+import time
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from dotenv import load_dotenv
 from empire_ai_engine import empire_ai
+from real_media_synthesizer import generate_custom_audio_track, generate_custom_3d_video_clip
 
 load_dotenv(os.path.join(os.path.dirname(__file__), ".env"))
 
@@ -18,7 +19,7 @@ os.makedirs(RESULTS_DIR, exist_ok=True)
 class EmpireTerminalHandler(SimpleHTTPRequestHandler):
     """
     Real Interactive Backend HTTP API & Static File Server for Virtual Empire Terminal.
-    Dynamically generates unique 3D videos corresponding to reference reels (1-5).
+    NOLDAN YANGI REAL GENERATSIYA: Har safar yangi 3D video (.mp4) va musiqa (.wav/.mp3) sintez qiladi!
     """
     def do_POST(self):
         if self.path == '/api/command':
@@ -33,43 +34,27 @@ class EmpireTerminalHandler(SimpleHTTPRequestHandler):
             media_type = None # 'video', 'audio', None
             media_file = None
             
+            timestamp = int(time.time())
+            
             if "video" in lower_input or "reels" in lower_input or "animatsiya" in lower_input or "milo" in lower_input:
                 media_type = "video"
-                # Pick from 5 different downloaded reference reels randomly or sequentially
-                ref_reels = [f"reference_reel_{i}.mp4" for i in range(1, 6)]
-                available_reels = [r for r in ref_reels if os.path.exists(os.path.join(PROJECT_DIR, r))]
-                
-                chosen_reel = random.choice(available_reels) if available_reels else "reference_reel_1.mp4"
-                source_path = os.path.join(PROJECT_DIR, chosen_reel)
-                
-                timestamp = int(os.path.getmtime(PROJECT_DIR)) + random.randint(100, 999)
-                media_filename = f"replica_3d_video_{chosen_reel.split('.')[0]}_{timestamp}.mp4"
+                media_filename = f"generated_3d_video_{timestamp}.mp4"
                 media_file = os.path.join(RESULTS_DIR, media_filename)
                 
-                if os.path.exists(source_path):
-                    with open(source_path, 'rb') as rf, open(media_file, 'wb') as wf:
-                        wf.write(rf.read())
-                else:
-                    with open(media_file, 'w', encoding='utf-8') as f:
-                        f.write("Sample MP4 Video Content")
+                # Real dynamic HD 3D video animation generation
+                generate_custom_3d_video_clip(user_input, media_file)
 
             elif "musiqa" in lower_input or "audio" in lower_input or "qo'shiq" in lower_input:
                 media_type = "audio"
-                timestamp = int(os.path.getmtime(PROJECT_DIR)) + random.randint(100, 999)
-                media_filename = f"generated_ai_music_{timestamp}.mp3"
+                media_filename = f"generated_synth_music_{timestamp}.wav"
                 media_file = os.path.join(RESULTS_DIR, media_filename)
                 
-                ref_a = os.path.join(PROJECT_DIR, "bg_motivational_music.mp3")
-                if os.path.exists(ref_a):
-                    with open(ref_a, 'rb') as rf, open(media_file, 'wb') as wf:
-                        wf.write(rf.read())
-                else:
-                    with open(media_file, 'w', encoding='utf-8') as f:
-                        f.write("Sample MP3 Audio Content")
+                # Real dynamic custom synth melody audio generation
+                generate_custom_audio_track(user_input, media_file)
 
             # Generate intelligent response from Empire AI Engine
             response_text = empire_ai.generate_response(user_input, input_type)
-            engine_used = "Empire AI Intelligence Engine (Fal.ai 3D Pika Engine & Multi-Agent HQ)"
+            engine_used = "Empire Dynamic AI Media Generator (OpenCV 3D Synth Engine & Multi-Agent HQ)"
             
             if input_type == "savol":
                 responder_name = "👑 CEO Master AI Officer (Savolga Javob)"
@@ -81,14 +66,14 @@ class EmpireTerminalHandler(SimpleHTTPRequestHandler):
                 file_title = "ETIROZ_TAHLILI.txt"
             else: # 'topshiriq'
                 responder_name = "🚀 CEO Master AI Officer (Topshiriq Ijrosi)"
-                agents = ["Codestral_Senior_Architect", "Director_Agent_14 (3D Animation)", "Audit_Agent_07"]
-                file_title = f"TOPSHIRIQ_{media_type.upper() if media_type else 'IJRO'}.txt"
+                agents = ["Codestral_Senior_Architect", "Director_Agent_14 (3D Animation Generator)", "Audit_Agent_07"]
+                file_title = f"TOPSHIRIQ_{media_type.upper() if media_type else 'IJRO'}_{timestamp}.txt"
 
             out_file_path = os.path.join(RESULTS_DIR, file_title)
             with open(out_file_path, "w", encoding="utf-8") as f:
                 f.write(f"REJIM: {input_type.upper()}\nSAVOL/TOPSHIRIQ: {user_input}\nJAVOB:\n{response_text}\n")
                 if media_file:
-                    f.write(f"\nMEDIA FAYL: {media_file}\n")
+                    f.write(f"\nYANGI GENERATSIYA QILINGAN FAYL: {media_file}\n")
 
             rel_media_path = f"/natijalar/{os.path.basename(media_file)}" if media_file else None
 
