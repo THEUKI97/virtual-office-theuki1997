@@ -46,10 +46,44 @@
             background: linear-gradient(135deg, #06b6d4, #8b5cf6); color: #ffffff; border-color: transparent;
             box-shadow: 0 4px 20px rgba(6, 182, 212, 0.4); transform: translateY(-2px);
         }
-        .btn-control { background: linear-gradient(135deg, #ef4444, #f59e0b); color: #fff; border: none; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4); }
-        .btn-gold { background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; border: none; }
+        .btn-dispatch { background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: #fff; border: none; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); }
 
         .main-container { position: relative; z-index: 10; max-width: 1700px; margin: 0 auto; padding: 28px 36px; }
+
+        /* TASK DISPATCHER CONSOLE STYLES */
+        .task-console-card {
+            background: rgba(15, 23, 42, 0.9); border: 2px solid #3b82f6; border-radius: 24px; padding: 28px;
+            margin-bottom: 32px; backdrop-filter: blur(16px); box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+        }
+        .task-console-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .task-console-header h3 { font-size: 1.25rem; font-weight: 800; color: #38bdf8; display: flex; align-items: center; gap: 10px; }
+
+        .task-form-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+        .task-input-group label { display: block; font-size: 0.82rem; color: #cbd5e1; font-weight: 700; margin-bottom: 6px; }
+        .task-input-group select, .task-input-group input, .task-input-group textarea {
+            width: 100%; padding: 12px 16px; background: rgba(30, 41, 59, 0.9); border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px; color: #fff; font-size: 0.92rem; outline: none; transition: border-color 0.2s;
+        }
+        .task-input-group select:focus, .task-input-group input:focus, .task-input-group textarea:focus {
+            border-color: #38bdf8;
+        }
+
+        .task-dispatch-btn {
+            background: linear-gradient(135deg, #06b6d4, #3b82f6); color: #fff; border: none; padding: 14px 28px;
+            border-radius: 14px; font-weight: 800; font-size: 1rem; cursor: pointer; display: flex; align-items: center;
+            justify-content: center; gap: 10px; transition: all 0.3s ease; box-shadow: 0 4px 20px rgba(6, 182, 212, 0.4);
+            margin-top: 10px; width: 100%;
+        }
+        .task-dispatch-btn:hover { transform: translateY(-2px); background: linear-gradient(135deg, #3b82f6, #8b5cf6); }
+
+        .log-terminal {
+            background: #050811; border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 14px; padding: 16px;
+            font-family: monospace; font-size: 0.85rem; max-height: 220px; overflow-y: auto; color: #4ade80; margin-top: 18px;
+        }
+        .log-entry { margin-bottom: 6px; line-height: 1.4; }
+        .log-entry span.time { color: #64748b; margin-right: 8px; }
+        .log-entry span.agent { color: #a78bfa; font-weight: bold; }
+        .log-entry span.success { color: #22c55e; }
 
         .division-header-banner {
             background: rgba(15, 23, 42, 0.9); border-left: 6px solid #6366f1; border-radius: 16px; padding: 16px 24px;
@@ -59,18 +93,6 @@
         .division-title h3 { font-size: 1.25rem; font-weight: 800; color: #f8fafc; }
         .division-title p { font-size: 0.8rem; color: #94a3b8; }
         .division-tag { padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
-
-        .ai-matrix-card {
-            background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: 24px; padding: 24px 28px;
-            margin-bottom: 32px; backdrop-filter: blur(16px);
-        }
-        .ai-matrix-header h3 { font-size: 1.2rem; font-weight: 800; color: #fbbf24; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
-        .ai-engine-pills { display: flex; flex-wrap: wrap; gap: 12px; }
-        .ai-pill {
-            background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 14px; padding: 12px 18px;
-            display: flex; align-items: center; gap: 10px; font-size: 0.88rem;
-        }
-        .ai-pill b { color: #fff; }
 
         .control-squad-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px; }
         .squad-card { background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 24px; padding: 24px; backdrop-filter: blur(16px); }
@@ -112,42 +134,69 @@
             <div class="brand-logo"><i class="fa-solid fa-crown"></i></div>
             <div class="brand-title">
                 <h1>TheUKI1997 — Back & Front Mini Office Virtual Empire</h1>
-                <p>50 Control AI Agents + Back Office + Front Office Full Empire HQ</p>
+                <p>CEO Task Dispatcher Console + 50 Control AI Agents + Back & Front Office</p>
             </div>
         </div>
 
         <div class="header-actions">
-            <button class="nav-btn btn-control"><i class="fa-solid fa-eye"></i> 👁️ 50 Control AI Agents</button>
-            <button class="nav-btn"><i class="fa-solid fa-shield-cat"></i> 🏢 Back Mini Office</button>
-            <button class="nav-btn"><i class="fa-solid fa-laptop-code"></i> 💻 Front Freelance Office</button>
+            <a href="#task-dispatcher" class="nav-btn btn-dispatch"><i class="fa-solid fa-paper-plane"></i> 📝 CEO Topshiriq Berish Konsoli</a>
+            <a href="#control-hq" class="nav-btn btn-control"><i class="fa-solid fa-eye"></i> 👁️ 50 Control AI Agents</a>
         </div>
     </header>
 
     <main class="main-container">
 
-        <!-- MULTI-AI MOTOR VAULT BADGE -->
-        <div class="ai-matrix-card">
-            <div class="ai-matrix-header">
-                <h3><i class="fa-solid fa-network-wired"></i> 🧠 24-KEY MULTI-ACCOUNT AI VAULT ARSENAL</h3>
+        <!-- ==================== RESTORED: CEO TASK DISPATCHER & EXECUTION CONSOLE ==================== -->
+        <section id="task-dispatcher" class="task-console-card">
+            <div class="task-console-header">
+                <h3><i class="fa-solid fa-paper-plane"></i> 👑 CEO VA AGENTLARGA TOPSHIRIQ BERISH KONSOLI</h3>
+                <span class="desk-status-badge">🟢 Dispatcher Console Online</span>
             </div>
-            <div class="ai-engine-pills">
-                <div class="ai-pill" style="border-color: #ef4444;">
-                    <i class="fa-solid fa-eye" style="color: #ef4444;"></i>
-                    <div><b>50 Visual Control AI Agents</b> <span style="color:#fca5a5; font-weight:bold;">[CONTROL ACTIVE 🟢]</span><br><span>👁️ 25 Audit Tekshiruv + 25 Strategik Yo'nalish HQ</span></div>
+
+            <div class="task-form-grid">
+                <div class="task-input-group">
+                    <label>Topshiriq Nomi (Task Title):</label>
+                    <input type="text" id="task-title-input" placeholder="Masalan: Instagram Reels uchun yangi 3D animatsion ssenariy yaratish...">
                 </div>
-                <div class="ai-pill" style="border-color: #a855f7;">
-                    <i class="fa-solid fa-layer-group" style="color: #a855f7;"></i>
-                    <div><b>24 Multi-Account AI Keys Pool</b> <span style="color:#c084fc; font-weight:bold;">[FAOL 🟢]</span><br><span>⚡ 6x Fal.ai, 6x Runway, 6x HeyGen, 6x Replicate</span></div>
+                <div class="task-input-group">
+                    <label>Bajaruvchi AI Agent (Assigned Agent):</label>
+                    <select id="task-agent-select">
+                        <option value="CEO Master AI">👑 CEO Master AI Officer</option>
+                        <option value="Control 50 Visual AI">👁️ 50 Visual Brain Control Squad</option>
+                        <option value="Codestral Data Analyst">💻 Codestral Senior Coding Architect</option>
+                        <option value="Mistral Proposal Writer">🤝 Mistral Upwork B2B Writer</option>
+                        <option value="Amazon KDP Storywriter">📚 Amazon KDP Anti-AI Storywriter</option>
+                        <option value="HeyGen Avatar Presenter">🗣️ HeyGen Human Avatar Presenter</option>
+                    </select>
                 </div>
-                <div class="ai-pill" style="border-color: #f59e0b;">
-                    <i class="fa-solid fa-book-open-reader" style="color: #f59e0b;"></i>
-                    <div><b>Amazon KDP Anti-AI Studio</b> <span style="color:#fbbf24; font-weight:bold;">[FAOL 🟢]</span><br><span>📚 +3 Kids Books & 50% Narx Strategiyasi</span></div>
+                <div class="task-input-group">
+                    <label>Prioritet (Execution Priority):</label>
+                    <select id="task-priority-select">
+                        <option value="CRITICAL">🔴 CRITICAL (Shoshilinch / Darhol)</option>
+                        <option value="HIGH">🟡 HIGH (Yuqori Prioritet)</option>
+                        <option value="NORMAL">🟢 NORMAL (Standart Avtonom)</option>
+                    </select>
                 </div>
             </div>
-        </div>
+
+            <div class="task-input-group" style="margin-bottom: 14px;">
+                <label>Topshiriq Tafsilotlari & Ko'rsatmalar (Prompt / Directive):</label>
+                <textarea id="task-prompt-input" rows="3" placeholder="Topshiriq mazmuni, ssenariy linki va bajarish bo'yicha aniq ko'rsatmangizni shu yerga yozing..."></textarea>
+            </div>
+
+            <button class="task-dispatch-btn" onclick="dispatchAgentTask()">
+                <i class="fa-solid fa-rocket"></i> 🚀 CEO VA AGENTLARGA TOPSHIRIQNI YUBORISH VA BAJARISH
+            </button>
+
+            <!-- Real-time Live Log Terminal -->
+            <div class="log-terminal" id="console-log-terminal">
+                <div class="log-entry"><span class="time">[11:30:00]</span> <span class="agent">CEO Command Center:</span> CEO Topshiriq Berish va Bajarish Konsoli tayyor! 🟢</div>
+                <div class="log-entry"><span class="time">[11:30:05]</span> <span class="agent">Control HQ (50 Visual AI):</span> 25 Audit + 25 Director agentlar topshiriqlarni qabul qilishga tayyor!</div>
+            </div>
+        </section>
 
         <!-- ==================== DIVISION 0: CONTROL HQ (50 VISUAL BRAIN AGENTS) ==================== -->
-        <div class="division-header-banner" style="border-left-color: #ef4444;">
+        <div id="control-hq" class="division-header-banner" style="border-left-color: #ef4444;">
             <div class="division-title">
                 <i class="fa-solid fa-eye" style="font-size: 1.8rem; color: #ef4444;"></i>
                 <div>
@@ -230,16 +279,6 @@
                         </div>
                         <span class="desk-status-badge">🟢 Anti-AI Faol</span>
                     </div>
-                    <div class="desk-item">
-                        <div class="avatar-box">
-                            <div class="avatar-frame">🎨<span class="avatar-typing-dot"></span></div>
-                            <div class="agent-details">
-                                <h4>Kids Book Illustration Artist</h4>
-                                <p><i class="fa-solid fa-paint-brush"></i> 4K Storybook Illustrations</p>
-                            </div>
-                        </div>
-                        <span class="desk-status-badge">🟢 Pollinations AI</span>
-                    </div>
                 </div>
             </div>
 
@@ -267,130 +306,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- 4. HEYGEN AVATAR STUDIO -->
-            <div class="room-card" style="border-top: 4px solid #06b6d4;">
-                <div class="room-header">
-                    <div class="room-title">
-                        <div class="room-title-icon" style="background: linear-gradient(135deg, #06b6d4, #0284c7);"><i class="fa-solid fa-user-astronaut"></i></div>
-                        <div class="room-name">
-                            <h3>🗣️ HeyGen Human Avatar Studio <span class="ai-tag-badge">6x Pool</span></h3>
-                            <p>1,264 Ta Jonli Inson Spiker Avatarlar Bo'limi</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="desks-container">
-                    <div class="desk-item">
-                        <div class="avatar-box">
-                            <div class="avatar-frame">🗣️<span class="avatar-typing-dot"></span></div>
-                            <div class="agent-details">
-                                <h4>Live Human Avatar Presenter</h4>
-                                <p><i class="fa-solid fa-video"></i> 1,264 Dynamic Human Avatars</p>
-                            </div>
-                        </div>
-                        <span class="desk-status-badge">🟢 6x Keys Verified</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ==================== DIVISION 2: FRONT MINI OFFICE (FREELANCE & CLIENTS) ==================== -->
-        <div class="division-header-banner" style="border-left-color: #06b6d4;">
-            <div class="division-title">
-                <i class="fa-solid fa-laptop-code" style="font-size: 1.8rem; color: #06b6d4;"></i>
-                <div>
-                    <h3>💻 FRONT MINI OFFICE (Frilans Bolinma, Mijozlar bilan Ishlash & To'lov Qabul Qilish HQ)</h3>
-                    <p>Codestral Data Analyst & Coding Squad, Upwork Proposal & Telegram CRM (@TheUKI_BOT)</p>
-                </div>
-            </div>
-            <span class="division-tag" style="background: rgba(6, 182, 212, 0.2); color: #38bdf8; border: 1px solid rgba(6, 182, 212, 0.4);">Front Office Active 🟢</span>
-        </div>
-
-        <div class="floorplan-grid">
-            <!-- 1. DATA ANALYST & CODING SQUAD -->
-            <div class="room-card" style="border-top: 4px solid #06b6d4;">
-                <div class="room-header">
-                    <div class="room-title">
-                        <div class="room-title-icon" style="background: linear-gradient(135deg, #06b6d4, #3b82f6);"><i class="fa-solid fa-code"></i></div>
-                        <div class="room-name">
-                            <h3>💻 Data Analyst & Coding Squad <span class="ai-tag-badge">Codestral</span></h3>
-                            <p>Frilans Buyurtmalar & Dasturlash HQ</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="desks-container">
-                    <div class="desk-item">
-                        <div class="avatar-box">
-                            <div class="avatar-frame">💻<span class="avatar-typing-dot"></span></div>
-                            <div class="agent-details">
-                                <h4>Codestral Senior Architect</h4>
-                                <p><i class="fa-solid fa-terminal"></i> Dedicated Coding & Data Analytics</p>
-                            </div>
-                        </div>
-                        <span class="desk-status-badge">🟢 Codestral Active</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 2. B2B PROPOSAL & CLIENT CRM -->
-            <div class="room-card" style="border-top: 4px solid #8b5cf6;">
-                <div class="room-header">
-                    <div class="room-title">
-                        <div class="room-title-icon" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9);"><i class="fa-solid fa-handshake"></i></div>
-                        <div class="room-name">
-                            <h3>🤝 Upwork B2B Proposals & CRM <span class="ai-tag-badge">Mistral</span></h3>
-                            <p>Mijozlar Bilan Ishlash & Takliflar Yozish</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="desks-container">
-                    <div class="desk-item">
-                        <div class="avatar-box">
-                            <div class="avatar-frame">🤝<span class="avatar-typing-dot"></span></div>
-                            <div class="agent-details">
-                                <h4>Mistral Proposal Writer</h4>
-                                <p><i class="fa-solid fa-file-contract"></i> High-Converting Upwork Bids</p>
-                            </div>
-                        </div>
-                        <span class="desk-status-badge">🟢 Mistral Active</span>
-                    </div>
-                    <div class="desk-item">
-                        <div class="avatar-box">
-                            <div class="avatar-frame">🤖<span class="avatar-typing-dot"></span></div>
-                            <div class="agent-details">
-                                <h4>Telegram CRM Bot (@TheUKI_BOT)</h4>
-                                <p><i class="fa-brands fa-telegram"></i> Real-time Client Management</p>
-                            </div>
-                        </div>
-                        <span class="desk-status-badge">🟢 Bot Online</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 3. FINANCIAL BILLING & PAYMENT GATEWAY -->
-            <div class="room-card" style="border-top: 4px solid #22c55e;">
-                <div class="room-header">
-                    <div class="room-title">
-                        <div class="room-title-icon" style="background: linear-gradient(135deg, #22c55e, #15803d);"><i class="fa-solid fa-credit-card"></i></div>
-                        <div class="room-name">
-                            <h3>💳 Financial Billing & CFO Suite <span class="ai-tag-badge">CFO Billing</span></h3>
-                            <p>To'lov Qabul Qilish & Invoyslar Boshqaruvi</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="desks-container">
-                    <div class="desk-item">
-                        <div class="avatar-box">
-                            <div class="avatar-frame">💳<span class="avatar-typing-dot"></span></div>
-                            <div class="agent-details">
-                                <h4>Chief Financial Officer (CFO)</h4>
-                                <p><i class="fa-solid fa-sack-dollar"></i> Global Payment & Billing Vault</p>
-                            </div>
-                        </div>
-                        <span class="desk-status-badge">🟢 50% CFO Pricing</span>
-                    </div>
-                </div>
-            </div>
         </div>
 
     </main>
@@ -411,6 +326,31 @@
                 directorHTML += `<div class="agent-badge"><i class="fa-solid fa-compass" style="color:#f59e0b;"></i> <b>Director_Agent_${i < 10 ? '0' + i : i}</b></div>`;
             }
             directorContainer.innerHTML = directorHTML;
+        }
+
+        function dispatchAgentTask() {
+            const title = document.getElementById('task-title-input').value;
+            const agent = document.getElementById('task-agent-select').value;
+            const priority = document.getElementById('task-priority-select').value;
+            const prompt = document.getElementById('task-prompt-input').value;
+
+            if (!title || !prompt) {
+                alert("Iltimos, topshiriq nomi va tafsilotini yozing!");
+                return;
+            }
+
+            const terminal = document.getElementById('console-log-terminal');
+            const now = new Date().toLocaleTimeString();
+            
+            const logEntry = document.createElement('div');
+            logEntry.className = 'log-entry';
+            logEntry.innerHTML = `<span class="time">[${now}]</span> <span class="agent">${agent}:</span> Topshiriq qabul qilindi! [${priority}] -> <b>${title}</b>... <span class="success">BAJARILMOQDA 🟢</span>`;
+            
+            terminal.appendChild(logEntry);
+            terminal.scrollTop = terminal.scrollHeight;
+
+            document.getElementById('task-title-input').value = '';
+            document.getElementById('task-prompt-input').value = '';
         }
 
         window.onload = function() {
