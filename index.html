@@ -79,7 +79,6 @@
             flex: 1; background: transparent; border: none; outline: none; color: #fff; font-family: 'Fira Code', monospace; font-size: 1rem;
         }
 
-        /* NEW TYPE SELECTOR DROPDOWN RIGHT NEXT TO YUBORISH BUTTON */
         .term-type-select {
             background: rgba(30, 41, 59, 0.9); border: 1px solid rgba(59, 130, 246, 0.5); color: #fbbf24;
             padding: 10px 14px; border-radius: 10px; font-weight: 700; font-family: 'Outfit', sans-serif; font-size: 0.9rem;
@@ -112,7 +111,7 @@
             <div class="brand-logo"><i class="fa-solid fa-terminal"></i></div>
             <div class="brand-title">
                 <h1>TheUKI1997 — Empire Interactive Command Terminal</h1>
-                <p>CEO Savol, Topshiriq va E'tirozlar Terminali + Mode Selector</p>
+                <p>CEO Savol va Topshiriqlar Mantiqiy Interaktiv Terminali</p>
             </div>
         </div>
         <div>
@@ -133,25 +132,25 @@
                     <div class="dot dot-green"></div>
                 </div>
                 <div class="terminal-title">👑 CEO INTERACTIVE COMMAND & QUERY TERMINAL (v2026.8)</div>
-                <div style="font-size: 0.78rem; color: #64748b;">Topshiriq | Savol | E'tiroz Modes Active</div>
+                <div style="font-size: 0.78rem; color: #64748b;">Savol Berish | Topshiriq Berish Modes</div>
             </div>
 
             <div class="terminal-body" id="terminal-output-body">
                 <div class="term-block" style="border-color: #3b82f6;">
                     <div class="term-line"><span class="term-label">👑 TIZIM TAYYOR:</span> <span class="term-val-green">CEO va AI Agentlar Aloqada! 🟢</span></div>
-                    <div class="term-line"><span class="term-label">💡 QO'LLANMA:</span> <span class="term-val">Pastda yuborish tugmasi yonidagi <b>[📝 TOPSHIRIQ / ❓ SAVOL / ⚠️ E'TIROZ]</b> rejimidan keraklisini tanlang va matningizni yuboring. Tizim aniq rejim bo'yicha to'liq javob qaytaradi!</span></div>
+                    <div class="term-line"><span class="term-label">💡 QO'LLANMA:</span> <span class="term-val">Agarda AI Agentlarga <b>SAVOL BERMOQChI BO'LSANGIZ</b> — <b>[❓ SAVOL]</b> rejimini tanlang. Agarda AI Agentlarga <b>TOPSHIRIQ BERMOQChI BO'LSANGIZ</b> — <b>[📝 TOPSHIRIQ]</b> rejimini tanlang!</span></div>
                 </div>
             </div>
 
             <div class="terminal-input-bar">
                 <span class="term-prompt">umidjon@theuki-empire:~$</span>
-                <input type="text" class="term-input" id="terminal-user-input" placeholder="Matnni shu yerga yozing..." onkeypress="handleKeyPress(event)">
+                <input type="text" class="term-input" id="terminal-user-input" placeholder="Matningizni shu yerga yozing..." onkeypress="handleKeyPress(event)">
                 
-                <!-- NEW TYPE SELECTOR DROPDOWN RIGHT NEXT TO YUBORISH BUTTON -->
+                <!-- TYPE SELECTOR DROPDOWN RIGHT NEXT TO YUBORISH BUTTON -->
                 <select class="term-type-select" id="terminal-type-select">
-                    <option value="topshiriq">📝 TOPSHIRIQ</option>
-                    <option value="savol" selected>❓ SAVOL</option>
-                    <option value="etiroz">⚠️ E'TIROZ</option>
+                    <option value="savol" selected>❓ SAVOL (Agentlarga Savol Berish)</option>
+                    <option value="topshiriq">📝 TOPSHIRIQ (Agentlarga Topshiriq Berish)</option>
+                    <option value="etiroz">⚠️ E'TIROZ (E'tiroz Bildirish)</option>
                 </select>
 
                 <button class="term-send-btn" onclick="submitTerminalInput()">
@@ -203,14 +202,14 @@
             const inputEl = document.getElementById('terminal-user-input');
             const typeEl = document.getElementById('terminal-type-select');
             const text = inputEl.value.trim();
-            const inputType = typeEl.value; // 'topshiriq', 'savol', 'etiroz'
+            const inputType = typeEl.value; // 'savol', 'topshiriq', 'etiroz'
 
             if (!text) return;
 
             const body = document.getElementById('terminal-output-body');
             const now = new Date().toLocaleTimeString();
 
-            let typeBadgeStr = inputType === 'savol' ? '❓ SAVOL' : (inputType === 'etiroz' ? '⚠️ E'TIROZ' : '📝 TOPSHIRIQ');
+            let typeBadgeStr = inputType === 'savol' ? '❓ SAVOL BERMOQDA' : (inputType === 'etiroz' ? '⚠️ E'TIROZ BILDIRMOQDA' : '📝 TOPSHIRIQ BERMOQDA');
             let badgeColor = inputType === 'savol' ? '#fbbf24' : (inputType === 'etiroz' ? '#ef4444' : '#38bdf8');
 
             // 1. Render User Input Block
@@ -227,10 +226,9 @@
             inputEl.value = '';
 
             const bar = userBlock.querySelector('#prog-bar-active');
-            setTimeout(() => { bar.style.width = '55%'; }, 300);
+            setTimeout(() => { bar.style.width = '60%'; }, 300);
 
             try {
-                // Call real backend python server API /api/command with type parameter
                 const response = await fetch('/api/command', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -247,7 +245,7 @@
                     resultBlock.style.borderColor = resData.problem_status ? '#ef4444' : '#22c55e';
 
                     let problemHTML = resData.problem_status 
-                        ? `<span class="term-val-red">🔴 E'TIROZ ANIQLANDI VA TUZATILDI</span>` 
+                        ? `<span class="term-val-red">🔴 E'TIROZ TUZATILDI</span>` 
                         : `<span class="term-val-green">🟢 MUAMMO YO'Q (100% Muvaffaqiyatli)</span>`;
 
                     let agentsList = resData.assigned_agents.map(a => `<span style="background:rgba(99,102,241,0.2); padding:2px 6px; border-radius:4px; margin-right:4px;">${a}</span>`).join(' ');

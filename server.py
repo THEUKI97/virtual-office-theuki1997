@@ -13,7 +13,7 @@ PROJECT_DIR = r"D:\Shaxsiy\Project\Virtual Office TheUKI1997"
 class EmpireTerminalHandler(SimpleHTTPRequestHandler):
     """
     Real Interactive Backend HTTP API & Static File Server for Virtual Empire Terminal.
-    Supports input_type: 'topshiriq', 'savol', 'etiroz'.
+    Strictly distinguishes between User Asking a Question ('savol') vs Giving a Task ('topshiriq').
     """
     def do_POST(self):
         if self.path == '/api/command':
@@ -22,19 +22,28 @@ class EmpireTerminalHandler(SimpleHTTPRequestHandler):
             request_json = json.loads(post_data.decode('utf-8'))
             
             user_input = request_json.get('input', '')
-            input_type = request_json.get('type', 'topshiriq') # 'topshiriq', 'savol', 'etiroz'
+            input_type = request_json.get('type', 'savol') # 'savol', 'topshiriq', 'etiroz'
             
             groq_key = os.getenv("GROQ_API_KEY", "")
             response_text = ""
             engine_used = "Groq Llama-3.3-70b (Anti-AI Engine)"
             
-            # System prompt according to input_type
+            # Strict logic according to input_type
             if input_type == "savol":
-                sys_prompt = "Siz TheUKI1997 Virtual Ofisining Bosh CEO AI Officerisiz. Umidjon aka SAVOL so'ramoqda. Uning savoliga (masalan ofis bo'limlari, agentlar, texnologiyalar haqida) o'ta professional, batafsil, aniq va samimiy javob bering. Hozir ofisimizda 3 ta asosiy bo'lim bor: 1) 50 Visual AI Agentli Control HQ (25 Audit + 25 Strateg), 2) Back Mini Office (CEO, Amazon KDP, Cyber Vault, HeyGen 1264 Avatar), 3) Front Mini Office (Codestral Data Analyst & Coding, Mistral Proposal, Telegram CRM @TheUKI_BOT, CFO Billing)."
+                sys_prompt = "Siz TheUKI1997 Virtual Ofisining Bosh CEO AI Officerisiz. Umidjon aka sizga SAVOL BERMOQDA. Uning savoliga (masalan ofis bo'limlari, agentlar, tizim imkoniyatlari haqida) o'ta aniq, samimiy va batafsil javob bering."
+                responder_name = "👑 CEO Master AI Officer (Savolga Javob)"
+                agents = ["CEO Master AI Officer", "Director_Agent_01 (Knowledge Base)"]
+                file_title = "SAVOL_JAVOBI.txt"
             elif input_type == "etiroz":
-                sys_prompt = "Siz TheUKI1997 Virtual Ofisining Bosh CEO AI Officerisiz. Umidjon aka E'TIROZ/TUMANLIK bildirdi. E'tirozni 100% hurmat bilan qabul qilib, qaysi agentlar tuzatishi va muammo qanday hal etilishini samimiy, insoniy va aniq tushuntiring."
-            else:
-                sys_prompt = "Siz TheUKI1997 Virtual Ofisining Bosh CEO AI Officerisiz. Umidjon aka TOPSHIRIQ berdi. Topshiriqni ijro etish rejasini va natijani professional tilda ko'rsatib bering."
+                sys_prompt = "Siz TheUKI1997 Virtual Ofisining Bosh CEO AI Officerisiz. Umidjon aka sizga E'TIROZ BILDIRMOQDA. E'tirozni to'liq hurmat bilan qabul qilib, qaysi agentlar tuzatishi va muammo qanday bartaraf etilishini tushuntiring."
+                responder_name = "🔴 25 Audit Quality Control Squad (E'tiroz Tahlili)"
+                agents = ["Audit_Agent_01...25 (Quality Control)", "CEO Master AI Officer"]
+                file_title = "ETIROZ_TAHLILI.txt"
+            else: # 'topshiriq'
+                sys_prompt = "Siz TheUKI1997 Virtual Ofisining Bosh CEO AI Officerisiz. Umidjon aka sizga TOPSHIRIQ BERMOQDA. Topshiriqni 100% bajarish rejasini, qaysi agentlar jalb qilinishini va ijro bosqichlarini ko'rsating."
+                responder_name = "🚀 CEO Master AI Officer (Topshiriq Ijrosi)"
+                agents = ["Codestral_Senior_Architect", "Director_Agent_14", "Audit_Agent_07"]
+                file_title = "TOPSHIRIQ_IJROSI.txt"
                 
             if groq_key:
                 try:
@@ -54,29 +63,22 @@ class EmpireTerminalHandler(SimpleHTTPRequestHandler):
                     response_text = f"[{input_type.upper()} QABUL QILINDI] Javob: {user_input}"
             else:
                 response_text = f"[{input_type.upper()} QABUL QILINDI] Javob: {user_input}"
-                
-            # Assigned agents according to type
-            if input_type == "savol":
-                agents = ["CEO Master AI Officer", "Director_Agent_01 (Knowledge HQ)"]
-            elif input_type == "etiroz":
-                agents = ["Audit_Agent_01...25 (Quality Control)", "CEO Master AI Officer"]
-            else:
-                agents = ["Codestral_Senior_Architect", "Director_Agent_14", "Audit_Agent_07"]
+
+            out_file_path = os.path.join(PROJECT_DIR, file_title)
+            with open(out_file_path, "w", encoding="utf-8") as f:
+                f.write(f"REJIM: {input_type.upper()}\nSAVOL/TOPSHIRIQ: {user_input}\nJAVOB:\n{response_text}\n")
 
             result_payload = {
                 "input": user_input,
                 "input_type": input_type,
-                "responder": "👑 CEO Master AI Officer",
+                "responder": responder_name,
                 "ai_engine": engine_used,
                 "progress": 100,
                 "assigned_agents": agents,
-                "problem_status": None if input_type != "etiroz" else "E'tiroz Tahlil Qilindi & Tuzatildi",
+                "problem_status": None if input_type != "etiroz" else "E'tiroz Qabul Qilindi & Avto-Tuzatildi",
                 "response_text": response_text,
-                "saved_file": os.path.join(PROJECT_DIR, "terminal_output.txt")
+                "saved_file": out_file_path
             }
-            
-            with open(os.path.join(PROJECT_DIR, "terminal_output.txt"), "w", encoding="utf-8") as f:
-                f.write(f"TYPE: {input_type.upper()}\nINPUT: {user_input}\nRESPONSE:\n{response_text}\n")
                 
             self.send_response(200)
             self.send_header('Content-Type', 'application/json; charset=utf-8')
