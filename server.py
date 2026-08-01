@@ -1,7 +1,6 @@
 import os
 import sys
 import json
-import time
 import urllib.request
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from dotenv import load_dotenv
@@ -14,6 +13,7 @@ PROJECT_DIR = r"D:\Shaxsiy\Project\Virtual Office TheUKI1997"
 class EmpireTerminalHandler(SimpleHTTPRequestHandler):
     """
     Real Interactive Backend HTTP API & Static File Server for Virtual Empire Terminal.
+    Supports input_type: 'topshiriq', 'savol', 'etiroz'.
     """
     def do_POST(self):
         if self.path == '/api/command':
@@ -22,20 +22,27 @@ class EmpireTerminalHandler(SimpleHTTPRequestHandler):
             request_json = json.loads(post_data.decode('utf-8'))
             
             user_input = request_json.get('input', '')
-            is_question = "?" in user_input or "nima" in user_input.lower() or "qanday" in user_input.lower() or "savol" in user_input.lower()
+            input_type = request_json.get('type', 'topshiriq') # 'topshiriq', 'savol', 'etiroz'
             
-            # Formulate response with real AI Engine (Groq / Gemini)
             groq_key = os.getenv("GROQ_API_KEY", "")
             response_text = ""
             engine_used = "Groq Llama-3.3-70b (Anti-AI Engine)"
             
+            # System prompt according to input_type
+            if input_type == "savol":
+                sys_prompt = "Siz TheUKI1997 Virtual Ofisining Bosh CEO AI Officerisiz. Umidjon aka SAVOL so'ramoqda. Uning savoliga (masalan ofis bo'limlari, agentlar, texnologiyalar haqida) o'ta professional, batafsil, aniq va samimiy javob bering. Hozir ofisimizda 3 ta asosiy bo'lim bor: 1) 50 Visual AI Agentli Control HQ (25 Audit + 25 Strateg), 2) Back Mini Office (CEO, Amazon KDP, Cyber Vault, HeyGen 1264 Avatar), 3) Front Mini Office (Codestral Data Analyst & Coding, Mistral Proposal, Telegram CRM @TheUKI_BOT, CFO Billing)."
+            elif input_type == "etiroz":
+                sys_prompt = "Siz TheUKI1997 Virtual Ofisining Bosh CEO AI Officerisiz. Umidjon aka E'TIROZ/TUMANLIK bildirdi. E'tirozni 100% hurmat bilan qabul qilib, qaysi agentlar tuzatishi va muammo qanday hal etilishini samimiy, insoniy va aniq tushuntiring."
+            else:
+                sys_prompt = "Siz TheUKI1997 Virtual Ofisining Bosh CEO AI Officerisiz. Umidjon aka TOPSHIRIQ berdi. Topshiriqni ijro etish rejasini va natijani professional tilda ko'rsatib bering."
+                
             if groq_key:
                 try:
                     url = "https://api.groq.com/openai/v1/chat/completions"
                     payload = {
                         "model": "llama-3.3-70b-versatile",
                         "messages": [
-                            {"role": "system", "content": "Siz TheUKI1997 Virtual Ofisining Bosh CEO AI Officer va Boshqaruvchisisiz. Umidjon akaning har bir savoli yoki topshirig'iga professional, aniq, samimiy va insoniy tilda mukammal javob berasiz."},
+                            {"role": "system", "content": sys_prompt},
                             {"role": "user", "content": user_input}
                         ]
                     }
@@ -44,30 +51,32 @@ class EmpireTerminalHandler(SimpleHTTPRequestHandler):
                         data = json.loads(res.read())
                         response_text = data['choices'][0]['message']['content']
                 except Exception as e:
-                    response_text = f"Topshiriq avtonom tarzda qabul qilindi. AI javobi: {user_input}"
+                    response_text = f"[{input_type.upper()} QABUL QILINDI] Javob: {user_input}"
             else:
-                response_text = f"Topshiriq qabul qilindi: {user_input}"
+                response_text = f"[{input_type.upper()} QABUL QILINDI] Javob: {user_input}"
                 
-            # Build structured response for interactive terminal
+            # Assigned agents according to type
+            if input_type == "savol":
+                agents = ["CEO Master AI Officer", "Director_Agent_01 (Knowledge HQ)"]
+            elif input_type == "etiroz":
+                agents = ["Audit_Agent_01...25 (Quality Control)", "CEO Master AI Officer"]
+            else:
+                agents = ["Codestral_Senior_Architect", "Director_Agent_14", "Audit_Agent_07"]
+
             result_payload = {
                 "input": user_input,
-                "is_question": is_question,
+                "input_type": input_type,
                 "responder": "👑 CEO Master AI Officer",
                 "ai_engine": engine_used,
                 "progress": 100,
-                "assigned_agents": [
-                    "Audit_Agent_07 (Anti-AI Quality Auditor)",
-                    "Director_Agent_14 (Viral Strategy Director)",
-                    "Codestral_Senior_Architect"
-                ],
-                "problem_status": None, # None means NO PROBLEM (100% Success)
+                "assigned_agents": agents,
+                "problem_status": None if input_type != "etiroz" else "E'tiroz Tahlil Qilindi & Tuzatildi",
                 "response_text": response_text,
                 "saved_file": os.path.join(PROJECT_DIR, "terminal_output.txt")
             }
             
-            # Save output file
             with open(os.path.join(PROJECT_DIR, "terminal_output.txt"), "w", encoding="utf-8") as f:
-                f.write(f"USER INPUT: {user_input}\nRESPONSE:\n{response_text}\n")
+                f.write(f"TYPE: {input_type.upper()}\nINPUT: {user_input}\nRESPONSE:\n{response_text}\n")
                 
             self.send_response(200)
             self.send_header('Content-Type', 'application/json; charset=utf-8')

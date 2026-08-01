@@ -78,6 +78,15 @@
         .term-input {
             flex: 1; background: transparent; border: none; outline: none; color: #fff; font-family: 'Fira Code', monospace; font-size: 1rem;
         }
+
+        /* NEW TYPE SELECTOR DROPDOWN RIGHT NEXT TO YUBORISH BUTTON */
+        .term-type-select {
+            background: rgba(30, 41, 59, 0.9); border: 1px solid rgba(59, 130, 246, 0.5); color: #fbbf24;
+            padding: 10px 14px; border-radius: 10px; font-weight: 700; font-family: 'Outfit', sans-serif; font-size: 0.9rem;
+            outline: none; cursor: pointer; transition: border-color 0.2s;
+        }
+        .term-type-select:focus { border-color: #38bdf8; }
+
         .term-send-btn {
             background: linear-gradient(135deg, #06b6d4, #3b82f6); color: #fff; border: none; padding: 10px 22px; border-radius: 10px;
             font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 0.9rem; transition: transform 0.2s;
@@ -103,7 +112,7 @@
             <div class="brand-logo"><i class="fa-solid fa-terminal"></i></div>
             <div class="brand-title">
                 <h1>TheUKI1997 — Empire Interactive Command Terminal</h1>
-                <p>CEO Savol & Topshiriqlar Terminali + Live AI Progress & Result Engine</p>
+                <p>CEO Savol, Topshiriq va E'tirozlar Terminali + Mode Selector</p>
             </div>
         </div>
         <div>
@@ -124,19 +133,27 @@
                     <div class="dot dot-green"></div>
                 </div>
                 <div class="terminal-title">👑 CEO INTERACTIVE COMMAND & QUERY TERMINAL (v2026.8)</div>
-                <div style="font-size: 0.78rem; color: #64748b;">Ready for Questions & Tasks</div>
+                <div style="font-size: 0.78rem; color: #64748b;">Topshiriq | Savol | E'tiroz Modes Active</div>
             </div>
 
             <div class="terminal-body" id="terminal-output-body">
                 <div class="term-block" style="border-color: #3b82f6;">
                     <div class="term-line"><span class="term-label">👑 TIZIM TAYYOR:</span> <span class="term-val-green">CEO va AI Agentlar Aloqada! 🟢</span></div>
-                    <div class="term-line"><span class="term-label">💡 QO'LLANMA:</span> <span class="term-val">Pastdagi kiritish qatoriga xohlagan SAVOLINGIZNI bering yoki TOPSHIRIQIZNI yozing. Tizim sizga: <b>Javobgar Agent, Ishlatilgan AI Bot, Bajarilish % barini, Natijani va Muammo holatini</b> darhol terminalda ko'rsatib beradi!</span></div>
+                    <div class="term-line"><span class="term-label">💡 QO'LLANMA:</span> <span class="term-val">Pastda yuborish tugmasi yonidagi <b>[📝 TOPSHIRIQ / ❓ SAVOL / ⚠️ E'TIROZ]</b> rejimidan keraklisini tanlang va matningizni yuboring. Tizim aniq rejim bo'yicha to'liq javob qaytaradi!</span></div>
                 </div>
             </div>
 
             <div class="terminal-input-bar">
                 <span class="term-prompt">umidjon@theuki-empire:~$</span>
-                <input type="text" class="term-input" id="terminal-user-input" placeholder="Savol yoki topshiriqni shu yerga yozing... (Masalan: Instagram Reels uchun yangi 3D ssenariyni qanday qilamiz?)" onkeypress="handleKeyPress(event)">
+                <input type="text" class="term-input" id="terminal-user-input" placeholder="Matnni shu yerga yozing..." onkeypress="handleKeyPress(event)">
+                
+                <!-- NEW TYPE SELECTOR DROPDOWN RIGHT NEXT TO YUBORISH BUTTON -->
+                <select class="term-type-select" id="terminal-type-select">
+                    <option value="topshiriq">📝 TOPSHIRIQ</option>
+                    <option value="savol" selected>❓ SAVOL</option>
+                    <option value="etiroz">⚠️ E'TIROZ</option>
+                </select>
+
                 <button class="term-send-btn" onclick="submitTerminalInput()">
                     <i class="fa-solid fa-paper-plane"></i> YUBORISH
                 </button>
@@ -184,35 +201,40 @@
 
         async function submitTerminalInput() {
             const inputEl = document.getElementById('terminal-user-input');
+            const typeEl = document.getElementById('terminal-type-select');
             const text = inputEl.value.trim();
+            const inputType = typeEl.value; // 'topshiriq', 'savol', 'etiroz'
+
             if (!text) return;
 
             const body = document.getElementById('terminal-output-body');
             const now = new Date().toLocaleTimeString();
 
+            let typeBadgeStr = inputType === 'savol' ? '❓ SAVOL' : (inputType === 'etiroz' ? '⚠️ E'TIROZ' : '📝 TOPSHIRIQ');
+            let badgeColor = inputType === 'savol' ? '#fbbf24' : (inputType === 'etiroz' ? '#ef4444' : '#38bdf8');
+
             // 1. Render User Input Block
             const userBlock = document.createElement('div');
             userBlock.className = 'term-block';
-            userBlock.style.borderColor = '#6366f1';
+            userBlock.style.borderColor = badgeColor;
             userBlock.innerHTML = `
-                <div class="term-line"><span class="term-label">👤 UMIDJON AKA:</span> <span class="term-val" style="color:#fbbf24; font-weight:bold;">${text}</span></div>
-                <div class="term-line"><span class="term-label">⏳ MAQOM:</span> <span class="term-val" style="color:#93c5fd;">Tizim tahlil qilmoqda va bajarilmoqda...</span></div>
+                <div class="term-line"><span class="term-label">👤 UMIDJON AKA [${typeBadgeStr}]:</span> <span class="term-val" style="color:${badgeColor}; font-weight:bold;">${text}</span></div>
+                <div class="term-line"><span class="term-label">⏳ MAQOM:</span> <span class="term-val" style="color:#93c5fd;">Tizim ${typeBadgeStr} bo'yicha tahlil qilmoqda...</span></div>
                 <div class="progress-bar-container"><div class="progress-bar-fill" id="prog-bar-active"></div></div>
             `;
             body.appendChild(userBlock);
             body.scrollTop = body.scrollHeight;
             inputEl.value = '';
 
-            // Animate progress bar (0% -> 50% -> 100%)
             const bar = userBlock.querySelector('#prog-bar-active');
-            setTimeout(() => { bar.style.width = '45%'; }, 300);
+            setTimeout(() => { bar.style.width = '55%'; }, 300);
 
             try {
-                // Call real backend python server API /api/command
+                // Call real backend python server API /api/command with type parameter
                 const response = await fetch('/api/command', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ input: text })
+                    body: JSON.stringify({ input: text, type: inputType })
                 });
 
                 const resData = await response.json();
@@ -225,17 +247,18 @@
                     resultBlock.style.borderColor = resData.problem_status ? '#ef4444' : '#22c55e';
 
                     let problemHTML = resData.problem_status 
-                        ? `<span class="term-val-red">🔴 MUAMMO ANIQLANDI: ${resData.problem_status}</span>` 
+                        ? `<span class="term-val-red">🔴 E'TIROZ ANIQLANDI VA TUZATILDI</span>` 
                         : `<span class="term-val-green">🟢 MUAMMO YO'Q (100% Muvaffaqiyatli)</span>`;
 
                     let agentsList = resData.assigned_agents.map(a => `<span style="background:rgba(99,102,241,0.2); padding:2px 6px; border-radius:4px; margin-right:4px;">${a}</span>`).join(' ');
 
                     resultBlock.innerHTML = `
+                        <div class="term-line"><span class="term-label">📌 REJIM:</span> <span class="term-val" style="color:${badgeColor}; font-weight:bold;">${typeBadgeStr}</span></div>
                         <div class="term-line"><span class="term-label">👑 JAVOBGAR:</span> <span class="term-val" style="color:#a78bfa; font-weight:bold;">${resData.responder}</span></div>
                         <div class="term-line"><span class="term-label">🤖 AI ENGINE:</span> <span class="term-val" style="color:#38bdf8;">${resData.ai_engine}</span></div>
                         <div class="term-line"><span class="term-label">📊 ISH BAJARILDI:</span> <span class="term-val-green">100% COMPLETE [██████████]</span></div>
                         <div class="term-line"><span class="term-label">👥 JALB QILINGAN:</span> <span class="term-val">${agentsList}</span></div>
-                        <div class="term-line"><span class="term-label">🛡️ MUAMMO HOLATI:</span> ${problemHTML}</div>
+                        <div class="term-line"><span class="term-label">🛡️ HOLAT:</span> ${problemHTML}</div>
                         <div class="term-line"><span class="term-label">📁 SAQLANGAN FAYL:</span> <span class="term-val" style="color:#fbbf24;">${resData.saved_file}</span></div>
                         <hr style="border:none; border-top:1px solid rgba(255,255,255,0.1); margin:10px 0;">
                         <div style="color:#ffffff; font-size:0.95rem; white-space:pre-wrap;">${resData.response_text}</div>
@@ -251,7 +274,7 @@
                 errBlock.style.borderColor = '#ef4444';
                 errBlock.innerHTML = `
                     <div class="term-line"><span class="term-label">👑 JAVOBGAR:</span> <span class="term-val">CEO Master AI Officer</span></div>
-                    <div class="term-line"><span class="term-label">🛡️ MUAMMO HOLATI:</span> <span class="term-val-red">🔴 SERVER BILAN ALOQA UZILDI: ${err.message}</span></div>
+                    <div class="term-line"><span class="term-label">🛡️ HOLAT:</span> <span class="term-val-red">🔴 SERVER ALOQA XATOSI: ${err.message}</span></div>
                 `;
                 body.appendChild(errBlock);
                 body.scrollTop = body.scrollHeight;
