@@ -7,25 +7,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Outfit', sans-serif;
-        }
-
-        body {
-            background: #080c17;
-            color: #f1f5f9;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+        body { background: #080c17; color: #f1f5f9; min-height: 100vh; overflow-x: hidden; }
 
         .bg-glow {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 0;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0;
             background: 
                 radial-gradient(circle at 15% 20%, rgba(99, 102, 241, 0.14) 0%, transparent 45%),
                 radial-gradient(circle at 85% 80%, rgba(236, 72, 153, 0.14) 0%, transparent 45%),
@@ -33,411 +19,59 @@
         }
 
         .app-header {
-            position: relative;
-            z-index: 100;
-            padding: 20px 36px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(15, 23, 42, 0.88);
-            backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            flex-wrap: wrap;
-            gap: 16px;
+            position: relative; z-index: 100; padding: 20px 36px; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(15, 23, 42, 0.88); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            flex-wrap: wrap; gap: 16px;
         }
 
-        .brand-box {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
+        .brand-box { display: flex; align-items: center; gap: 14px; }
         .brand-logo {
-            width: 48px;
-            height: 48px;
-            border-radius: 14px;
-            background: linear-gradient(135deg, #6366f1, #ec4899);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            color: #fff;
-            box-shadow: 0 0 25px rgba(99, 102, 241, 0.5);
+            width: 48px; height: 48px; border-radius: 14px; background: linear-gradient(135deg, #6366f1, #ec4899);
+            display: flex; align-items: center; justify-content: center; font-size: 22px; color: #fff; box-shadow: 0 0 25px rgba(99, 102, 241, 0.5);
         }
 
         .brand-title h1 {
-            font-size: 1.4rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #38bdf8, #8b5cf6, #ec4899);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 1.4rem; font-weight: 800; background: linear-gradient(135deg, #38bdf8, #8b5cf6, #ec4899);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
+        .brand-title p { font-size: 0.78rem; color: #94a3b8; letter-spacing: 2px; text-transform: uppercase; }
 
-        .brand-title p {
-            font-size: 0.78rem;
-            color: #94a3b8;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
+        .header-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
         .nav-btn {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            color: #e2e8f0;
-            padding: 10px 18px;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+            background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.12); color: #e2e8f0;
+            padding: 10px 18px; border-radius: 12px; font-size: 0.9rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease;
+            display: inline-flex; align-items: center; gap: 8px;
         }
-
         .nav-btn:hover, .nav-btn.active {
-            background: linear-gradient(135deg, #06b6d4, #8b5cf6);
-            color: #ffffff;
-            border-color: transparent;
-            box-shadow: 0 4px 20px rgba(6, 182, 212, 0.4);
-            transform: translateY(-2px);
+            background: linear-gradient(135deg, #06b6d4, #8b5cf6); color: #ffffff; border-color: transparent;
+            box-shadow: 0 4px 20px rgba(6, 182, 212, 0.4); transform: translateY(-2px);
         }
+        .btn-control { background: linear-gradient(135deg, #ef4444, #f59e0b); color: #fff; border: none; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4); }
 
-        .btn-gold {
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-            color: #fff;
-            border: none;
-            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
-        }
-
-        .main-container {
-            position: relative;
-            z-index: 10;
-            max-width: 1700px;
-            margin: 0 auto;
-            padding: 28px 36px;
-        }
-
-        .office-section {
-            display: none;
-        }
-
-        .office-section.active {
-            display: block;
-        }
+        .main-container { position: relative; z-index: 10; max-width: 1700px; margin: 0 auto; padding: 28px 36px; }
+        .office-section { display: none; }
+        .office-section.active { display: block; }
 
         .division-header-banner {
-            background: rgba(15, 23, 42, 0.9);
-            border-left: 6px solid #6366f1;
-            border-radius: 16px;
-            padding: 16px 24px;
-            margin-bottom: 20px;
-            margin-top: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            background: rgba(15, 23, 42, 0.9); border-left: 6px solid #ef4444; border-radius: 16px; padding: 16px 24px;
+            margin-bottom: 20px; margin-top: 10px; display: flex; align-items: center; justify-content: space-between;
         }
+        .division-title { display: flex; align-items: center; gap: 12px; }
+        .division-title h3 { font-size: 1.25rem; font-weight: 800; color: #f8fafc; }
+        .division-title p { font-size: 0.8rem; color: #94a3b8; }
+        .division-tag { padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
 
-        .division-title {
-            display: flex;
-            align-items: center;
-            gap: 12px;
+        .control-squad-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px; }
+        .squad-card {
+            background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 24px; padding: 24px; backdrop-filter: blur(16px);
         }
-
-        .division-title h3 {
-            font-size: 1.25rem;
-            font-weight: 800;
-            color: #f8fafc;
+        .squad-card h4 { font-size: 1.15rem; font-weight: 800; color: #f8fafc; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+        .agent-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; max-height: 380px; overflow-y: auto; }
+        .agent-badge {
+            background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 8px 12px;
+            font-size: 0.8rem; display: flex; align-items: center; gap: 8px; color: #cbd5e1;
         }
-
-        .division-title p {
-            font-size: 0.8rem;
-            color: #94a3b8;
-        }
-
-        .division-tag {
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 800;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .ai-matrix-card {
-            background: rgba(15, 23, 42, 0.85);
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            border-radius: 24px;
-            padding: 24px 28px;
-            margin-bottom: 32px;
-            backdrop-filter: blur(16px);
-        }
-
-        .ai-matrix-header h3 {
-            font-size: 1.2rem;
-            font-weight: 800;
-            color: #fbbf24;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .ai-engine-pills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .ai-pill {
-            background: rgba(30, 41, 59, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 14px;
-            padding: 12px 18px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.88rem;
-        }
-
-        .ai-pill i { font-size: 1.1rem; }
-        .ai-pill b { color: #fff; }
-        .ai-pill span { color: #94a3b8; font-size: 0.78rem; }
-
-        .floorplan-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-            gap: 22px;
-            margin-bottom: 36px;
-        }
-
-        .room-card {
-            background: rgba(15, 23, 42, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 24px;
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(12px);
-            transition: all 0.3s ease;
-        }
-
-        .room-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(99, 102, 241, 0.4);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-        }
-
-        .room-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 18px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .room-title {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .room-title-icon {
-            width: 42px;
-            height: 42px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            color: #fff;
-        }
-
-        .room-name h3 { font-size: 1.05rem; font-weight: 700; color: #f8fafc; }
-        .room-name p { font-size: 0.75rem; color: #94a3b8; }
-
-        .ai-tag-badge {
-            font-size: 0.72rem;
-            padding: 3px 8px;
-            border-radius: 6px;
-            background: rgba(99, 102, 241, 0.2);
-            color: #a78bfa;
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            margin-left: 6px;
-            font-weight: 700;
-        }
-
-        .desks-container {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-
-        .desk-item {
-            background: rgba(30, 41, 59, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 14px;
-            padding: 14px 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            transition: background 0.2s;
-        }
-
-        .desk-item:hover { background: rgba(30, 41, 59, 0.9); }
-
-        .avatar-box {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .avatar-frame {
-            width: 44px;
-            height: 44px;
-            border-radius: 14px;
-            background: linear-gradient(135deg, #1e293b, #334155);
-            border: 2px solid #6366f1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            position: relative;
-        }
-
-        .avatar-typing-dot {
-            position: absolute;
-            bottom: -2px; right: -2px;
-            width: 12px; height: 12px;
-            background: #22c55e;
-            border: 2px solid #0f172a;
-            border-radius: 50%;
-        }
-
-        .agent-details h4 { font-size: 0.9rem; font-weight: 700; color: #f1f5f9; }
-        .agent-details p { font-size: 0.75rem; color: #38bdf8; display: flex; align-items: center; gap: 6px; }
-
-        .desk-status-badge {
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            background: rgba(34, 197, 94, 0.15);
-            color: #4ade80;
-            border: 1px solid rgba(34, 197, 94, 0.3);
-            white-space: nowrap;
-        }
-
-        .task-console-card {
-            background: rgba(15, 23, 42, 0.85);
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            border-radius: 24px;
-            padding: 28px;
-            margin-bottom: 36px;
-            backdrop-filter: blur(16px);
-        }
-
-        .task-form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
-            gap: 14px;
-            margin-bottom: 16px;
-        }
-
-        .task-input-group label {
-            display: block;
-            font-size: 0.8rem;
-            color: #cbd5e1;
-            font-weight: 600;
-            margin-bottom: 6px;
-        }
-
-        .task-input-group select, .task-input-group input, .task-input-group textarea {
-            width: 100%;
-            padding: 12px 14px;
-            background: rgba(30, 41, 59, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 12px;
-            color: #fff;
-            font-size: 0.9rem;
-            outline: none;
-        }
-
-        .task-dispatch-btn {
-            background: linear-gradient(135deg, #06b6d4, #8b5cf6);
-            color: #fff;
-            border: none;
-            padding: 14px 28px;
-            border-radius: 14px;
-            font-weight: 800;
-            font-size: 1rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .log-terminal {
-            background: #050811;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 14px;
-            padding: 16px;
-            font-family: monospace;
-            font-size: 0.82rem;
-            max-height: 250px;
-            overflow-y: auto;
-            color: #4ade80;
-            margin-top: 18px;
-        }
-
-        .log-entry { margin-bottom: 6px; line-height: 1.4; }
-        .log-entry span.time { color: #64748b; margin-right: 8px; }
-        .log-entry span.agent { color: #a78bfa; font-weight: bold; }
-        .log-entry span.success { color: #22c55e; }
-
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(10, 14, 26, 0.88);
-            backdrop-filter: blur(12px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 99999;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.3s ease;
-        }
-
-        .modal-overlay.active { opacity: 1; pointer-events: auto; }
-
-        .modal-body {
-            background: rgba(15, 23, 42, 0.95);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 24px;
-            width: 95%;
-            max-width: 950px;
-            max-height: 90vh;
-            overflow-y: auto;
-            padding: 32px;
-            position: relative;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 20px; right: 24px;
-            background: none; border: none;
-            color: #94a3b8; font-size: 1.4rem; cursor: pointer;
-        }
+        .agent-badge i { color: #4ade80; }
     </style>
 </head>
 <body>
@@ -447,28 +81,22 @@
     <!-- Header Navigation -->
     <header class="app-header">
         <div class="brand-box">
-            <div class="brand-logo"><i class="fa-solid fa-microchip"></i></div>
+            <div class="brand-logo"><i class="fa-solid fa-eye"></i></div>
             <div class="brand-title">
-                <h1>TheUKI1997 — Back & Front Mini Office Empire</h1>
-                <p>6 Ta Fal.ai Multi-Account Keys + 5-Video, 4-Rasm & 3-Musiqa AI Vault</p>
+                <h1>TheUKI1997 — CONTROL HQ & Visual Brain Empire</h1>
+                <p>50 Ta Visual AI Agentlar: 25 Audit Tekshiruv + 25 Strategik Yyo'nalish HQ</p>
             </div>
         </div>
 
         <div class="header-actions">
-            <button class="nav-btn active" onclick="switchTab('office')">
+            <button class="nav-btn btn-control active" onclick="switchTab('control')">
+                <i class="fa-solid fa-eye"></i> 👁️ CONTROL HQ (50 Visual AI)
+            </button>
+            <button class="nav-btn" onclick="switchTab('office')">
                 <i class="fa-solid fa-building-user"></i> 🏛️ Back & Front Mini Office
             </button>
             <button class="nav-btn" onclick="switchTab('freelance')">
-                <i class="fa-solid fa-laptop-code"></i> 💻 Freelance & Data Squad
-            </button>
-            <button class="nav-btn" onclick="switchTab('dispatcher')">
-                <i class="fa-solid fa-paper-plane"></i> 📝 Topshiriq Berish
-            </button>
-            <button class="nav-btn" onclick="switchTab('crm')">
-                <i class="fa-solid fa-comments"></i> 💬 Mijozlar Boti & CRM
-            </button>
-            <button class="nav-btn btn-gold" onclick="openApiVaultModal()">
-                <i class="fa-solid fa-key"></i> 🔐 AI & Tokenlar Vault
+                <i class="fa-solid fa-laptop-code"></i> 💻 Freelance Squad
             </button>
         </div>
     </header>
@@ -476,147 +104,89 @@
     <!-- Main Container -->
     <main class="main-container">
 
-        <!-- SPECIALIZED MULTI-AI ENGINE MATRIX BADGES -->
-        <div class="ai-matrix-card">
-            <div class="ai-matrix-header">
-                <h3><i class="fa-solid fa-network-wired"></i> 🧠 SPECIALIZED AI MOTORS MATRIX (Multi-Account Failover Vault)</h3>
+        <!-- TAB: CONTROL HQ (50 VISUAL BRAIN AI AGENTS) -->
+        <section id="tab-control" class="office-section active">
+            <div class="division-header-banner" style="border-left-color: #ef4444;">
+                <div class="division-title">
+                    <i class="fa-solid fa-eye" style="font-size: 1.8rem; color: #ef4444;"></i>
+                    <div>
+                        <h3>👁️ CONTROL BO'LIMI: 50 TA VIZUAL MIYAGA EGA AI AGENTLAR HQ</h3>
+                        <p>25 ta Audit Tekshiruvchi Agent (100% Insoniy sifat, motion va xavfsizlik) + 25 ta Yo'naltiruvchi Strategik Agent (Barcha bo'limlarga prosmotr va talab strategiyasini beradi)</p>
+                    </div>
+                </div>
+                <span class="division-tag" style="background: rgba(239, 68, 68, 0.2); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.4);">Control Active 🟢</span>
             </div>
-            <div class="ai-engine-pills">
-                <!-- FAL.AI MULTI ACCOUNT BADGE -->
-                <div class="ai-pill" style="border-color: #a855f7;">
-                    <i class="fa-solid fa-layer-group" style="color: #a855f7;"></i>
-                    <div><b>Fal.ai 6-Akkaunt Failover Pool</b> <span style="color:#c084fc; font-weight:bold;">[6 TA KASSA ULANDI 🟢]</span><br><span>⚡ 6x Bepul Limit (8b7ef9..., 8026f2..., 8278d1..., 261640..., 992897..., a7af96...)</span></div>
+
+            <div class="control-squad-grid">
+                <!-- SQUAD 1: 25 AUDITOR & QUALITY CONTROL AGENTS -->
+                <div class="squad-card" style="border-color: #ef4444;">
+                    <h4><i class="fa-solid fa-user-shield" style="color: #ef4444;"></i> 25 Ta Audit & Anti-AI Quality Control Agentlar</h4>
+                    <p style="font-size:0.8rem; color:#94a3b8; margin-bottom:14px;">Har bir rasm, video va kontentni 100% insoniy sifat, yuqori harakat (motion) va prosmotr talabiga javob berishini qattiq audit qiladi.</p>
+                    <div class="agent-list" id="auditor-list">
+                        <!-- JS renders 25 Auditor Badges -->
+                    </div>
                 </div>
-                <!-- AMAZON KDP ANTI-AI STUDIO -->
-                <div class="ai-pill" style="border-color: #f59e0b;">
-                    <i class="fa-solid fa-book-open-reader" style="color: #f59e0b;"></i>
-                    <div><b>Amazon KDP Anti-AI Studio (+3 Kids)</b> <span style="color:#fbbf24; font-weight:bold;">[FAOL 🟢]</span><br><span>📚 Anti-AI Ertak Kitoblar & 50% Narx Strategegiyasi</span></div>
-                </div>
-                <!-- VIDEO FAILOVER -->
-                <div class="ai-pill" style="border-color: #22c55e;">
-                    <i class="fa-solid fa-film" style="color: #22c55e;"></i>
-                    <div><b>5-Video AI Fallback Engine</b> <span style="color:#4ade80; font-weight:bold;">[5-KASSA 🟢]</span><br><span>🎬 Replicate, Luma, Fal (6-Pool), Runway, HeyGen</span></div>
+
+                <!-- SQUAD 2: 25 STRATEGIC DIRECTION & GUIDANCE AGENTS -->
+                <div class="squad-card" style="border-color: #f59e0b;">
+                    <h4><i class="fa-solid fa-compass-drafting" style="color: #f59e0b;"></i> 25 Ta Yo'naltiruvchi & Boshqaruvchi Strateg Agentlar</h4>
+                    <p style="font-size:0.8rem; color:#94a3b8; margin-bottom:14px;">Back Office va Front Office bo'limlariga odamlar talabiga mos viral video va rasmlar yo'nalishini beradi va hamrohlik qiladi.</p>
+                    <div class="agent-list" id="director-list">
+                        <!-- JS renders 25 Director Badges -->
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- TAB 1: BACK MINI OFFICE & FRONT MINI OFFICE DIVISIONS -->
-        <section id="tab-office" class="office-section active">
-
-            <!-- ==================== DIVISION 1: BACK MINI OFFICE ==================== -->
+        <!-- TAB: OFFICE -->
+        <section id="tab-office" class="office-section">
             <div class="division-header-banner" style="border-left-color: #a855f7;">
                 <div class="division-title">
                     <i class="fa-solid fa-shield-cat" style="font-size: 1.8rem; color: #a855f7;"></i>
                     <div>
-                        <h3>🏢 BACK MINI OFFICE (Ichki Imperiya, Kiber Xavfsizlik & Content Factory HQ)</h3>
-                        <p>Amazon Ertak Kitoblar, Kiber xavfsizlik, Marketing target hamda Video, Rasm va Musiqa AI generatorlar bo'limi</p>
+                        <h3>🏢 BACK & FRONT MINI OFFICE DIVISIONS</h3>
+                        <p>50 ta Control AI Agentlar tomonidan nazorat qilinuvchi imperiya bo'limlari</p>
                     </div>
                 </div>
-                <span class="division-tag" style="background: rgba(168, 85, 247, 0.2); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.4);">Back Office Active</span>
             </div>
-
-            <div class="floorplan-grid">
-
-                <!-- 1. CEO & EXECUTIVE COMMAND SUITE -->
-                <div class="room-card" style="border-top: 4px solid #f59e0b;">
-                    <div class="room-header">
-                        <div class="room-title">
-                            <div class="room-title-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);"><i class="fa-solid fa-crown"></i></div>
-                            <div class="room-name">
-                                <h3>🏛️ CEO & Executive Command Suite <span class="ai-tag-badge">Master AI</span></h3>
-                                <p>Imperiya Bosh Boshqaruv & Avtonom Strategiya</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="desks-container">
-                        <div class="desk-item">
-                            <div class="avatar-box">
-                                <div class="avatar-frame">👑<span class="avatar-typing-dot"></span></div>
-                                <div class="agent-details">
-                                    <h4>Chief Executive AI Officer</h4>
-                                    <p><i class="fa-solid fa-chess-king"></i> Executive Empire Direction</p>
-                                </div>
-                            </div>
-                            <span class="desk-status-badge">🟢 Faol</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 2. AMAZON KDP ERTAK KITOBLAR & ANTI-AI PUBLISHING STUDIO (+3 KIDS) -->
-                <div class="room-card" style="border-top: 4px solid #f59e0b;">
-                    <div class="room-header">
-                        <div class="room-title">
-                            <div class="room-title-icon" style="background: linear-gradient(135deg, #f59e0b, #b45309);"><i class="fa-solid fa-book-open-reader"></i></div>
-                            <div class="room-name">
-                                <h3>📚 Amazon KDP Ertak Kitoblar & Anti-AI Studio <span class="ai-tag-badge">+3 Kids</span></h3>
-                                <p>100% Anti-AI Detektor Tekshiruv & 50% Narx Strategegiyasi</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="desks-container">
-                        <div class="desk-item">
-                            <div class="avatar-box">
-                                <div class="avatar-frame">📚<span class="avatar-typing-dot"></span></div>
-                                <div class="agent-details">
-                                    <h4>Anti-AI Storywriter & Humanizer</h4>
-                                    <p><i class="fa-solid fa-shield-virus"></i> Groq Anti-AI Engine (Turnitin 0% AI)</p>
-                                </div>
-                            </div>
-                            <span class="desk-status-badge">🟢 Anti-AI Faol</span>
-                        </div>
-                        <div class="desk-item">
-                            <div class="avatar-box">
-                                <div class="avatar-frame">🎨<span class="avatar-typing-dot"></span></div>
-                                <div class="agent-details">
-                                    <h4>Kids Book Illustration Artist</h4>
-                                    <p><i class="fa-solid fa-paint-brush"></i> 4K Storybook Illustrations</p>
-                                </div>
-                            </div>
-                            <span class="desk-status-badge">🟢 Pollinations AI</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 3. CYBER SECURITY & ENCRYPTION VAULT -->
-                <div class="room-card" style="border-top: 4px solid #ef4444;">
-                    <div class="room-header">
-                        <div class="room-title">
-                            <div class="room-title-icon" style="background: linear-gradient(135deg, #ef4444, #b91c1c);"><i class="fa-solid fa-shield-halved"></i></div>
-                            <div class="room-name">
-                                <h3>🛡️ Cyber Security & Encryption Vault <span class="ai-tag-badge">AES-256</span></h3>
-                                <p>Kiber Xavfsizlik & 6x Fal.ai Multi-Account Keys</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="desks-container">
-                        <div class="desk-item">
-                            <div class="avatar-box">
-                                <div class="avatar-frame">🛡️<span class="avatar-typing-dot"></span></div>
-                                <div class="agent-details">
-                                    <h4>Cyber Sentinel Guard</h4>
-                                    <p><i class="fa-solid fa-lock"></i> 6x Multi-Account Key Pool Encrypted</p>
-                                </div>
-                            </div>
-                            <span class="desk-status-badge">🟢 6x Keys Protected</span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
         </section>
+
     </main>
 
     <script>
+        function renderControlSquads() {
+            const auditorContainer = document.getElementById('auditor-list');
+            const directorContainer = document.getElementById('director-list');
+            
+            let auditorHTML = '';
+            for (let i = 1; i <= 25; i++) {
+                auditorHTML += `<div class="agent-badge"><i class="fa-solid fa-circle-check"></i> <b>Audit_Agent_${i < 10 ? '0' + i : i}</b></div>`;
+            }
+            auditorContainer.innerHTML = auditorHTML;
+
+            let directorHTML = '';
+            for (let i = 1; i <= 25; i++) {
+                directorHTML += `<div class="agent-badge"><i class="fa-solid fa-compass" style="color:#f59e0b;"></i> <b>Director_Agent_${i < 10 ? '0' + i : i}</b></div>`;
+            }
+            directorContainer.innerHTML = directorHTML;
+        }
+
         function switchTab(tabName) {
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.office-section').forEach(sec => sec.classList.remove('active'));
 
-            if (tabName === 'office') {
+            if (tabName === 'control') {
                 document.querySelectorAll('.nav-btn')[0].classList.add('active');
+                document.getElementById('tab-control').classList.add('active');
+            } else if (tabName === 'office') {
+                document.querySelectorAll('.nav-btn')[1].classList.add('active');
                 document.getElementById('tab-office').classList.add('active');
             }
         }
+
+        window.onload = function() {
+            renderControlSquads();
+        };
     </script>
 </body>
 </html>
