@@ -47,31 +47,59 @@
             box-shadow: 0 4px 20px rgba(6, 182, 212, 0.4); transform: translateY(-2px);
         }
         .btn-control { background: linear-gradient(135deg, #ef4444, #f59e0b); color: #fff; border: none; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4); }
+        .btn-gold { background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; border: none; }
 
         .main-container { position: relative; z-index: 10; max-width: 1700px; margin: 0 auto; padding: 28px 36px; }
-        .office-section { display: none; }
-        .office-section.active { display: block; }
 
         .division-header-banner {
-            background: rgba(15, 23, 42, 0.9); border-left: 6px solid #ef4444; border-radius: 16px; padding: 16px 24px;
-            margin-bottom: 20px; margin-top: 10px; display: flex; align-items: center; justify-content: space-between;
+            background: rgba(15, 23, 42, 0.9); border-left: 6px solid #6366f1; border-radius: 16px; padding: 16px 24px;
+            margin-bottom: 20px; margin-top: 24px; display: flex; align-items: center; justify-content: space-between;
         }
         .division-title { display: flex; align-items: center; gap: 12px; }
         .division-title h3 { font-size: 1.25rem; font-weight: 800; color: #f8fafc; }
         .division-title p { font-size: 0.8rem; color: #94a3b8; }
         .division-tag { padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
 
-        .control-squad-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px; }
-        .squad-card {
-            background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 24px; padding: 24px; backdrop-filter: blur(16px);
+        .ai-matrix-card {
+            background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: 24px; padding: 24px 28px;
+            margin-bottom: 32px; backdrop-filter: blur(16px);
         }
+        .ai-matrix-header h3 { font-size: 1.2rem; font-weight: 800; color: #fbbf24; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+        .ai-engine-pills { display: flex; flex-wrap: wrap; gap: 12px; }
+        .ai-pill {
+            background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 14px; padding: 12px 18px;
+            display: flex; align-items: center; gap: 10px; font-size: 0.88rem;
+        }
+        .ai-pill b { color: #fff; }
+
+        .control-squad-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px; }
+        .squad-card { background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 24px; padding: 24px; backdrop-filter: blur(16px); }
         .squad-card h4 { font-size: 1.15rem; font-weight: 800; color: #f8fafc; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
         .agent-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; max-height: 380px; overflow-y: auto; }
-        .agent-badge {
-            background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 8px 12px;
-            font-size: 0.8rem; display: flex; align-items: center; gap: 8px; color: #cbd5e1;
-        }
+        .agent-badge { background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 8px 12px; font-size: 0.8rem; display: flex; align-items: center; gap: 8px; color: #cbd5e1; }
         .agent-badge i { color: #4ade80; }
+
+        .floorplan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 22px; margin-bottom: 36px; }
+        .room-card {
+            background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 24px;
+            position: relative; overflow: hidden; backdrop-filter: blur(12px); transition: all 0.3s ease;
+        }
+        .room-card:hover { transform: translateY(-5px); border-color: rgba(99, 102, 241, 0.4); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4); }
+        .room-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+        .room-title { display: flex; align-items: center; gap: 12px; }
+        .room-title-icon { width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #fff; }
+        .room-name h3 { font-size: 1.05rem; font-weight: 700; color: #f8fafc; }
+        .room-name p { font-size: 0.75rem; color: #94a3b8; }
+        .ai-tag-badge { font-size: 0.72rem; padding: 3px 8px; border-radius: 6px; background: rgba(99, 102, 241, 0.2); color: #a78bfa; border: 1px solid rgba(99, 102, 241, 0.3); margin-left: 6px; font-weight: 700; }
+
+        .desks-container { display: flex; flex-direction: column; gap: 14px; }
+        .desk-item { background: rgba(30, 41, 59, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+        .avatar-box { display: flex; align-items: center; gap: 12px; }
+        .avatar-frame { width: 44px; height: 44px; border-radius: 14px; background: linear-gradient(135deg, #1e293b, #334155); border: 2px solid #6366f1; display: flex; align-items: center; justify-content: center; font-size: 22px; position: relative; }
+        .avatar-typing-dot { position: absolute; bottom: -2px; right: -2px; width: 12px; height: 12px; background: #22c55e; border: 2px solid #0f172a; border-radius: 50%; }
+        .agent-details h4 { font-size: 0.9rem; font-weight: 700; color: #f1f5f9; }
+        .agent-details p { font-size: 0.75rem; color: #38bdf8; display: flex; align-items: center; gap: 6px; }
+        .desk-status-badge { padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); white-space: nowrap; }
     </style>
 </head>
 <body>
@@ -81,75 +109,289 @@
     <!-- Header Navigation -->
     <header class="app-header">
         <div class="brand-box">
-            <div class="brand-logo"><i class="fa-solid fa-eye"></i></div>
+            <div class="brand-logo"><i class="fa-solid fa-crown"></i></div>
             <div class="brand-title">
-                <h1>TheUKI1997 — CONTROL HQ & Visual Brain Empire</h1>
-                <p>50 Ta Visual AI Agentlar: 25 Audit Tekshiruv + 25 Strategik Yyo'nalish HQ</p>
+                <h1>TheUKI1997 — Back & Front Mini Office Virtual Empire</h1>
+                <p>50 Control AI Agents + Back Office + Front Office Full Empire HQ</p>
             </div>
         </div>
 
         <div class="header-actions">
-            <button class="nav-btn btn-control active" onclick="switchTab('control')">
-                <i class="fa-solid fa-eye"></i> 👁️ CONTROL HQ (50 Visual AI)
-            </button>
-            <button class="nav-btn" onclick="switchTab('office')">
-                <i class="fa-solid fa-building-user"></i> 🏛️ Back & Front Mini Office
-            </button>
-            <button class="nav-btn" onclick="switchTab('freelance')">
-                <i class="fa-solid fa-laptop-code"></i> 💻 Freelance Squad
-            </button>
+            <button class="nav-btn btn-control"><i class="fa-solid fa-eye"></i> 👁️ 50 Control AI Agents</button>
+            <button class="nav-btn"><i class="fa-solid fa-shield-cat"></i> 🏢 Back Mini Office</button>
+            <button class="nav-btn"><i class="fa-solid fa-laptop-code"></i> 💻 Front Freelance Office</button>
         </div>
     </header>
 
-    <!-- Main Container -->
     <main class="main-container">
 
-        <!-- TAB: CONTROL HQ (50 VISUAL BRAIN AI AGENTS) -->
-        <section id="tab-control" class="office-section active">
-            <div class="division-header-banner" style="border-left-color: #ef4444;">
-                <div class="division-title">
-                    <i class="fa-solid fa-eye" style="font-size: 1.8rem; color: #ef4444;"></i>
-                    <div>
-                        <h3>👁️ CONTROL BO'LIMI: 50 TA VIZUAL MIYAGA EGA AI AGENTLAR HQ</h3>
-                        <p>25 ta Audit Tekshiruvchi Agent (100% Insoniy sifat, motion va xavfsizlik) + 25 ta Yo'naltiruvchi Strategik Agent (Barcha bo'limlarga prosmotr va talab strategiyasini beradi)</p>
-                    </div>
-                </div>
-                <span class="division-tag" style="background: rgba(239, 68, 68, 0.2); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.4);">Control Active 🟢</span>
+        <!-- MULTI-AI MOTOR VAULT BADGE -->
+        <div class="ai-matrix-card">
+            <div class="ai-matrix-header">
+                <h3><i class="fa-solid fa-network-wired"></i> 🧠 24-KEY MULTI-ACCOUNT AI VAULT ARSENAL</h3>
             </div>
-
-            <div class="control-squad-grid">
-                <!-- SQUAD 1: 25 AUDITOR & QUALITY CONTROL AGENTS -->
-                <div class="squad-card" style="border-color: #ef4444;">
-                    <h4><i class="fa-solid fa-user-shield" style="color: #ef4444;"></i> 25 Ta Audit & Anti-AI Quality Control Agentlar</h4>
-                    <p style="font-size:0.8rem; color:#94a3b8; margin-bottom:14px;">Har bir rasm, video va kontentni 100% insoniy sifat, yuqori harakat (motion) va prosmotr talabiga javob berishini qattiq audit qiladi.</p>
-                    <div class="agent-list" id="auditor-list">
-                        <!-- JS renders 25 Auditor Badges -->
-                    </div>
+            <div class="ai-engine-pills">
+                <div class="ai-pill" style="border-color: #ef4444;">
+                    <i class="fa-solid fa-eye" style="color: #ef4444;"></i>
+                    <div><b>50 Visual Control AI Agents</b> <span style="color:#fca5a5; font-weight:bold;">[CONTROL ACTIVE 🟢]</span><br><span>👁️ 25 Audit Tekshiruv + 25 Strategik Yo'nalish HQ</span></div>
                 </div>
-
-                <!-- SQUAD 2: 25 STRATEGIC DIRECTION & GUIDANCE AGENTS -->
-                <div class="squad-card" style="border-color: #f59e0b;">
-                    <h4><i class="fa-solid fa-compass-drafting" style="color: #f59e0b;"></i> 25 Ta Yo'naltiruvchi & Boshqaruvchi Strateg Agentlar</h4>
-                    <p style="font-size:0.8rem; color:#94a3b8; margin-bottom:14px;">Back Office va Front Office bo'limlariga odamlar talabiga mos viral video va rasmlar yo'nalishini beradi va hamrohlik qiladi.</p>
-                    <div class="agent-list" id="director-list">
-                        <!-- JS renders 25 Director Badges -->
-                    </div>
+                <div class="ai-pill" style="border-color: #a855f7;">
+                    <i class="fa-solid fa-layer-group" style="color: #a855f7;"></i>
+                    <div><b>24 Multi-Account AI Keys Pool</b> <span style="color:#c084fc; font-weight:bold;">[FAOL 🟢]</span><br><span>⚡ 6x Fal.ai, 6x Runway, 6x HeyGen, 6x Replicate</span></div>
+                </div>
+                <div class="ai-pill" style="border-color: #f59e0b;">
+                    <i class="fa-solid fa-book-open-reader" style="color: #f59e0b;"></i>
+                    <div><b>Amazon KDP Anti-AI Studio</b> <span style="color:#fbbf24; font-weight:bold;">[FAOL 🟢]</span><br><span>📚 +3 Kids Books & 50% Narx Strategiyasi</span></div>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <!-- TAB: OFFICE -->
-        <section id="tab-office" class="office-section">
-            <div class="division-header-banner" style="border-left-color: #a855f7;">
-                <div class="division-title">
-                    <i class="fa-solid fa-shield-cat" style="font-size: 1.8rem; color: #a855f7;"></i>
-                    <div>
-                        <h3>🏢 BACK & FRONT MINI OFFICE DIVISIONS</h3>
-                        <p>50 ta Control AI Agentlar tomonidan nazorat qilinuvchi imperiya bo'limlari</p>
+        <!-- ==================== DIVISION 0: CONTROL HQ (50 VISUAL BRAIN AGENTS) ==================== -->
+        <div class="division-header-banner" style="border-left-color: #ef4444;">
+            <div class="division-title">
+                <i class="fa-solid fa-eye" style="font-size: 1.8rem; color: #ef4444;"></i>
+                <div>
+                    <h3>👁️ CONTROL BO'LIMI: 50 TA VIZUAL MIYAGA EGA AI AGENTLAR HQ</h3>
+                    <p>25 Audit Tekshiruvchi Agent + 25 Yo'naltiruvchi Strategik Agent (Barcha bo'limlarni prosmotr va insoniy sifat bilan boshqaradi)</p>
+                </div>
+            </div>
+            <span class="division-tag" style="background: rgba(239, 68, 68, 0.2); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.4);">Control Active 🟢</span>
+        </div>
+
+        <div class="control-squad-grid">
+            <div class="squad-card" style="border-color: #ef4444;">
+                <h4><i class="fa-solid fa-user-shield" style="color: #ef4444;"></i> 25 Ta Audit & Anti-AI Quality Control Agentlar</h4>
+                <div class="agent-list" id="auditor-list"></div>
+            </div>
+
+            <div class="squad-card" style="border-color: #f59e0b;">
+                <h4><i class="fa-solid fa-compass-drafting" style="color: #f59e0b;"></i> 25 Ta Yo'naltiruvchi & Boshqaruvchi Strateg Agentlar</h4>
+                <div class="agent-list" id="director-list"></div>
+            </div>
+        </div>
+
+        <!-- ==================== DIVISION 1: BACK MINI OFFICE ==================== -->
+        <div class="division-header-banner" style="border-left-color: #a855f7;">
+            <div class="division-title">
+                <i class="fa-solid fa-shield-cat" style="font-size: 1.8rem; color: #a855f7;"></i>
+                <div>
+                    <h3>🏢 BACK MINI OFFICE (Ichki Imperiya, Kiber Xavfsizlik & Content Factory HQ)</h3>
+                    <p>Amazon Ertak Kitoblar, Kiber Xavfsizlik Vault hamda Sifatli AI Kontent bo'limlari</p>
+                </div>
+            </div>
+            <span class="division-tag" style="background: rgba(168, 85, 247, 0.2); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.4);">Back Office Active 🟢</span>
+        </div>
+
+        <div class="floorplan-grid">
+            <!-- 1. CEO SUITE -->
+            <div class="room-card" style="border-top: 4px solid #f59e0b;">
+                <div class="room-header">
+                    <div class="room-title">
+                        <div class="room-title-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);"><i class="fa-solid fa-crown"></i></div>
+                        <div class="room-name">
+                            <h3>🏛️ CEO & Executive Command Suite <span class="ai-tag-badge">Master AI</span></h3>
+                            <p>Imperiya Bosh Boshqaruv & Avtonom Strategiya</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="desks-container">
+                    <div class="desk-item">
+                        <div class="avatar-box">
+                            <div class="avatar-frame">👑<span class="avatar-typing-dot"></span></div>
+                            <div class="agent-details">
+                                <h4>Chief Executive AI Officer</h4>
+                                <p><i class="fa-solid fa-chess-king"></i> Executive Empire Direction</p>
+                            </div>
+                        </div>
+                        <span class="desk-status-badge">🟢 Faol</span>
                     </div>
                 </div>
             </div>
-        </section>
+
+            <!-- 2. AMAZON KDP KIDS E-BOOK -->
+            <div class="room-card" style="border-top: 4px solid #f59e0b;">
+                <div class="room-header">
+                    <div class="room-title">
+                        <div class="room-title-icon" style="background: linear-gradient(135deg, #f59e0b, #b45309);"><i class="fa-solid fa-book-open-reader"></i></div>
+                        <div class="room-name">
+                            <h3>📚 Amazon KDP Ertak Kitoblar & Anti-AI Studio <span class="ai-tag-badge">+3 Kids</span></h3>
+                            <p>100% Anti-AI Detektor Tekshiruv & 50% Narx Strategegiyasi</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="desks-container">
+                    <div class="desk-item">
+                        <div class="avatar-box">
+                            <div class="avatar-frame">📚<span class="avatar-typing-dot"></span></div>
+                            <div class="agent-details">
+                                <h4>Anti-AI Storywriter & Humanizer</h4>
+                                <p><i class="fa-solid fa-shield-virus"></i> Groq Anti-AI Engine (Turnitin 0% AI)</p>
+                            </div>
+                        </div>
+                        <span class="desk-status-badge">🟢 Anti-AI Faol</span>
+                    </div>
+                    <div class="desk-item">
+                        <div class="avatar-box">
+                            <div class="avatar-frame">🎨<span class="avatar-typing-dot"></span></div>
+                            <div class="agent-details">
+                                <h4>Kids Book Illustration Artist</h4>
+                                <p><i class="fa-solid fa-paint-brush"></i> 4K Storybook Illustrations</p>
+                            </div>
+                        </div>
+                        <span class="desk-status-badge">🟢 Pollinations AI</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. CYBER SECURITY VAULT -->
+            <div class="room-card" style="border-top: 4px solid #ef4444;">
+                <div class="room-header">
+                    <div class="room-title">
+                        <div class="room-title-icon" style="background: linear-gradient(135deg, #ef4444, #b91c1c);"><i class="fa-solid fa-shield-halved"></i></div>
+                        <div class="room-name">
+                            <h3>🛡️ Cyber Security & Encryption Vault <span class="ai-tag-badge">AES-256</span></h3>
+                            <p>Kiber Xavfsizlik & 24x Multi-Account API Keys Pool</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="desks-container">
+                    <div class="desk-item">
+                        <div class="avatar-box">
+                            <div class="avatar-frame">🛡️<span class="avatar-typing-dot"></span></div>
+                            <div class="agent-details">
+                                <h4>Cyber Sentinel Guard</h4>
+                                <p><i class="fa-solid fa-lock"></i> 24x Multi-Account Key Pool Encrypted</p>
+                            </div>
+                        </div>
+                        <span class="desk-status-badge">🟢 24x Keys Protected</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. HEYGEN AVATAR STUDIO -->
+            <div class="room-card" style="border-top: 4px solid #06b6d4;">
+                <div class="room-header">
+                    <div class="room-title">
+                        <div class="room-title-icon" style="background: linear-gradient(135deg, #06b6d4, #0284c7);"><i class="fa-solid fa-user-astronaut"></i></div>
+                        <div class="room-name">
+                            <h3>🗣️ HeyGen Human Avatar Studio <span class="ai-tag-badge">6x Pool</span></h3>
+                            <p>1,264 Ta Jonli Inson Spiker Avatarlar Bo'limi</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="desks-container">
+                    <div class="desk-item">
+                        <div class="avatar-box">
+                            <div class="avatar-frame">🗣️<span class="avatar-typing-dot"></span></div>
+                            <div class="agent-details">
+                                <h4>Live Human Avatar Presenter</h4>
+                                <p><i class="fa-solid fa-video"></i> 1,264 Dynamic Human Avatars</p>
+                            </div>
+                        </div>
+                        <span class="desk-status-badge">🟢 6x Keys Verified</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== DIVISION 2: FRONT MINI OFFICE (FREELANCE & CLIENTS) ==================== -->
+        <div class="division-header-banner" style="border-left-color: #06b6d4;">
+            <div class="division-title">
+                <i class="fa-solid fa-laptop-code" style="font-size: 1.8rem; color: #06b6d4;"></i>
+                <div>
+                    <h3>💻 FRONT MINI OFFICE (Frilans Bolinma, Mijozlar bilan Ishlash & To'lov Qabul Qilish HQ)</h3>
+                    <p>Codestral Data Analyst & Coding Squad, Upwork Proposal & Telegram CRM (@TheUKI_BOT)</p>
+                </div>
+            </div>
+            <span class="division-tag" style="background: rgba(6, 182, 212, 0.2); color: #38bdf8; border: 1px solid rgba(6, 182, 212, 0.4);">Front Office Active 🟢</span>
+        </div>
+
+        <div class="floorplan-grid">
+            <!-- 1. DATA ANALYST & CODING SQUAD -->
+            <div class="room-card" style="border-top: 4px solid #06b6d4;">
+                <div class="room-header">
+                    <div class="room-title">
+                        <div class="room-title-icon" style="background: linear-gradient(135deg, #06b6d4, #3b82f6);"><i class="fa-solid fa-code"></i></div>
+                        <div class="room-name">
+                            <h3>💻 Data Analyst & Coding Squad <span class="ai-tag-badge">Codestral</span></h3>
+                            <p>Frilans Buyurtmalar & Dasturlash HQ</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="desks-container">
+                    <div class="desk-item">
+                        <div class="avatar-box">
+                            <div class="avatar-frame">💻<span class="avatar-typing-dot"></span></div>
+                            <div class="agent-details">
+                                <h4>Codestral Senior Architect</h4>
+                                <p><i class="fa-solid fa-terminal"></i> Dedicated Coding & Data Analytics</p>
+                            </div>
+                        </div>
+                        <span class="desk-status-badge">🟢 Codestral Active</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. B2B PROPOSAL & CLIENT CRM -->
+            <div class="room-card" style="border-top: 4px solid #8b5cf6;">
+                <div class="room-header">
+                    <div class="room-title">
+                        <div class="room-title-icon" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9);"><i class="fa-solid fa-handshake"></i></div>
+                        <div class="room-name">
+                            <h3>🤝 Upwork B2B Proposals & CRM <span class="ai-tag-badge">Mistral</span></h3>
+                            <p>Mijozlar Bilan Ishlash & Takliflar Yozish</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="desks-container">
+                    <div class="desk-item">
+                        <div class="avatar-box">
+                            <div class="avatar-frame">🤝<span class="avatar-typing-dot"></span></div>
+                            <div class="agent-details">
+                                <h4>Mistral Proposal Writer</h4>
+                                <p><i class="fa-solid fa-file-contract"></i> High-Converting Upwork Bids</p>
+                            </div>
+                        </div>
+                        <span class="desk-status-badge">🟢 Mistral Active</span>
+                    </div>
+                    <div class="desk-item">
+                        <div class="avatar-box">
+                            <div class="avatar-frame">🤖<span class="avatar-typing-dot"></span></div>
+                            <div class="agent-details">
+                                <h4>Telegram CRM Bot (@TheUKI_BOT)</h4>
+                                <p><i class="fa-brands fa-telegram"></i> Real-time Client Management</p>
+                            </div>
+                        </div>
+                        <span class="desk-status-badge">🟢 Bot Online</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. FINANCIAL BILLING & PAYMENT GATEWAY -->
+            <div class="room-card" style="border-top: 4px solid #22c55e;">
+                <div class="room-header">
+                    <div class="room-title">
+                        <div class="room-title-icon" style="background: linear-gradient(135deg, #22c55e, #15803d);"><i class="fa-solid fa-credit-card"></i></div>
+                        <div class="room-name">
+                            <h3>💳 Financial Billing & CFO Suite <span class="ai-tag-badge">CFO Billing</span></h3>
+                            <p>To'lov Qabul Qilish & Invoyslar Boshqaruvi</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="desks-container">
+                    <div class="desk-item">
+                        <div class="avatar-box">
+                            <div class="avatar-frame">💳<span class="avatar-typing-dot"></span></div>
+                            <div class="agent-details">
+                                <h4>Chief Financial Officer (CFO)</h4>
+                                <p><i class="fa-solid fa-sack-dollar"></i> Global Payment & Billing Vault</p>
+                            </div>
+                        </div>
+                        <span class="desk-status-badge">🟢 50% CFO Pricing</span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </main>
 
@@ -169,19 +411,6 @@
                 directorHTML += `<div class="agent-badge"><i class="fa-solid fa-compass" style="color:#f59e0b;"></i> <b>Director_Agent_${i < 10 ? '0' + i : i}</b></div>`;
             }
             directorContainer.innerHTML = directorHTML;
-        }
-
-        function switchTab(tabName) {
-            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.office-section').forEach(sec => sec.classList.remove('active'));
-
-            if (tabName === 'control') {
-                document.querySelectorAll('.nav-btn')[0].classList.add('active');
-                document.getElementById('tab-control').classList.add('active');
-            } else if (tabName === 'office') {
-                document.querySelectorAll('.nav-btn')[1].classList.add('active');
-                document.getElementById('tab-office').classList.add('active');
-            }
         }
 
         window.onload = function() {
