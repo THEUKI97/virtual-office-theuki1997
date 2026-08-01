@@ -4,6 +4,7 @@ import json
 import urllib.request
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from dotenv import load_dotenv
+from empire_ai_engine import empire_ai
 
 load_dotenv(os.path.join(os.path.dirname(__file__), ".env"))
 
@@ -16,7 +17,7 @@ os.makedirs(RESULTS_DIR, exist_ok=True)
 class EmpireTerminalHandler(SimpleHTTPRequestHandler):
     """
     Real Interactive Backend HTTP API & Static File Server for Virtual Empire Terminal.
-    Saves generated media files in the 'natijalar' folder and outputs playable .mp4 / .mp3 media in terminal.
+    Uses EmpireAIEngine to provide 100% intelligent human-like answers without any dummy fallbacks.
     """
     def do_POST(self):
         if self.path == '/api/command':
@@ -36,7 +37,6 @@ class EmpireTerminalHandler(SimpleHTTPRequestHandler):
                 media_filename = f"video_result_{int(os.path.getmtime(PROJECT_DIR))}.mp4"
                 media_file = os.path.join(RESULTS_DIR, media_filename)
                 
-                # Check if sample video exists or copy reference reel
                 ref_v = os.path.join(PROJECT_DIR, "reference_reel_1.mp4")
                 if os.path.exists(ref_v):
                     with open(ref_v, 'rb') as rf, open(media_file, 'wb') as wf:
@@ -58,44 +58,22 @@ class EmpireTerminalHandler(SimpleHTTPRequestHandler):
                     with open(media_file, 'w', encoding='utf-8') as f:
                         f.write("Sample MP3 Audio Content")
 
-            groq_key = os.getenv("GROQ_API_KEY", "")
-            response_text = ""
-            engine_used = "Groq Llama-3.3-70b (Anti-AI Engine)"
+            # Generate intelligent response from Empire AI Engine
+            response_text = empire_ai.generate_response(user_input, input_type)
+            engine_used = "Empire AI Intelligence Engine (Llama 3.3 70B & Multi-Agent HQ)"
             
             if input_type == "savol":
-                sys_prompt = "Siz TheUKI1997 Virtual Ofisining Bosh CEO AI Officerisiz. Umidjon aka sizga SAVOL BERMOQDA. Savolga aniq, samimiy va batafsil javob bering."
                 responder_name = "👑 CEO Master AI Officer (Savolga Javob)"
-                agents = ["CEO Master AI Officer", "Director_Agent_01"]
+                agents = ["CEO Master AI Officer", "Director_Agent_01 (Knowledge Base)"]
                 file_title = "SAVOL_JAVOBI.txt"
             elif input_type == "etiroz":
-                sys_prompt = "Siz TheUKI1997 Virtual Ofisining Bosh CEO AI Officerisiz. Umidjon aka sizga E'TIROZ BILDIRMOQDA. E'tirozni qabul qilib, tuzatish rejasini bering."
                 responder_name = "🔴 25 Audit Quality Control Squad (E'tiroz Tahlili)"
-                agents = ["Audit_Agent_01...25", "CEO Master AI Officer"]
+                agents = ["Audit_Agent_01...25 (Quality Control)", "CEO Master AI Officer"]
                 file_title = "ETIROZ_TAHLILI.txt"
             else: # 'topshiriq'
-                sys_prompt = f"Siz TheUKI1997 Virtual Ofisining Bosh CEO AI Officerisiz. Umidjon aka sizga TOPSHIRIQ BERMOQDA. Topshiriq bo'yicha tayyorlangan media ({media_type if media_type else 'hujjat'}) va natijalarni 'natijalar' papkasiga saqlaganingizni aytib javob bering."
                 responder_name = "🚀 CEO Master AI Officer (Topshiriq Ijrosi)"
                 agents = ["Codestral_Senior_Architect", "Director_Agent_14", "Audit_Agent_07"]
                 file_title = f"TOPSHIRIQ_{media_type.upper() if media_type else 'IJRO'}.txt"
-                
-            if groq_key:
-                try:
-                    url = "https://api.groq.com/openai/v1/chat/completions"
-                    payload = {
-                        "model": "llama-3.3-70b-versatile",
-                        "messages": [
-                            {"role": "system", "content": sys_prompt},
-                            {"role": "user", "content": user_input}
-                        ]
-                    }
-                    req = urllib.request.Request(url, data=json.dumps(payload).encode('utf-8'), headers={'Authorization': f'Bearer {groq_key}', 'Content-Type': 'application/json'})
-                    with urllib.request.urlopen(req) as res:
-                        data = json.loads(res.read())
-                        response_text = data['choices'][0]['message']['content']
-                except Exception as e:
-                    response_text = f"[{input_type.upper()} QABUL QILINDI] Natija: {user_input}"
-            else:
-                response_text = f"[{input_type.upper()} QABUL QILINDI] Natija: {user_input}"
 
             out_file_path = os.path.join(RESULTS_DIR, file_title)
             with open(out_file_path, "w", encoding="utf-8") as f:

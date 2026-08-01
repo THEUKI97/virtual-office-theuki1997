@@ -1,3 +1,3 @@
-USER INPUT: nechta bo`limimiz bor?
+USER INPUT: qaysi bo`limlarda muommo bor
 RESPONSE:
-Topshiriq avtonom tarzda qabul qilindi. AI javobi: nechta bo`limimiz bor?
+Topshiriq avtonom tarzda qabul qilindi. AI javobi: qaysi bo`limlarda muommo bor
