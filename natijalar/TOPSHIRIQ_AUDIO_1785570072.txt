@@ -1,0 +1,10 @@
+REJIM: TOPSHIRIQ
+SAVOL/TOPSHIRIQ: musiqa arat 3 daqiqalik
+JAVOB:
+Musiqa yaratish bo'yicha topshirig'ingiz AI Audio Generator modulida bajarildi!
+
+🎵 **Ijro rejasi:**
+• AI Generative Music modulimiz motivatsion hamda fon audiosini sintez qildi.
+• Tayyor audio fayl proyektdagi **'natijalar'** papkasiga `.mp3` formatida saqlandi va quyida pleyerda taqdim etildi!
+
+FAYL: D:\Shaxsiy\Project\Virtual Office TheUKI1997\natijalar\generated_clear_music_1785570072.mp3

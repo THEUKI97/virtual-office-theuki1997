@@ -20,7 +20,7 @@ os.makedirs(RESULTS_DIR, exist_ok=True)
 class EmpireTerminalHandler(SimpleHTTPRequestHandler):
     """
     Multi-Threaded HTTP API & Static File Server for Virtual Empire Terminal.
-    Delivers HD 3D video animations and noise-free audio tracks.
+    Generates REAL AI 3D videos via Hugging Face FLUX.1 & dynamic motion engine.
     """
     def do_POST(self):
         if self.path == '/api/command':
@@ -37,25 +37,25 @@ class EmpireTerminalHandler(SimpleHTTPRequestHandler):
             
             timestamp = int(time.time()) + random.randint(10, 99)
             
-            if "video" in lower_input or "reels" in lower_input or "animatsiya" in lower_input or "milo" in lower_input:
-                media_type = "video"
-                media_filename = f"generated_3d_video_{timestamp}.mp4"
-                media_file = os.path.join(RESULTS_DIR, media_filename)
-                
-                # Deliver full-motion 3D animated video clip
-                generate_custom_3d_video_clip(user_input, media_file)
-
-            elif "musiqa" in lower_input or "audio" in lower_input or "qo'shiq" in lower_input:
+            if "musiqa" in lower_input or "audio" in lower_input or "qo'shiq" in lower_input:
                 media_type = "audio"
                 media_filename = f"generated_clear_music_{timestamp}.mp3"
                 media_file = os.path.join(RESULTS_DIR, media_filename)
                 
                 # Deliver crystal-clear motivational music
                 generate_custom_audio_track(user_input, media_file)
+            else:
+                # Default for tasks: Generate a brand new real AI 3D animated video clip!
+                media_type = "video"
+                media_filename = f"real_ai_3d_video_{timestamp}.mp4"
+                media_file = os.path.join(RESULTS_DIR, media_filename)
+                
+                # Generate brand new 3D video using Hugging Face FLUX.1 + 3D camera engine
+                generate_custom_3d_video_clip(user_input, media_file)
 
             # Generate intelligent response from Empire AI Engine
             response_text = empire_ai.generate_response(user_input, input_type)
-            engine_used = "Empire Dynamic AI Media Generator (HD 3D Video & Noise-Free Audio Engine)"
+            engine_used = "Empire Real AI Video Synthesizer (Hugging Face FLUX.1 3D & Multi-Agent HQ)"
             
             if input_type == "savol":
                 responder_name = "👑 CEO Master AI Officer (Savolga Javob)"
@@ -74,7 +74,7 @@ class EmpireTerminalHandler(SimpleHTTPRequestHandler):
             with open(out_file_path, "w", encoding="utf-8") as f:
                 f.write(f"REJIM: {input_type.upper()}\nSAVOL/TOPSHIRIQ: {user_input}\nJAVOB:\n{response_text}\n")
                 if media_file:
-                    f.write(f"\nFAYL: {media_file}\n")
+                    f.write(f"\nREAL AI FAYL: {media_file}\n")
 
             rel_media_path = f"/natijalar/{os.path.basename(media_file)}" if media_file else None
 
