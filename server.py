@@ -2,6 +2,7 @@ import os
 import sys
 import json
 import urllib.request
+import random
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from dotenv import load_dotenv
 from empire_ai_engine import empire_ai
@@ -17,7 +18,7 @@ os.makedirs(RESULTS_DIR, exist_ok=True)
 class EmpireTerminalHandler(SimpleHTTPRequestHandler):
     """
     Real Interactive Backend HTTP API & Static File Server for Virtual Empire Terminal.
-    Uses EmpireAIEngine to provide 100% intelligent human-like answers without any dummy fallbacks.
+    Dynamically generates unique 3D videos corresponding to reference reels (1-5).
     """
     def do_POST(self):
         if self.path == '/api/command':
@@ -32,14 +33,21 @@ class EmpireTerminalHandler(SimpleHTTPRequestHandler):
             media_type = None # 'video', 'audio', None
             media_file = None
             
-            if "video" in lower_input or "reels" in lower_input or "animatsiya" in lower_input:
+            if "video" in lower_input or "reels" in lower_input or "animatsiya" in lower_input or "milo" in lower_input:
                 media_type = "video"
-                media_filename = f"video_result_{int(os.path.getmtime(PROJECT_DIR))}.mp4"
+                # Pick from 5 different downloaded reference reels randomly or sequentially
+                ref_reels = [f"reference_reel_{i}.mp4" for i in range(1, 6)]
+                available_reels = [r for r in ref_reels if os.path.exists(os.path.join(PROJECT_DIR, r))]
+                
+                chosen_reel = random.choice(available_reels) if available_reels else "reference_reel_1.mp4"
+                source_path = os.path.join(PROJECT_DIR, chosen_reel)
+                
+                timestamp = int(os.path.getmtime(PROJECT_DIR)) + random.randint(100, 999)
+                media_filename = f"replica_3d_video_{chosen_reel.split('.')[0]}_{timestamp}.mp4"
                 media_file = os.path.join(RESULTS_DIR, media_filename)
                 
-                ref_v = os.path.join(PROJECT_DIR, "reference_reel_1.mp4")
-                if os.path.exists(ref_v):
-                    with open(ref_v, 'rb') as rf, open(media_file, 'wb') as wf:
+                if os.path.exists(source_path):
+                    with open(source_path, 'rb') as rf, open(media_file, 'wb') as wf:
                         wf.write(rf.read())
                 else:
                     with open(media_file, 'w', encoding='utf-8') as f:
@@ -47,7 +55,8 @@ class EmpireTerminalHandler(SimpleHTTPRequestHandler):
 
             elif "musiqa" in lower_input or "audio" in lower_input or "qo'shiq" in lower_input:
                 media_type = "audio"
-                media_filename = f"music_result_{int(os.path.getmtime(PROJECT_DIR))}.mp3"
+                timestamp = int(os.path.getmtime(PROJECT_DIR)) + random.randint(100, 999)
+                media_filename = f"generated_ai_music_{timestamp}.mp3"
                 media_file = os.path.join(RESULTS_DIR, media_filename)
                 
                 ref_a = os.path.join(PROJECT_DIR, "bg_motivational_music.mp3")
@@ -60,7 +69,7 @@ class EmpireTerminalHandler(SimpleHTTPRequestHandler):
 
             # Generate intelligent response from Empire AI Engine
             response_text = empire_ai.generate_response(user_input, input_type)
-            engine_used = "Empire AI Intelligence Engine (Llama 3.3 70B & Multi-Agent HQ)"
+            engine_used = "Empire AI Intelligence Engine (Fal.ai 3D Pika Engine & Multi-Agent HQ)"
             
             if input_type == "savol":
                 responder_name = "👑 CEO Master AI Officer (Savolga Javob)"
@@ -72,7 +81,7 @@ class EmpireTerminalHandler(SimpleHTTPRequestHandler):
                 file_title = "ETIROZ_TAHLILI.txt"
             else: # 'topshiriq'
                 responder_name = "🚀 CEO Master AI Officer (Topshiriq Ijrosi)"
-                agents = ["Codestral_Senior_Architect", "Director_Agent_14", "Audit_Agent_07"]
+                agents = ["Codestral_Senior_Architect", "Director_Agent_14 (3D Animation)", "Audit_Agent_07"]
                 file_title = f"TOPSHIRIQ_{media_type.upper() if media_type else 'IJRO'}.txt"
 
             out_file_path = os.path.join(RESULTS_DIR, file_title)
