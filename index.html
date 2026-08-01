@@ -149,16 +149,16 @@
 
             <div class="terminal-input-bar">
                 <span class="term-prompt">umidjon@theuki-empire:~$</span>
-                <input type="text" class="term-input" id="terminal-user-input" placeholder="Matningizni yozing (Masalan: Video yaratish... yoki Musiqa yaratish...)" onkeypress="handleKeyPress(event)">
+                <input type="text" class="term-input" id="terminal-user-input" placeholder="Matningizni yozing (Masalan: qaysi bo'limlarda muammo bor?)" onkeypress="handleKeyPress(event)">
                 
                 <!-- TYPE SELECTOR DROPDOWN RIGHT NEXT TO YUBORISH BUTTON -->
                 <select class="term-type-select" id="terminal-type-select">
-                    <option value="topshiriq" selected>📝 TOPSHIRIQ (Media & Ish Bajarish)</option>
-                    <option value="savol">❓ SAVOL (Agentlarga Savol Berish)</option>
+                    <option value="savol" selected>❓ SAVOL (Agentlarga Savol Berish)</option>
+                    <option value="topshiriq">📝 TOPSHIRIQ (Media & Ish Bajarish)</option>
                     <option value="etiroz">⚠️ E'TIROZ (E'tiroz Bildirish)</option>
                 </select>
 
-                <button class="term-send-btn" onclick="submitTerminalInput()">
+                <button class="term-send-btn" type="button" id="send-btn-main" onclick="submitTerminalInput()">
                     <i class="fa-solid fa-paper-plane"></i> YUBORISH
                 </button>
             </div>
@@ -200,7 +200,10 @@
         }
 
         function handleKeyPress(e) {
-            if (e.key === 'Enter') submitTerminalInput();
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                submitTerminalInput();
+            }
         }
 
         async function submitTerminalInput() {
@@ -214,8 +217,8 @@
             const body = document.getElementById('terminal-output-body');
             const now = new Date().toLocaleTimeString();
 
-            let typeBadgeStr = inputType === 'savol' ? '❓ SAVOL BERMOQDA' : (inputType === 'etiroz' ? '⚠️ E'TIROZ BILDIRMOQDA' : '📝 TOPSHIRIQ BERMOQDA');
-            let badgeColor = inputType === 'savol' ? '#fbbf24' : (inputType === 'etiroz' ? '#ef4444' : '#38bdf8');
+            let typeBadgeStr = inputType === "savol" ? "❓ SAVOL BERMOQDA" : (inputType === "etiroz" ? "⚠️ ETIROZ BILDIRMOQDA" : "📝 TOPSHIRIQ BERMOQDA");
+            let badgeColor = inputType === "savol" ? "#fbbf24" : (inputType === "etiroz" ? "#ef4444" : "#38bdf8");
 
             // 1. Render User Input Block
             const userBlock = document.createElement('div');
@@ -223,7 +226,7 @@
             userBlock.style.borderColor = badgeColor;
             userBlock.innerHTML = `
                 <div class="term-line"><span class="term-label">👤 UMIDJON AKA [${typeBadgeStr}]:</span> <span class="term-val" style="color:${badgeColor}; font-weight:bold;">${text}</span></div>
-                <div class="term-line"><span class="term-label">⏳ MAQOM:</span> <span class="term-val" style="color:#93c5fd;">Tizim ${typeBadgeStr} bo'yicha tahlil qilmoqda...</span></div>
+                <div class="term-line"><span class="term-label">⏳ MAQOM:</span> <span class="term-val" style="color:#93c5fd;">Tizim tahlil qilmoqda...</span></div>
                 <div class="progress-bar-container"><div class="progress-bar-fill" id="prog-bar-active"></div></div>
             `;
             body.appendChild(userBlock);
@@ -231,7 +234,7 @@
             inputEl.value = '';
 
             const bar = userBlock.querySelector('#prog-bar-active');
-            setTimeout(() => { bar.style.width = '65%'; }, 300);
+            setTimeout(() => { if (bar) bar.style.width = '65%'; }, 200);
 
             try {
                 const response = await fetch('/api/command', {
@@ -241,9 +244,9 @@
                 });
 
                 const resData = await response.json();
-                bar.style.width = '100%';
+                if (bar) bar.style.width = '100%';
 
-                // 2. Render Structured Executive Terminal Output with Media Player if available
+                // 2. Render Structured Executive Terminal Output
                 setTimeout(() => {
                     const resultBlock = document.createElement('div');
                     resultBlock.className = 'term-block';
@@ -262,7 +265,6 @@
                                 <div style="color:#38bdf8; font-weight:bold;"><i class="fa-solid fa-video"></i> 🎬 TAYYORLANGAN VIDEO FAYL (.mp4): ${resData.media_filename}</div>
                                 <video controls style="width:100%; max-height:280px; border-radius:8px; background:#000;">
                                     <source src="${resData.media_url}" type="video/mp4">
-                                    Brauzeringiz videoni qo'llab-quvvatlamaydi.
                                 </video>
                                 <a href="${resData.media_url}" download class="term-val-green" style="font-size:0.85rem;"><i class="fa-solid fa-download"></i> 'natijalar' papkasidan yuklab olish (${resData.media_filename})</a>
                             </div>
@@ -273,7 +275,6 @@
                                 <div style="color:#fbbf24; font-weight:bold;"><i class="fa-solid fa-music"></i> 🎵 TAYYORLANGAN MUSIQA FAYLI (.mp3): ${resData.media_filename}</div>
                                 <audio controls style="width:100%; border-radius:8px;">
                                     <source src="${resData.media_url}" type="audio/mpeg">
-                                    Brauzeringiz audioni qo'llab-quvvatlamaydi.
                                 </audio>
                                 <a href="${resData.media_url}" download class="term-val-green" style="font-size:0.85rem;"><i class="fa-solid fa-download"></i> 'natijalar' papkasidan yuklab olish (${resData.media_filename})</a>
                             </div>
@@ -294,10 +295,10 @@
                     `;
                     body.appendChild(resultBlock);
                     body.scrollTop = body.scrollHeight;
-                }, 400);
+                }, 300);
 
             } catch (err) {
-                bar.style.width = '100%';
+                if (bar) bar.style.width = '100%';
                 const errBlock = document.createElement('div');
                 errBlock.className = 'term-block';
                 errBlock.style.borderColor = '#ef4444';
@@ -310,7 +311,10 @@
             }
         }
 
-        window.onload = renderAgents;
+        window.onload = function() {
+            renderAgents();
+            document.getElementById('send-btn-main').addEventListener('click', submitTerminalInput);
+        };
     </script>
 </body>
 </html>
