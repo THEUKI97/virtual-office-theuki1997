@@ -3,380 +3,262 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TheUKI1997 — Back & Front Mini Office Virtual Empire</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>TheUKI1997 — Empire Interactive Terminal & Control HQ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
-        body { background: #080c17; color: #f1f5f9; min-height: 100vh; overflow-x: hidden; }
+        body { background: #050811; color: #f1f5f9; min-height: 100vh; overflow-x: hidden; }
 
         .bg-glow {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0;
             background: 
                 radial-gradient(circle at 15% 20%, rgba(99, 102, 241, 0.14) 0%, transparent 45%),
-                radial-gradient(circle at 85% 80%, rgba(236, 72, 153, 0.14) 0%, transparent 45%),
-                radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.1) 0%, transparent 60%);
+                radial-gradient(circle at 85% 80%, rgba(236, 72, 153, 0.14) 0%, transparent 45%);
         }
 
         .app-header {
-            position: relative; z-index: 100; padding: 20px 36px; display: flex; justify-content: space-between; align-items: center;
-            background: rgba(15, 23, 42, 0.88); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            flex-wrap: wrap; gap: 16px;
+            position: relative; z-index: 100; padding: 18px 36px; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .brand-box { display: flex; align-items: center; gap: 14px; }
         .brand-logo {
-            width: 48px; height: 48px; border-radius: 14px; background: linear-gradient(135deg, #6366f1, #ec4899);
-            display: flex; align-items: center; justify-content: center; font-size: 22px; color: #fff; box-shadow: 0 0 25px rgba(99, 102, 241, 0.5);
+            width: 44px; height: 44px; border-radius: 12px; background: linear-gradient(135deg, #6366f1, #ec4899);
+            display: flex; align-items: center; justify-content: center; font-size: 20px; color: #fff; box-shadow: 0 0 25px rgba(99, 102, 241, 0.5);
         }
-
         .brand-title h1 {
-            font-size: 1.4rem; font-weight: 800; background: linear-gradient(135deg, #38bdf8, #8b5cf6, #ec4899);
+            font-size: 1.3rem; font-weight: 800; background: linear-gradient(135deg, #38bdf8, #8b5cf6, #ec4899);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-        .brand-title p { font-size: 0.78rem; color: #94a3b8; letter-spacing: 2px; text-transform: uppercase; }
 
-        .header-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-        .nav-btn {
-            background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.12); color: #e2e8f0;
-            padding: 10px 18px; border-radius: 12px; font-size: 0.9rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease;
-            display: inline-flex; align-items: center; gap: 8px;
+        .main-container { position: relative; z-index: 10; max-width: 1600px; margin: 0 auto; padding: 24px 32px; }
+
+        /* CYBERPUNK INTERACTIVE TERMINAL */
+        .terminal-wrapper {
+            background: #090d16; border: 2px solid #3b82f6; border-radius: 20px; box-shadow: 0 0 35px rgba(59, 130, 246, 0.25);
+            overflow: hidden; margin-bottom: 32px; font-family: 'Fira Code', monospace;
         }
-        .nav-btn:hover, .nav-btn.active {
-            background: linear-gradient(135deg, #06b6d4, #8b5cf6); color: #ffffff; border-color: transparent;
-            box-shadow: 0 4px 20px rgba(6, 182, 212, 0.4); transform: translateY(-2px);
+
+        .terminal-header {
+            background: #0f172a; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-        .btn-dispatch { background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: #fff; border: none; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); }
+        .terminal-dots { display: flex; gap: 8px; }
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .dot-red { background: #ef4444; }
+        .dot-yellow { background: #f59e0b; }
+        .dot-green { background: #22c55e; }
+        .terminal-title { font-size: 0.88rem; color: #94a3b8; font-weight: 600; }
 
-        .main-container { position: relative; z-index: 10; max-width: 1700px; margin: 0 auto; padding: 28px 36px; }
-
-        /* TASK DISPATCHER CONSOLE STYLES */
-        .task-console-card {
-            background: rgba(15, 23, 42, 0.9); border: 2px solid #3b82f6; border-radius: 24px; padding: 28px;
-            margin-bottom: 32px; backdrop-filter: blur(16px); box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+        .terminal-body {
+            padding: 20px; max-height: 520px; overflow-y: auto; background: #050811; color: #38bdf8; font-size: 0.9rem; line-height: 1.6;
         }
-        .task-console-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .task-console-header h3 { font-size: 1.25rem; font-weight: 800; color: #38bdf8; display: flex; align-items: center; gap: 10px; }
 
-        .task-form-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 16px; margin-bottom: 16px; }
-        .task-input-group label { display: block; font-size: 0.82rem; color: #cbd5e1; font-weight: 700; margin-bottom: 6px; }
-        .task-input-group select, .task-input-group input, .task-input-group textarea {
-            width: 100%; padding: 12px 16px; background: rgba(30, 41, 59, 0.9); border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 12px; color: #fff; font-size: 0.92rem; outline: none; transition: border-color 0.2s;
+        .term-block {
+            background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px;
+            padding: 16px; margin-bottom: 16px; font-family: 'Fira Code', monospace;
         }
-        .task-input-group select:focus, .task-input-group input:focus, .task-input-group textarea:focus { border-color: #38bdf8; }
 
-        .task-dispatch-btn {
-            background: linear-gradient(135deg, #06b6d4, #3b82f6); color: #fff; border: none; padding: 14px 28px;
-            border-radius: 14px; font-weight: 800; font-size: 1rem; cursor: pointer; display: flex; align-items: center;
-            justify-content: center; gap: 10px; transition: all 0.3s ease; box-shadow: 0 4px 20px rgba(6, 182, 212, 0.4);
-            margin-top: 10px; width: 100%;
+        .term-line { margin-bottom: 6px; display: flex; align-items: flex-start; gap: 10px; }
+        .term-label { color: #a78bfa; font-weight: bold; min-width: 140px; }
+        .term-val { color: #f1f5f9; }
+        .term-val-green { color: #4ade80; font-weight: bold; }
+        .term-val-red { color: #fca5a5; font-weight: bold; }
+
+        .progress-bar-container {
+            width: 100%; max-width: 400px; height: 14px; background: rgba(255, 255, 255, 0.1); border-radius: 8px; overflow: hidden; margin-top: 4px;
         }
-        .task-dispatch-btn:hover { transform: translateY(-2px); background: linear-gradient(135deg, #3b82f6, #8b5cf6); }
+        .progress-bar-fill { height: 100%; background: linear-gradient(90deg, #3b82f6, #22c55e); width: 0%; transition: width 0.4s ease; }
 
-        .log-terminal {
-            background: #050811; border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 14px; padding: 16px;
-            font-family: monospace; font-size: 0.85rem; max-height: 260px; overflow-y: auto; color: #4ade80; margin-top: 18px;
+        .terminal-input-bar {
+            background: #0f172a; padding: 16px 20px; border-top: 1px solid rgba(255, 255, 255, 0.1); display: flex; align-items: center; gap: 12px;
         }
-        .log-entry { margin-bottom: 8px; line-height: 1.4; padding: 4px 8px; border-radius: 6px; }
-        .log-entry span.time { color: #64748b; margin-right: 8px; }
-        .log-entry span.agent { color: #a78bfa; font-weight: bold; }
-        .log-entry.success { background: rgba(34, 197, 94, 0.1); border-left: 4px solid #22c55e; }
-        .log-entry.error { background: rgba(239, 68, 68, 0.15); border-left: 4px solid #ef4444; color: #fca5a5; }
-        .log-entry.running { background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6; color: #93c5fd; }
-        
-        .status-badge-success { background: rgba(34, 197, 94, 0.2); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.4); padding: 2px 8px; border-radius: 12px; font-weight: bold; }
-        .status-badge-error { background: rgba(239, 68, 68, 0.2); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.4); padding: 2px 8px; border-radius: 12px; font-weight: bold; }
-
-        .division-header-banner {
-            background: rgba(15, 23, 42, 0.9); border-left: 6px solid #6366f1; border-radius: 16px; padding: 16px 24px;
-            margin-bottom: 20px; margin-top: 24px; display: flex; align-items: center; justify-content: space-between;
+        .term-prompt { color: #4ade80; font-weight: bold; font-family: 'Fira Code', monospace; font-size: 0.95rem; }
+        .term-input {
+            flex: 1; background: transparent; border: none; outline: none; color: #fff; font-family: 'Fira Code', monospace; font-size: 1rem;
         }
-        .division-title { display: flex; align-items: center; gap: 12px; }
-        .division-title h3 { font-size: 1.25rem; font-weight: 800; color: #f8fafc; }
-        .division-title p { font-size: 0.8rem; color: #94a3b8; }
-        .division-tag { padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
-
-        .control-squad-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px; }
-        .squad-card { background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 24px; padding: 24px; backdrop-filter: blur(16px); }
-        .squad-card h4 { font-size: 1.15rem; font-weight: 800; color: #f8fafc; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
-        .agent-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; max-height: 380px; overflow-y: auto; }
-        .agent-badge { background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 8px 12px; font-size: 0.8rem; display: flex; align-items: center; gap: 8px; color: #cbd5e1; }
-        .agent-badge i { color: #4ade80; }
-
-        .floorplan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 22px; margin-bottom: 36px; }
-        .room-card {
-            background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 24px;
-            position: relative; overflow: hidden; backdrop-filter: blur(12px); transition: all 0.3s ease;
+        .term-send-btn {
+            background: linear-gradient(135deg, #06b6d4, #3b82f6); color: #fff; border: none; padding: 10px 22px; border-radius: 10px;
+            font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 0.9rem; transition: transform 0.2s;
         }
-        .room-card:hover { transform: translateY(-5px); border-color: rgba(99, 102, 241, 0.4); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4); }
-        .room-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
-        .room-title { display: flex; align-items: center; gap: 12px; }
-        .room-title-icon { width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #fff; }
-        .room-name h3 { font-size: 1.05rem; font-weight: 700; color: #f8fafc; }
-        .room-name p { font-size: 0.75rem; color: #94a3b8; }
-        .ai-tag-badge { font-size: 0.72rem; padding: 3px 8px; border-radius: 6px; background: rgba(99, 102, 241, 0.2); color: #a78bfa; border: 1px solid rgba(99, 102, 241, 0.3); margin-left: 6px; font-weight: 700; }
+        .term-send-btn:hover { transform: scale(1.03); }
 
-        .desks-container { display: flex; flex-direction: column; gap: 14px; }
-        .desk-item { background: rgba(30, 41, 59, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-        .avatar-box { display: flex; align-items: center; gap: 12px; }
-        .avatar-frame { width: 44px; height: 44px; border-radius: 14px; background: linear-gradient(135deg, #1e293b, #334155); border: 2px solid #6366f1; display: flex; align-items: center; justify-content: center; font-size: 22px; position: relative; }
-        .avatar-typing-dot { position: absolute; bottom: -2px; right: -2px; width: 12px; height: 12px; background: #22c55e; border: 2px solid #0f172a; border-radius: 50%; }
-        .agent-details h4 { font-size: 0.9rem; font-weight: 700; color: #f1f5f9; }
-        .agent-details p { font-size: 0.75rem; color: #38bdf8; display: flex; align-items: center; gap: 6px; }
-        .desk-status-badge { padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); white-space: nowrap; }
+        .division-banner {
+            background: rgba(15, 23, 42, 0.9); border-left: 6px solid #ef4444; border-radius: 16px; padding: 16px 24px;
+            margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between;
+        }
+        .squad-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .squad-card { background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 20px; }
+        .agent-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 8px; max-height: 280px; overflow-y: auto; }
+        .agent-badge { background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 6px 10px; font-size: 0.78rem; color: #cbd5e1; font-family: 'Fira Code', monospace; }
     </style>
 </head>
 <body>
 
     <div class="bg-glow"></div>
 
-    <!-- Header Navigation -->
     <header class="app-header">
         <div class="brand-box">
-            <div class="brand-logo"><i class="fa-solid fa-crown"></i></div>
+            <div class="brand-logo"><i class="fa-solid fa-terminal"></i></div>
             <div class="brand-title">
-                <h1>TheUKI1997 — Back & Front Mini Office Virtual Empire</h1>
-                <p>CEO Task Dispatcher Console + Live Result Audit (BAJARILDI / MUAMMONI ANIQLADI)</p>
+                <h1>TheUKI1997 — Empire Interactive Command Terminal</h1>
+                <p>CEO Savol & Topshiriqlar Terminali + Live AI Progress & Result Engine</p>
             </div>
         </div>
-
-        <div class="header-actions">
-            <a href="#task-dispatcher" class="nav-btn btn-dispatch"><i class="fa-solid fa-paper-plane"></i> 📝 CEO Topshiriq & Natija Audit</a>
-            <a href="#control-hq" class="nav-btn btn-control"><i class="fa-solid fa-eye"></i> 👁️ 50 Control AI Agents</a>
+        <div>
+            <span style="background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); padding: 6px 16px; border-radius: 20px; font-weight: bold; font-size: 0.85rem;">
+                🟢 Backend API Live
+            </span>
         </div>
     </header>
 
     <main class="main-container">
 
-        <!-- ==================== CEO TASK DISPATCHER & REAL-TIME RESULT CONSOLE ==================== -->
-        <section id="task-dispatcher" class="task-console-card">
-            <div class="task-console-header">
-                <h3><i class="fa-solid fa-paper-plane"></i> 👑 CEO TOPSHIRIQ BERISH VA NATIJANI TEKSHIRISH KONSOLI</h3>
-                <span class="desk-status-badge">🟢 Real-Time Audit Engine Online</span>
+        <!-- INTERACTIVE TERMINAL CONSOLE -->
+        <div class="terminal-wrapper">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <div class="dot dot-red"></div>
+                    <div class="dot dot-yellow"></div>
+                    <div class="dot dot-green"></div>
+                </div>
+                <div class="terminal-title">👑 CEO INTERACTIVE COMMAND & QUERY TERMINAL (v2026.8)</div>
+                <div style="font-size: 0.78rem; color: #64748b;">Ready for Questions & Tasks</div>
             </div>
 
-            <div class="task-form-grid">
-                <div class="task-input-group">
-                    <label>Topshiriq Nomi (Task Title):</label>
-                    <input type="text" id="task-title-input" placeholder="Masalan: Instagram Reels uchun 3D animatsiyali ssenariy yaratish...">
-                </div>
-                <div class="task-input-group">
-                    <label>Bajaruvchi AI Agent (Assigned Agent):</label>
-                    <select id="task-agent-select">
-                        <option value="CEO Master AI">👑 CEO Master AI Officer</option>
-                        <option value="Control 50 Visual AI">👁️ 50 Visual Brain Control Squad</option>
-                        <option value="Codestral Data Analyst">💻 Codestral Senior Coding Architect</option>
-                        <option value="Mistral Proposal Writer">🤝 Mistral Upwork B2B Writer</option>
-                        <option value="Amazon KDP Storywriter">📚 Amazon KDP Anti-AI Storywriter</option>
-                        <option value="HeyGen Avatar Presenter">🗣️ HeyGen Human Avatar Presenter</option>
-                    </select>
-                </div>
-                <div class="task-input-group">
-                    <label>Prioritet (Execution Priority):</label>
-                    <select id="task-priority-select">
-                        <option value="CRITICAL">🔴 CRITICAL (Shoshilinch / Darhol)</option>
-                        <option value="HIGH">🟡 HIGH (Yuqori Prioritet)</option>
-                        <option value="NORMAL">🟢 NORMAL (Standart Avtonom)</option>
-                    </select>
+            <div class="terminal-body" id="terminal-output-body">
+                <div class="term-block" style="border-color: #3b82f6;">
+                    <div class="term-line"><span class="term-label">👑 TIZIM TAYYOR:</span> <span class="term-val-green">CEO va AI Agentlar Aloqada! 🟢</span></div>
+                    <div class="term-line"><span class="term-label">💡 QO'LLANMA:</span> <span class="term-val">Pastdagi kiritish qatoriga xohlagan SAVOLINGIZNI bering yoki TOPSHIRIQIZNI yozing. Tizim sizga: <b>Javobgar Agent, Ishlatilgan AI Bot, Bajarilish % barini, Natijani va Muammo holatini</b> darhol terminalda ko'rsatib beradi!</span></div>
                 </div>
             </div>
 
-            <div class="task-input-group" style="margin-bottom: 14px;">
-                <label>Topshiriq Tafsilotlari & Ko'rsatmalar (Prompt / Directive):</label>
-                <textarea id="task-prompt-input" rows="3" placeholder="Topshiriq mazmuni va ssenariy linkini yozing..."></textarea>
+            <div class="terminal-input-bar">
+                <span class="term-prompt">umidjon@theuki-empire:~$</span>
+                <input type="text" class="term-input" id="terminal-user-input" placeholder="Savol yoki topshiriqni shu yerga yozing... (Masalan: Instagram Reels uchun yangi 3D ssenariyni qanday qilamiz?)" onkeypress="handleKeyPress(event)">
+                <button class="term-send-btn" onclick="submitTerminalInput()">
+                    <i class="fa-solid fa-paper-plane"></i> YUBORISH
+                </button>
             </div>
-
-            <button class="task-dispatch-btn" onclick="dispatchAgentTask()">
-                <i class="fa-solid fa-rocket"></i> 🚀 CEO VA AGENTLARGA TOPSHIRIQNI YUBORISH VA NATIJANI AUDIT QILISH
-            </button>
-
-            <!-- Real-time Live Log & Result Terminal -->
-            <div class="log-terminal" id="console-log-terminal">
-                <div class="log-entry success"><span class="time">[11:37:00]</span> <span class="agent">CEO Command Center:</span> Topshiriq va Natijalar Auditi konsoli faol! 🟢 NATIJA HISOBOOTI YOQILGAN.</div>
-                <div class="log-entry running"><span class="time">[11:37:05]</span> <span class="agent">Control HQ (50 Visual AI):</span> 25 Audit + 25 Director agentlar natijalarni [BAJARILDI] yoki [MUAMMONI ANIQLADI] deb xabar berishga tayyor!</div>
-            </div>
-        </section>
-
-        <!-- ==================== DIVISION 0: CONTROL HQ (50 VISUAL BRAIN AGENTS) ==================== -->
-        <div id="control-hq" class="division-header-banner" style="border-left-color: #ef4444;">
-            <div class="division-title">
-                <i class="fa-solid fa-eye" style="font-size: 1.8rem; color: #ef4444;"></i>
-                <div>
-                    <h3>👁️ CONTROL BO'LIMI: 50 TA VIZUAL MIYAGA EGA AI AGENTLAR HQ</h3>
-                    <p>25 Audit Tekshiruvchi Agent + 25 Yo'naltiruvchi Strategik Agent (Barcha bo'limlarni prosmotr va insoniy sifat bilan boshqaradi)</p>
-                </div>
-            </div>
-            <span class="division-tag" style="background: rgba(239, 68, 68, 0.2); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.4);">Control Active 🟢</span>
         </div>
 
-        <div class="control-squad-grid">
-            <div class="squad-card" style="border-color: #ef4444;">
-                <h4><i class="fa-solid fa-user-shield" style="color: #ef4444;"></i> 25 Ta Audit & Anti-AI Quality Control Agentlar</h4>
+        <!-- CONTROL HQ (50 VISUAL AGENTS) -->
+        <div class="division-banner">
+            <div>
+                <h3 style="color:#ef4444; font-size:1.15rem; font-weight:800;"><i class="fa-solid fa-eye"></i> 50 VISUAL BRAIN CONTROL AI AGENTS HQ</h3>
+                <p style="color:#94a3b8; font-size:0.8rem;">25 Audit Tekshiruvchi Agent + 25 Yo'naltiruvchi Strategik Agent</p>
+            </div>
+            <span style="background: rgba(239, 68, 68, 0.2); color: #fca5a5; padding: 4px 12px; border-radius: 20px; font-weight: bold; font-size: 0.8rem;">50 AGENTS ONLINE 🟢</span>
+        </div>
+
+        <div class="squad-grid">
+            <div class="squad-card">
+                <h4 style="color:#ef4444; margin-bottom:12px; font-size:0.95rem;"><i class="fa-solid fa-user-shield"></i> 25 Ta Audit & Anti-AI Control Agentlar</h4>
                 <div class="agent-list" id="auditor-list"></div>
             </div>
-
-            <div class="squad-card" style="border-color: #f59e0b;">
-                <h4><i class="fa-solid fa-compass-drafting" style="color: #f59e0b;"></i> 25 Ta Yo'naltiruvchi & Boshqaruvchi Strateg Agentlar</h4>
+            <div class="squad-card">
+                <h4 style="color:#f59e0b; margin-bottom:12px; font-size:0.95rem;"><i class="fa-solid fa-compass-drafting"></i> 25 Ta Yo'naltiruvchi Strateg Agentlar</h4>
                 <div class="agent-list" id="director-list"></div>
-            </div>
-        </div>
-
-        <!-- ==================== DIVISION 1: BACK MINI OFFICE ==================== -->
-        <div class="division-header-banner" style="border-left-color: #a855f7;">
-            <div class="division-title">
-                <i class="fa-solid fa-shield-cat" style="font-size: 1.8rem; color: #a855f7;"></i>
-                <div>
-                    <h3>🏢 BACK MINI OFFICE (Ichki Imperiya, Kiber Xavfsizlik & Content Factory HQ)</h3>
-                    <p>Amazon Ertak Kitoblar, Kiber Xavfsizlik Vault hamda Sifatli AI Kontent bo'limlari</p>
-                </div>
-            </div>
-            <span class="division-tag" style="background: rgba(168, 85, 247, 0.2); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.4);">Back Office Active 🟢</span>
-        </div>
-
-        <div class="floorplan-grid">
-            <!-- 1. CEO SUITE -->
-            <div class="room-card" style="border-top: 4px solid #f59e0b;">
-                <div class="room-header">
-                    <div class="room-title">
-                        <div class="room-title-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);"><i class="fa-solid fa-crown"></i></div>
-                        <div class="room-name">
-                            <h3>🏛️ CEO & Executive Command Suite <span class="ai-tag-badge">Master AI</span></h3>
-                            <p>Imperiya Bosh Boshqaruv & Avtonom Strategiya</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="desks-container">
-                    <div class="desk-item">
-                        <div class="avatar-box">
-                            <div class="avatar-frame">👑<span class="avatar-typing-dot"></span></div>
-                            <div class="agent-details">
-                                <h4>Chief Executive AI Officer</h4>
-                                <p><i class="fa-solid fa-chess-king"></i> Executive Empire Direction</p>
-                            </div>
-                        </div>
-                        <span class="desk-status-badge">🟢 Faol</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 2. AMAZON KDP KIDS E-BOOK -->
-            <div class="room-card" style="border-top: 4px solid #f59e0b;">
-                <div class="room-header">
-                    <div class="room-title">
-                        <div class="room-title-icon" style="background: linear-gradient(135deg, #f59e0b, #b45309);"><i class="fa-solid fa-book-open-reader"></i></div>
-                        <div class="room-name">
-                            <h3>📚 Amazon KDP Ertak Kitoblar & Anti-AI Studio <span class="ai-tag-badge">+3 Kids</span></h3>
-                            <p>100% Anti-AI Detektor Tekshiruv & 50% Narx Strategegiyasi</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="desks-container">
-                    <div class="desk-item">
-                        <div class="avatar-box">
-                            <div class="avatar-frame">📚<span class="avatar-typing-dot"></span></div>
-                            <div class="agent-details">
-                                <h4>Anti-AI Storywriter & Humanizer</h4>
-                                <p><i class="fa-solid fa-shield-virus"></i> Groq Anti-AI Engine (Turnitin 0% AI)</p>
-                            </div>
-                        </div>
-                        <span class="desk-status-badge">🟢 Anti-AI Faol</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 3. CYBER SECURITY VAULT -->
-            <div class="room-card" style="border-top: 4px solid #ef4444;">
-                <div class="room-header">
-                    <div class="room-title">
-                        <div class="room-title-icon" style="background: linear-gradient(135deg, #ef4444, #b91c1c);"><i class="fa-solid fa-shield-halved"></i></div>
-                        <div class="room-name">
-                            <h3>🛡️ Cyber Security & Encryption Vault <span class="ai-tag-badge">AES-256</span></h3>
-                            <p>Kiber Xavfsizlik & 24x Multi-Account API Keys Pool</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="desks-container">
-                    <div class="desk-item">
-                        <div class="avatar-box">
-                            <div class="avatar-frame">🛡️<span class="avatar-typing-dot"></span></div>
-                            <div class="agent-details">
-                                <h4>Cyber Sentinel Guard</h4>
-                                <p><i class="fa-solid fa-lock"></i> 24x Multi-Account Key Pool Encrypted</p>
-                            </div>
-                        </div>
-                        <span class="desk-status-badge">🟢 24x Keys Protected</span>
-                    </div>
-                </div>
             </div>
         </div>
 
     </main>
 
     <script>
-        function renderControlSquads() {
-            const auditorContainer = document.getElementById('auditor-list');
-            const directorContainer = document.getElementById('director-list');
-            
-            let auditorHTML = '';
+        function renderAgents() {
+            const aud = document.getElementById('auditor-list');
+            const dir = document.getElementById('director-list');
+            let aHTML = '', dHTML = '';
             for (let i = 1; i <= 25; i++) {
-                auditorHTML += `<div class="agent-badge"><i class="fa-solid fa-circle-check"></i> <b>Audit_Agent_${i < 10 ? '0' + i : i}</b></div>`;
+                aHTML += `<div class="agent-badge">✓ Audit_Agent_${i < 10 ? '0' + i : i}</div>`;
+                dHTML += `<div class="agent-badge">🧭 Director_Agent_${i < 10 ? '0' + i : i}</div>`;
             }
-            auditorContainer.innerHTML = auditorHTML;
-
-            let directorHTML = '';
-            for (let i = 1; i <= 25; i++) {
-                directorHTML += `<div class="agent-badge"><i class="fa-solid fa-compass" style="color:#f59e0b;"></i> <b>Director_Agent_${i < 10 ? '0' + i : i}</b></div>`;
-            }
-            directorContainer.innerHTML = directorHTML;
+            aud.innerHTML = aHTML;
+            dir.innerHTML = dHTML;
         }
 
-        function dispatchAgentTask() {
-            const title = document.getElementById('task-title-input').value;
-            const agent = document.getElementById('task-agent-select').value;
-            const priority = document.getElementById('task-priority-select').value;
-            const prompt = document.getElementById('task-prompt-input').value;
+        function handleKeyPress(e) {
+            if (e.key === 'Enter') submitTerminalInput();
+        }
 
-            if (!title || !prompt) {
-                alert("Iltimos, topshiriq nomi va tafsilotini yozing!");
-                return;
-            }
+        async function submitTerminalInput() {
+            const inputEl = document.getElementById('terminal-user-input');
+            const text = inputEl.value.trim();
+            if (!text) return;
 
-            const terminal = document.getElementById('console-log-terminal');
+            const body = document.getElementById('terminal-output-body');
             const now = new Date().toLocaleTimeString();
-            
-            // 1. Dispatching Log
-            const startLog = document.createElement('div');
-            startLog.className = 'log-entry running';
-            startLog.innerHTML = `<span class="time">[${now}]</span> <span class="agent">${agent}:</span> Topshiriq ijro etilmoqda... [${priority}] -> <b>${title}</b>`;
-            terminal.appendChild(startLog);
-            terminal.scrollTop = terminal.scrollHeight;
 
-            // 2. Simulate Result Status (BAJARILDI or MUAMMONI ANIQLADI)
-            setTimeout(() => {
-                const isSuccess = prompt.length > 5;
-                const resultLog = document.createElement('div');
-                const time2 = new Date().toLocaleTimeString();
-                
-                if (isSuccess) {
-                    resultLog.className = 'log-entry success';
-                    resultLog.innerHTML = `<span class="time">[${time2}]</span> <span class="agent">25 Audit Control AI:</span> NATIJA: <span class="status-badge-success">🟢 BAJARILDI</span> -> ${agent} topshiriqni 100% insoniy sifat bilan yakunladi! (Score: 98.5%)`;
-                } else {
-                    resultLog.className = 'log-entry error';
-                    resultLog.innerHTML = `<span class="time">[${time2}]</span> <span class="agent">25 Audit Control AI:</span> NATIJA: <span class="status-badge-error">🔴 MUAMMONI ANIQLADI</span> -> Prompt yetarsiz yoki format cheklovi bor. Avto-to'g'rilanmoqda!`;
-                }
-                
-                terminal.appendChild(resultLog);
-                terminal.scrollTop = terminal.scrollHeight;
-            }, 1200);
+            // 1. Render User Input Block
+            const userBlock = document.createElement('div');
+            userBlock.className = 'term-block';
+            userBlock.style.borderColor = '#6366f1';
+            userBlock.innerHTML = `
+                <div class="term-line"><span class="term-label">👤 UMIDJON AKA:</span> <span class="term-val" style="color:#fbbf24; font-weight:bold;">${text}</span></div>
+                <div class="term-line"><span class="term-label">⏳ MAQOM:</span> <span class="term-val" style="color:#93c5fd;">Tizim tahlil qilmoqda va bajarilmoqda...</span></div>
+                <div class="progress-bar-container"><div class="progress-bar-fill" id="prog-bar-active"></div></div>
+            `;
+            body.appendChild(userBlock);
+            body.scrollTop = body.scrollHeight;
+            inputEl.value = '';
 
-            document.getElementById('task-title-input').value = '';
-            document.getElementById('task-prompt-input').value = '';
+            // Animate progress bar (0% -> 50% -> 100%)
+            const bar = userBlock.querySelector('#prog-bar-active');
+            setTimeout(() => { bar.style.width = '45%'; }, 300);
+
+            try {
+                // Call real backend python server API /api/command
+                const response = await fetch('/api/command', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ input: text })
+                });
+
+                const resData = await response.json();
+                bar.style.width = '100%';
+
+                // 2. Render Structured Executive Terminal Output
+                setTimeout(() => {
+                    const resultBlock = document.createElement('div');
+                    resultBlock.className = 'term-block';
+                    resultBlock.style.borderColor = resData.problem_status ? '#ef4444' : '#22c55e';
+
+                    let problemHTML = resData.problem_status 
+                        ? `<span class="term-val-red">🔴 MUAMMO ANIQLANDI: ${resData.problem_status}</span>` 
+                        : `<span class="term-val-green">🟢 MUAMMO YO'Q (100% Muvaffaqiyatli)</span>`;
+
+                    let agentsList = resData.assigned_agents.map(a => `<span style="background:rgba(99,102,241,0.2); padding:2px 6px; border-radius:4px; margin-right:4px;">${a}</span>`).join(' ');
+
+                    resultBlock.innerHTML = `
+                        <div class="term-line"><span class="term-label">👑 JAVOBGAR:</span> <span class="term-val" style="color:#a78bfa; font-weight:bold;">${resData.responder}</span></div>
+                        <div class="term-line"><span class="term-label">🤖 AI ENGINE:</span> <span class="term-val" style="color:#38bdf8;">${resData.ai_engine}</span></div>
+                        <div class="term-line"><span class="term-label">📊 ISH BAJARILDI:</span> <span class="term-val-green">100% COMPLETE [██████████]</span></div>
+                        <div class="term-line"><span class="term-label">👥 JALB QILINGAN:</span> <span class="term-val">${agentsList}</span></div>
+                        <div class="term-line"><span class="term-label">🛡️ MUAMMO HOLATI:</span> ${problemHTML}</div>
+                        <div class="term-line"><span class="term-label">📁 SAQLANGAN FAYL:</span> <span class="term-val" style="color:#fbbf24;">${resData.saved_file}</span></div>
+                        <hr style="border:none; border-top:1px solid rgba(255,255,255,0.1); margin:10px 0;">
+                        <div style="color:#ffffff; font-size:0.95rem; white-space:pre-wrap;">${resData.response_text}</div>
+                    `;
+                    body.appendChild(resultBlock);
+                    body.scrollTop = body.scrollHeight;
+                }, 400);
+
+            } catch (err) {
+                bar.style.width = '100%';
+                const errBlock = document.createElement('div');
+                errBlock.className = 'term-block';
+                errBlock.style.borderColor = '#ef4444';
+                errBlock.innerHTML = `
+                    <div class="term-line"><span class="term-label">👑 JAVOBGAR:</span> <span class="term-val">CEO Master AI Officer</span></div>
+                    <div class="term-line"><span class="term-label">🛡️ MUAMMO HOLATI:</span> <span class="term-val-red">🔴 SERVER BILAN ALOQA UZILDI: ${err.message}</span></div>
+                `;
+                body.appendChild(errBlock);
+                body.scrollTop = body.scrollHeight;
+            }
         }
 
-        window.onload = function() {
-            renderControlSquads();
-        };
+        window.onload = renderAgents;
     </script>
 </body>
 </html>
